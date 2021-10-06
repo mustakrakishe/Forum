@@ -137,8 +137,8 @@ return [
     */
 
     'custom' => [
-        'attribute-name' => [
-            'rule-name' => 'custom-message',
+        'phone' => [
+            'regex' => 'Phone must be in format +380000000000.',
         ],
     ],
 

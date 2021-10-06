@@ -126,8 +126,8 @@ return [
     'url'                  => 'Поле :attribute имеет ошибочный формат URL.',
     'uuid'                 => 'Поле :attribute должно быть корректным UUID.',
     'custom'               => [
-        'attribute-name' => [
-            'rule-name' => 'custom-message',
+        'phone' => [
+            'regex' => 'Телефон должен быть указан в формате +380000000000.',
         ],
     ],
 ];

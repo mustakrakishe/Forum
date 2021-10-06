@@ -16,14 +16,23 @@
             <div>
                 <x-label for="name" :value="__('Name')" />
 
-                <x-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name')" required autofocus />
+                <x-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name')" placeholder="Johnny" required autofocus />
+            </div>
+
+            <!-- Phone -->
+            <div class="mt-4">
+                <div>
+                    <x-label for="phone" :value="__('Phone')" />
+
+                    <x-input id="phone" class="block mt-1 w-full" type="text" name="phone" :value="old('phone')" placeholder="+380000000000" required />
+                </div>
             </div>
 
             <!-- Email Address -->
             <div class="mt-4">
                 <x-label for="email" :value="__('Email')" />
 
-                <x-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required />
+                <x-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" placeholder="johnny@example.com" required />
             </div>
 
             <!-- Password -->
