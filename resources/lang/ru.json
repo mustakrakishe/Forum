@@ -702,6 +702,7 @@
     "You may delete any of your existing tokens if they are no longer needed.": "Вы можете удалить любой из имеющихся у Вас токенов, если они больше не нужны.",
     "You may not delete your personal team.": "Вы не можете удалить свою команду.",
     "You may not leave a team that you created.": "Вы не можете покидать созданную Вами команду.",
+    "You're logged in!": "Вы вошли в систему!",
     "Your :invoiceName invoice is now available!": "Ваш счёт :invoiceName доступен!",
     "Your card was declined. Please contact your card issuer for more information.": "Ваша карта была отклонена. Пожалуйста, свяжитесь с банком, выдавшим карту, для получения дополнительной информации.",
     "Your current payment method is :paypal.": "Ваш текущий способ оплаты - :paypal.",
