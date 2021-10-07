@@ -17,6 +17,9 @@ An application must provide:
 - newest topics must be displayed at the first.
 
 ## What's new
+### 1.1.0
+- Login is available by either login or e-mail.
+- Login validation is ajax capabillity.
 
 ### 1.0.0
 - An authorization is available.
