@@ -19,13 +19,13 @@ function handleRegistration(event){
         
         for(let fieldName in errors){
             let fieldErrorMessages = errors[fieldName];
-            let ulClassName = fieldName + '-errors';
-
-            // $('#' + fieldName).after('<ul class="' + ulClassName + ' errors mt-3 list-disc list-inside text-sm text-red-600"></ul>');
             
-            // fieldErrorMessages.forEach(fieldErrorMessage => {
-            //     $('.' + ulClassName).append('<li>' + fieldErrorMessage + '</li>');
-            // });
+            let ul = $.parseHTML('<ul class="errors mt-3 list-disc list-inside text-sm text-red-600"></ul>');
+            fieldErrorMessages.forEach(fieldErrorMessage => {
+                $(ul).append('<li>' + fieldErrorMessage + '</li>');
+            });
+            
+            $('#' + fieldName).after(ul);
         }
     })
 }
