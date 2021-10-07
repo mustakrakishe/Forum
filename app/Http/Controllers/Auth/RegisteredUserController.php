@@ -27,7 +27,7 @@ class RegisteredUserController extends Controller
     public function isValid(Request $request){
         $input = $request->all();
         $rules = [
-            'login' => ['required', 'string', 'max:20'],
+            'login' => ['required', 'string', 'max:25'],
             'phone' => ['required', 'string', 'size:13', 'regex:/^\+[0-9]{12}/', 'unique:users'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
@@ -41,6 +41,8 @@ class RegisteredUserController extends Controller
     }
         
     public function store(Request $request){
+        $this->isValid($request);
+
         $user = User::create([
             'login' => $request->login,
             'phone' => $request->phone,

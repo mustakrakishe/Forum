@@ -9,20 +9,14 @@
             </a>
         </x-slot>
 
-        <!-- Session Status -->
-        <x-auth-session-status class="mb-4" :status="session('status')" />
-
-        <!-- Validation Errors -->
-        <x-auth-validation-errors class="mb-4" :errors="$errors" />
-
         <form id="auth" method="POST" action="{{ route('login') }}" validationUrl="{{ route('login.validate') }}">
             @csrf
 
-            <!-- Email Address -->
+            <!-- Identifier -->
             <div>
-                <x-label for="email" :value="__('Email')" />
-
-                <x-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autofocus />
+                <x-label for="identifier" :value="__('Login or Email')" />
+                
+                <x-input id="identifier" class="block mt-1 w-full" type="text" name="identifier" :value="old('identifier')" required autofocus />
             </div>
 
             <!-- Password -->

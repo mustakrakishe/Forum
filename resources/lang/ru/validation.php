@@ -148,6 +148,7 @@ return [
         'first_name'            => 'Имя',
         'gender'                => 'Пол',
         'hour'                  => 'Час',
+        'identifier'            => 'Лоигн или E-Mail',
         'last_name'             => 'Фамилия',
         'login'                 => 'Логин',
         'minute'                => 'Минута',
