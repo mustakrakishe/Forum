@@ -22,23 +22,18 @@ class RegisteredUserController extends Controller
     {
         return view('auth.register');
     }
-
-    /**
-     * Handle an incoming registration request.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\RedirectResponse
-     *
-     * @throws \Illuminate\Validation\ValidationException
-     */
-    public function store(Request $request)
-    {
-        $request->validate([
+    
+    public function isValid(Request $request){
+        return $request->validate([
             'name' => ['required', 'string', 'max:255'],
             'phone' => ['required', 'string', 'size:13', 'regex:/^\+[0-9]{12}/', 'unique:users'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ]);
+    }
+        
+    public function store(Request $request){
+        $this->isValid($request);
 
         $user = User::create([
             'name' => $request->name,

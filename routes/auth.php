@@ -14,6 +14,10 @@ Route::get('/register', [RegisteredUserController::class, 'create'])
                 ->middleware('guest')
                 ->name('register');
 
+Route::post('/register/validate', [RegisteredUserController::class, 'isValid'])
+                ->middleware('guest')
+                ->name('register.validate');
+
 Route::post('/register', [RegisteredUserController::class, 'store'])
                 ->middleware('guest');
 
