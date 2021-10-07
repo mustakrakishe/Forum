@@ -15,7 +15,7 @@
         <!-- Validation Errors -->
         <x-auth-validation-errors class="mb-4" :errors="$errors" />
 
-        <form method="POST" action="{{ route('login') }}">
+        <form id="auth" method="POST" action="{{ route('login') }}" validationUrl="{{ route('login.validate') }}">
             @csrf
 
             <!-- Email Address -->
@@ -50,7 +50,7 @@
                     </a>
                 @endif
 
-                <x-button class="ml-3">
+                <x-button class="ml-3" type="button" onclick="handleAuth()">
                     {{ __('Log in') }}
                 </x-button>
             </div>

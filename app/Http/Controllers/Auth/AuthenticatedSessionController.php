@@ -19,15 +19,24 @@ class AuthenticatedSessionController extends Controller
     {
         return view('auth.login');
     }
+    
+    public function isValid(LoginRequest $request){
+        $input = $request->all();
+        $rules = [
+            'name' => ['required', 'string', 'max:255'],
+            'phone' => ['required', 'string', 'size:13', 'regex:/^\+[0-9]{12}/', 'unique:users'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'password' => ['required', 'confirmed', Rules\Password::defaults()],
+        ];
 
-    /**
-     * Handle an incoming authentication request.
-     *
-     * @param  \App\Http\Requests\Auth\LoginRequest  $request
-     * @return \Illuminate\Http\RedirectResponse
-     */
-    public function store(LoginRequest $request)
-    {
+        $validator = Validator::make($input, $rules);
+        
+        if($validator->fails()){
+            return $validator->errors();
+        }
+    }
+
+    public function store(LoginRequest $request){
         $request->authenticate();
 
         $request->session()->regenerate();

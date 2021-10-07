@@ -45,6 +45,15 @@ class LoginRequest extends FormRequest
     {
         $this->ensureIsNotRateLimited();
 
+        $authByLogin = Auth::attempt([
+            'name' => $this->identifier,
+            'password' => $this->password,
+        ]);
+        $authByEmail = Auth::attempt([
+            'email' => $this->identifier,
+            'password' => $this->password,
+        ]);
+
         if (! Auth::attempt($this->only('email', 'password'), $this->boolean('remember'))) {
             RateLimiter::hit($this->throttleKey());
 
