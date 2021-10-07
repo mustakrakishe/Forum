@@ -46,9 +46,10 @@ class LoginRequest extends FormRequest
         $this->ensureIsNotRateLimited();
 
         $authByLogin = Auth::attempt([
-            'name' => $this->identifier,
+            'login' => $this->identifier,
             'password' => $this->password,
         ]);
+
         $authByEmail = Auth::attempt([
             'email' => $this->identifier,
             'password' => $this->password,

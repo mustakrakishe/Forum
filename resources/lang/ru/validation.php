@@ -149,6 +149,7 @@ return [
         'gender'                => 'Пол',
         'hour'                  => 'Час',
         'last_name'             => 'Фамилия',
+        'login'                 => 'Логин',
         'minute'                => 'Минута',
         'mobile'                => 'Моб. номер',
         'month'                 => 'Месяц',

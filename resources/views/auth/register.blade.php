@@ -12,10 +12,10 @@
         <form id="registration" action="{{ route('register') }}" method="post"  validationUrl="{{ route('register.validate') }}">
             @csrf
 
-            <!-- Name -->
+            <!-- Login -->
             <div>
-                <x-label for="name" :value="__('Name')" />
-                <x-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name')" placeholder="Johnny" required autofocus />
+                <x-label for="login" :value="__('Login')" />
+                <x-input id="login" class="block mt-1 w-full" type="text" name="login" :value="old('login')" placeholder="Johnny" required autofocus />
             </div>
 
             <!-- Phone -->
