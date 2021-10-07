@@ -1,19 +1,17 @@
 function handleRegistration(event){
-    event.preventDefault();
     $('.errors').remove();
 
-    let form = event.target;
-    let validationUrl = $(form).attr('validation');
-    let actionUrl = $(form).attr('action');
+    let form = $('#registration');
     // let data = new FormData(form);
+    let url = $(form).attr('validationUrl');
     let data = getFormData($(form));
 
     $.post({
-        url: validationUrl,
+        url: url,
         data: data,
     })
     .done(() => {
-        // location = actionUrl;
+        $(form).trigger('submit');
     })
     .fail(response => {
         console.log('fail');
@@ -23,11 +21,11 @@ function handleRegistration(event){
             let fieldErrorMessages = errors[fieldName];
             let ulClassName = fieldName + '-errors';
 
-            $('#' + fieldName).after('<ul class="' + ulClassName + ' errors mt-3 list-disc list-inside text-sm text-red-600"></ul>');
+            // $('#' + fieldName).after('<ul class="' + ulClassName + ' errors mt-3 list-disc list-inside text-sm text-red-600"></ul>');
             
-            fieldErrorMessages.forEach(fieldErrorMessage => {
-                $('.' + ulClassName).append('<li>' + fieldErrorMessage + '</li>');
-            });
+            // fieldErrorMessages.forEach(fieldErrorMessage => {
+            //     $('.' + ulClassName).append('<li>' + fieldErrorMessage + '</li>');
+            // });
         }
     })
 }

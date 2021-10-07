@@ -8,7 +8,7 @@
             </a>
         </x-slot>
 
-        <form validation="{{ route('register.validate') }}" action="{{ route('register') }}"  onsubmit="handleRegistration(event)">
+        <form id="registration" action="{{ route('register') }}" method="post"  validationUrl="{{ route('register.validate') }}">
             @csrf
 
             <!-- Name -->
@@ -51,7 +51,7 @@
                     {{ __('Already registered?') }}
                 </a>
 
-                <x-button class="ml-4">
+                <x-button class="ml-4" type="button" onclick="handleRegistration()">
                     {{ __('Register') }}
                 </x-button>
             </div>
