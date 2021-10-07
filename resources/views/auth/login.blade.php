@@ -1,4 +1,7 @@
 <x-guest-layout>
+    <script src="{{ asset('js/helpers/form.js') }}"></script>
+    <script src="{{ asset('js/handlers/pages/auth/login.js') }}"></script>
+
     <x-auth-card>
         <x-slot name="logo">
             <a href="/">
