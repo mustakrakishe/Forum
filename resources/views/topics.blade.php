@@ -3,8 +3,9 @@
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
             {{ __('Topics') }}
         </h2>
-
+        
         <x-button>
+            <i class="fas fa-plus"></i>
             {{ __('Create new') }}
         </x-button>
     </x-slot>
