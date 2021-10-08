@@ -5,8 +5,8 @@
         </h2>
         
         <x-button>
-            <i class="fas fa-plus"></i>
-            {{ __('Create new') }}
+            <i class="fas fa-plus mr-4"></i>
+            {{ __('pages/topics.Create new') }}
         </x-button>
     </x-slot>
 
