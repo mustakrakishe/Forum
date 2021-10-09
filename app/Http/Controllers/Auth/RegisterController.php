@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\User;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 
@@ -71,5 +72,34 @@ class RegisterController extends Controller
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
         ]);
+    }
+
+    // Extending methods
+
+    public function xhrValidate(Request $request)
+    {
+        $input = $request->all();
+
+        $validator = $this->validator($input);
+
+        if ($validator->fails()) {
+            return $validator->errors();
+        }
+    }
+
+    // Redefined methods
+
+    public function validate(
+        Request $request,
+        array $rules,
+        array $messages = [],
+        array $customAttributes = []
+    ) {
+        return $this->getValidationFactory()->make(
+            $request->all(),
+            $rules,
+            $messages,
+            $customAttributes
+        );
     }
 }

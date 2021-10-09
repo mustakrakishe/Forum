@@ -1,8 +1,8 @@
 function handleRegistration(){
-    $('.errors').remove();
+    $('.invalid-feedback').remove();
 
-    let form = $('#registration');
-    let url = $(form).attr('validationUrl');
+    let form = $('#register-form');
+    let url = $(form).attr('validation');
     let data = getFormData(form);
 
     $.post({
@@ -15,12 +15,14 @@ function handleRegistration(){
         }
         else{
             $.each(response, (fieldName, fieldErrors) => {
-                let ul = $.parseHTML('<ul class="errors mt-3 list-disc list-inside text-sm text-red-600"></ul>');
+
+                let container = $.parseHTML('<ul class="invalid-feedback d-block pl-3" role="alert"></ul>');
+
                 fieldErrors.forEach(fieldError => {
-                    $(ul).append('<li>' + fieldError + '</li>');
+                    $(container).append('<strong style="display: list-item">' + fieldError + '</strong>');
                 });
                 
-                $('#' + fieldName).after(ul);
+                $('input[name=' + fieldName + ']').after(container);
             });
         }
     });
