@@ -17,6 +17,9 @@ An application must provide:
 - newest topics must be displayed at the first.
 
 ## What's new
+### 1.1.2
+- Reorganized js scripts.
+
 ### 1.1.1
 - Integrated bootstrap styles.
 - Styled invalid auth inputs.
