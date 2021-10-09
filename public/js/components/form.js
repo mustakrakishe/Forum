@@ -1,43 +1,62 @@
-function xhrValidateForm(formId){
-    let form = $('#' + formId);
+class Form{
 
-    $(form).find('.invalid-feedback').remove();
-    $(form).find('.is-invalid').removeClass('is-invalid');
+    static action(formId, action = null, method = null){
+        let form = $('#' + formId);
 
-    let url = $(form).attr('validation');
-    let data = getFormData(form);
+        let ajaxSettings = {
+            url: action
+                || $(form).attr('action'),
 
-    $.post({
-        url: url,
-        data: data,
-    })
-    .done(response => {
-        if(!response){
-            $(form).trigger('submit');
+            method: method
+                || $(form).attr('method')
+                || 'get',
+
+            data:{},
+        };
+
+        if(method === 'post' || method === 'put' || method === 'patch'){
+            ajaxSettings.data = this.getFormData(form);
         }
-        else{
-            $.each(response, (fieldName, fieldErrors) => {
-                let ul = $.parseHTML('<ul class="invalid-feedback d-block pl-3" role="alert"></ul>');
-                let li = $.parseHTML('<strong style="display: list-item"></strong>');
+        
+        return $.ajax(ajaxSettings);
+    }
+    
+    static getFormData(form){        
+        let keyValuePairs = form.serializeArray();
+        let formData = Object.fromEntries(keyValuePairs.map(field => {
+            return [field.name, field.value];
+        }));
 
-                fieldErrors.forEach(fieldError => {
-                    $(li).html(fieldError);
-                    $(ul).append(li);
+        return formData;
+    }
+    
+    static validate(formId){
+        let form = $('#' + formId);
+        let url = $(form).attr('validation');
+    
+        $(form).find('.invalid-feedback').remove();
+        $(form).find('.is-invalid').removeClass('is-invalid');
+
+        this.action(formId, url, 'post')
+        .done(response => {
+            if(!response){
+                $(form).trigger('submit');
+            }
+            else{
+                $.each(response, (fieldName, fieldErrors) => {
+                    let ul = $.parseHTML('<ul class="invalid-feedback d-block pl-3" role="alert"></ul>');
+                    let li = $.parseHTML('<strong style="display: list-item"></strong>');
+    
+                    fieldErrors.forEach(fieldError => {
+                        $(li).html(fieldError);
+                        $(ul).append(li);
+                    });
+    
+                    let input = $(form).find('input[name=' + fieldName + ']');
+                    $(input).addClass('is-invalid');
+                    $(input).after(ul);
                 });
-
-                let input = $(form).find('input[name=' + fieldName + ']');
-                $(input).addClass('is-invalid');
-                $(input).after(ul);
-            });
-        }
-    })
-}
-
-function getFormData(form){
-    let keyValuePairs = form.serializeArray();
-    let formData = Object.fromEntries(keyValuePairs.map(field => {
-        return [field.name, field.value];
-    }));
-
-    return formData;
+            }
+        })
+    }
 }

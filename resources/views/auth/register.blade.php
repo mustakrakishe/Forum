@@ -58,7 +58,7 @@
 
                     <div class="form-group row mb-0">
                         <div class="col-md-6 offset-md-4">
-                            <button class="btn btn-primary" onclick="xhrValidateForm('register-form')">
+                            <button class="btn btn-primary" onclick="Form.validate('register-form')">
                                 {{ __('Register') }}
                             </button>
                         </div>

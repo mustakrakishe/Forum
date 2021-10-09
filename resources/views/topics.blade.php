@@ -1,22 +1,27 @@
-<x-app-layout>
-    <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+@extends('layouts.app')
+
+@section('scripts')
+    <script src="{{ asset('js\pages\topics.js') }}"></script>
+    <script src="{{ asset('js\components\dialog.js') }}"></script>
+    <script src="{{ asset('js\components\form.js') }}"></script>
+@endsection
+
+@section('content')
+    <x-container class="mt-0 d-flex justify-content-between">
+        <h2 class="m-0 font-semibold text-xl text-gray-800 leading-tight">
             {{ __('Topics') }}
         </h2>
         
-        <x-button>
-            <i class="fas fa-plus mr-4"></i>
+        @auth
+        <form id="create-form" action="{{ route('topics.create') }}"></form>
+        <x-button onclick="xhrSendForm('create-form', 'action')">
+            <i class="fas fa-plus mr-2"></i>
             {{ __('pages/topics.Create new') }}
         </x-button>
-    </x-slot>
+        @endauth
+    </x-container>
 
-    <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="p-6 bg-white border-b border-gray-200">
-                    Перечень тем
-                </div>
-            </div>
-        </div>
-    </div>
-</x-app-layout>
+    <x-container>
+        <div>Перечень тем</div>
+    </x-container>
+@endsection

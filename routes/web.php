@@ -1,8 +1,6 @@
 <?php
 
-use App\Http\Controllers\TopicController;
 use Illuminate\Support\Facades\Auth;
-use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -16,18 +14,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth'])->name('dashboard');
-
+Route::get('/', function(){
+    return redirect()->route('topics.index');
+})->name('home');
 
 Auth::routes();
 require __DIR__.'/auth.php';
-
-require __DIR__.'/pages/topics.php';
-
-Route::get('/home', [HomeController::class, 'index'])->name('home');
+require __DIR__.'/topics.php';

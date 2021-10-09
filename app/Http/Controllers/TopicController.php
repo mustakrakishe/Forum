@@ -14,7 +14,7 @@ class TopicController extends Controller
      */
     public function index()
     {
-        $topics = Topic::with('autor')->get();
+        $topics = Topic::with('autor')->get() || 'Topic list.';
         return view('topics', compact('topics'));
     }
 
@@ -25,7 +25,7 @@ class TopicController extends Controller
      */
     public function create()
     {
-        //
+        return view('components\topic\create');
     }
 
     /**

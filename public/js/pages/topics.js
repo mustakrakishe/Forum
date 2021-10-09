@@ -1,9 +1,9 @@
 function handleCreate(){
-    let url = $('#create').attr('action');
+    let url = $('#create-form').attr('action');
 
     $.get(url)
     .done(response => {
-        $('body').append(response);
+        $('body').prepend(response);
     })
 }
 
