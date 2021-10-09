@@ -1,8 +1,8 @@
-function handleAuth(){
-    $('.errors').remove();
+function handleLogin(){
+    $('.invalid-feedback').remove();
 
-    let form = $('#auth');
-    let url = $(form).attr('validationUrl');
+    let form = $('#login-form');
+    let url = $(form).attr('validation');
     let data = getFormData(form);
 
     $.post({
@@ -10,24 +10,21 @@ function handleAuth(){
         data: data,
     })
     .done(response => {
-        if(response['status']){
+        if(!response){
             $(form).trigger('submit');
         }
-        else if(response['message']){
-            let messageBlock = $.parseHTML('<div class="errors mb-4 font-medium text-sm text-red-600"></div>');
-            $(messageBlock).html(response['message']);
-            $(form).before(messageBlock);
-        }
-        else if(response['errors']){
-            $.each(response['errors'], (fieldName, fieldErrors) => {
-                let ul = $.parseHTML('<ul class="errors mt-3 list-disc list-inside text-sm text-red-600"></ul>');
+        else{
+            $.each(response, (fieldName, fieldErrors) => {
+
+                let ul = $.parseHTML('<ul class="invalid-feedback d-block pl-3" role="alert"></ul>');
+                let li = $.parseHTML('<strong style="display: list-item"></strong>');
+
                 fieldErrors.forEach(fieldError => {
-                    let li = $.parseHTML('<li></li>');
                     $(li).html(fieldError);
                     $(ul).append(li);
                 });
                 
-                $('#' + fieldName).after(ul);
+                $('input[name=' + fieldName + ']').after(ul);
             });
         }
     })
