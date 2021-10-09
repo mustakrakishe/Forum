@@ -1,8 +1,7 @@
 @extends('layouts.app')
 
 @section('scripts')
-    <script src="{{ asset('js\handlers\pages\auth\login.js') }}"></script>
-    <script src="{{ asset('js\helpers\form.js') }}"></script>
+    <script src="{{ asset('js\components\form.js') }}"></script>
 @endsection
 
 @section('content')
@@ -47,7 +46,7 @@
 
                     <div class="form-group row mb-0">
                         <div class="col-md-8 offset-md-4">
-                            <button class="btn btn-primary" onclick="handleLogin()">
+                            <button class="btn btn-primary" onclick="xhrValidateForm('login-form')">
                                 {{ __('Log in') }}
                             </button>
 
