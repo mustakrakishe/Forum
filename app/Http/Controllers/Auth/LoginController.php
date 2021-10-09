@@ -68,6 +68,7 @@ class LoginController extends Controller
         if(!$this->attemptLogin($request)){
             return (object)[
                 'identifier' => [trans('auth.failed')],
+                'password' => [trans('auth.failed')],
             ];
         }
     }

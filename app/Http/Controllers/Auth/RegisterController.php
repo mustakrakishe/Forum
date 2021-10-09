@@ -55,6 +55,7 @@ class RegisterController extends Controller
             'phone' => ['required', 'string', 'size:13', 'regex:/^\+[0-9]{12}/', 'unique:users'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
+            'password_confirmation' => ['required', 'string', 'min:8', 'same:password'],
         ]);
     }
 
@@ -68,7 +69,7 @@ class RegisterController extends Controller
     {
         return User::create([
             'name' => $data['name'],
-            'phone' => $data['name'],
+            'phone' => $data['phone'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
         ]);
@@ -85,21 +86,5 @@ class RegisterController extends Controller
         if ($validator->fails()) {
             return $validator->errors();
         }
-    }
-
-    // Redefined methods
-
-    public function validate(
-        Request $request,
-        array $rules,
-        array $messages = [],
-        array $customAttributes = []
-    ) {
-        return $this->getValidationFactory()->make(
-            $request->all(),
-            $rules,
-            $messages,
-            $customAttributes
-        );
     }
 }
