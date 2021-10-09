@@ -1,53 +1,67 @@
-<x-guest-layout>
-    <script src="{{ asset('js/helpers/form.js') }}"></script>
-    <script src="{{ asset('js/handlers/pages/auth/login.js') }}"></script>
+@extends('layouts.app')
 
-    <x-auth-card>
-        <x-slot name="logo">
-            <a href="/">
-                <x-application-logo class="w-20 h-20 fill-current text-gray-500" />
-            </a>
-        </x-slot>
+@section('scripts')
+    <script src="{{ asset('js\handlers\pages\auth\login.js') }}"></script>
+    <script src="{{ asset('js\helpers\form.js') }}"></script>
+@endsection
 
-        <form id="auth" method="POST" action="{{ route('login') }}" validationUrl="{{ route('login.validate') }}">
-            @csrf
+@section('content')
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header">{{ __('Login') }}</div>
 
-            <!-- Identifier -->
-            <div>
-                <x-label for="identifier" :value="__('Login or Email')" />
-                
-                <x-input id="identifier" class="block mt-1 w-full" type="text" name="identifier" :value="old('identifier')" required autofocus />
+                <div class="card-body">
+                    <form id="login-form" method="POST" action="{{ route('login') }}" validation="{{ route('login.validate') }}">
+                        @csrf
+
+                        <div class="form-group row">
+                            <label for="identifier" class="col-md-4 col-form-label text-md-right">{{ __('Name or E-Mail') }}</label>
+
+                            <div class="col-md-6">
+                                <input id="identifier" type="text" class="form-control" name="identifier" value="{{ old('identifier') }}" required autocomplete="identifier" autofocus>
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Password') }}</label>
+
+                            <div class="col-md-6">
+                                <input id="password" type="password" class="form-control" name="password" required autocomplete="current-password">
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <div class="col-md-6 offset-md-4">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
+
+                                    <label class="form-check-label" for="remember">
+                                        {{ __('Remember Me') }}
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+
+                    <div class="form-group row mb-0">
+                        <div class="col-md-8 offset-md-4">
+                            <button class="btn btn-primary" onclick="handleLogin()">
+                                {{ __('Log in') }}
+                            </button>
+
+                            @if (Route::has('password.request'))
+                                <a class="btn btn-link" href="{{ route('password.request') }}">
+                                    {{ __('Forgot Your Password?') }}
+                                </a>
+                            @endif
+                        </div>
+                    </div>
+
+                </div>
             </div>
-
-            <!-- Password -->
-            <div class="mt-4">
-                <x-label for="password" :value="__('Password')" />
-
-                <x-input id="password" class="block mt-1 w-full"
-                                type="password"
-                                name="password"
-                                required autocomplete="current-password" />
-            </div>
-
-            <!-- Remember Me -->
-            <div class="block mt-4">
-                <label for="remember_me" class="inline-flex items-center">
-                    <input id="remember_me" type="checkbox" class="rounded border-gray-300 text-indigo-600 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" name="remember">
-                    <span class="ml-2 text-sm text-gray-600">{{ __('Remember me') }}</span>
-                </label>
-            </div>
-
-            <div class="flex items-center justify-end mt-4">
-                @if (Route::has('password.request'))
-                    <a class="underline text-sm text-gray-600 hover:text-gray-900" href="{{ route('password.request') }}">
-                        {{ __('Forgot your password?') }}
-                    </a>
-                @endif
-
-                <x-button class="ml-3" type="button" onclick="handleAuth()">
-                    {{ __('Log in') }}
-                </x-button>
-            </div>
-        </form>
-    </x-auth-card>
-</x-guest-layout>
+        </div>
+    </div>
+</div>
+@endsection
