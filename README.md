@@ -17,6 +17,11 @@ An application must provide:
 - newest topics must be displayed at the first.
 
 ## What's new
+### 1.1.3
+- Fix the name saving into phone db field.
+- Added highlight of the both field when it is login data does not match any db record.
+- Added password confirmation input alert in case of mismatch with the password.
+
 ### 1.1.2
 - Reorganized js scripts.
 
