@@ -1,4 +1,4 @@
-# KZTV
+# Forum
 
 ## Description
 A web application which allows to create and discuss user topics.
