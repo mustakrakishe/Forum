@@ -1,8 +1,7 @@
 @extends('layouts.app')
 
 @section('scripts')
-    <script src="{{ asset('js\handlers\pages\auth\register.js') }}"></script>
-    <script src="{{ asset('js\helpers\form.js') }}"></script>
+    <script src="{{ asset('js\components\form.js') }}"></script>
 @endsection
 
 @section('content')
@@ -59,7 +58,7 @@
 
                     <div class="form-group row mb-0">
                         <div class="col-md-6 offset-md-4">
-                            <button class="btn btn-primary" onclick="handleRegistration()">
+                            <button class="btn btn-primary" onclick="xhrValidateForm('register-form')">
                                 {{ __('Register') }}
                             </button>
                         </div>
