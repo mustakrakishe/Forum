@@ -1,5 +1,6 @@
 function handleLogin(){
     $('.invalid-feedback').remove();
+    $('.is-invalid').removeClass('is-invalid');
 
     let form = $('#login-form');
     let url = $(form).attr('validation');
@@ -23,8 +24,10 @@ function handleLogin(){
                     $(li).html(fieldError);
                     $(ul).append(li);
                 });
-                
-                $('input[name=' + fieldName + ']').after(ul);
+
+                let input = $('input[name=' + fieldName + ']');
+                $(input).addClass('is-invalid');
+                $(input).after(ul);
             });
         }
     })
