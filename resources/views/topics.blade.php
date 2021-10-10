@@ -1,9 +1,8 @@
 @extends('layouts.app')
 
 @section('scripts')
-    <script src="{{ asset('js\pages\topics.js') }}"></script>
-    <script src="{{ asset('js\components\dialog.js') }}"></script>
-    <script src="{{ asset('js\components\form.js') }}"></script>
+    <!-- <script src="{{ asset('js\components\dialog.js') }}"></script>
+    <script src="{{ asset('js\components\form.js') }}"></script> -->
 @endsection
 
 @section('content')
@@ -13,8 +12,8 @@
         </h2>
         
         @auth
-        <form id="create-form" action="{{ route('topics.create') }}"></form>
-        <x-button onclick="xhrSendForm('create-form', 'action')">
+        <form id="create-topic" action="{{ route('topics.create') }}"></form>
+        <x-button id="create-topic-btn">
             <i class="fas fa-plus mr-2"></i>
             {{ __('pages/topics.Create new') }}
         </x-button>
@@ -24,4 +23,6 @@
     <x-container>
         <div>Перечень тем</div>
     </x-container>
+    
+    <script type="module" src="{{ asset('js\pages\topics.js') }}"></script>
 @endsection

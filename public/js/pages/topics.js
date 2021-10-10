@@ -1,3 +1,9 @@
+import Topic from '../components/topic.js';
+
+$('#create-topic-btn').on('click', () => {
+    Topic.create();
+})
+
 function handleCreate(){
     let url = $('#create-form').attr('action');
 

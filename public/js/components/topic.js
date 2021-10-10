@@ -1,6 +1,6 @@
 class Topic{
     static create(){
-        let url = $('#create-form').attr('action');
+        let url = $('form#create-topic').attr('action');
     
         $.get(url)
         .done(response => {
