@@ -1,8 +1,7 @@
 @extends('layouts.app')
 
 @section('scripts')
-    <!-- <script src="{{ asset('js\components\dialog.js') }}"></script>
-    <script src="{{ asset('js\components\form.js') }}"></script> -->
+    <script type="module" src="{{ asset('js\pages\topics.js') }}" defer></script>
 @endsection
 
 @section('content')
@@ -12,17 +11,34 @@
         </h2>
         
         @auth
-        <form id="create-topic" action="{{ route('topics.create') }}"></form>
-        <x-button id="create-topic-btn">
-            <i class="fas fa-plus mr-2"></i>
-            {{ __('pages/topics.Create new') }}
-        </x-button>
+            <x-button data-toggle="modal" data-target="#create-topic-modal">
+                <i class="fas fa-plus mr-2"></i>
+                {{ __('New topic') }}
+            </x-button>
+
+            <x-modal id="create-topic-modal" class="modal-lg modal-dialog-scrollable">
+                <x-slot name="title">{{ __('New topic') }}</x-slot>
+
+                <form>
+                    <div class="form-group">
+                        <label for="topic-title" class="col-form-label">{{ __('Title') }}</label>
+                        <input type="text" id="topic-title" class="form-control" name="title">
+                    </div>
+                    <div class="form-group">
+                        <label for="topic-content" class="col-form-label">{{ __('Content') }}</label>
+                        <textarea id="topic-content" class="form-control"></textarea>
+                    </div>
+                </form>
+
+                <x-slot name="footer" class="bg-dark">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">{{ __('Cancel') }}</button>
+                    <button type="button" class="btn btn-primary">{{ __('Create') }}</button>
+                </x-slot>
+            </x-modal>
         @endauth
     </x-container>
 
     <x-container>
         <div>Перечень тем</div>
     </x-container>
-    
-    <script type="module" src="{{ asset('js\pages\topics.js') }}"></script>
 @endsection
