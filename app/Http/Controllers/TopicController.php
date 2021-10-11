@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 
 class TopicController extends Controller
 {
+    // Resource methods
+
     /**
      * Display a listing of the resource.
      *
@@ -72,5 +74,39 @@ class TopicController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    // Other methods
+
+    /**
+     * Validate a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+
+    public function xhrValidate(Request $request)
+    {
+        $input = $request->all();
+
+        $validator = $this->validator($input);
+
+        if ($validator->fails()) {
+            return $validator->errors();
+        }
+    }
+
+    /**
+     * Get a validator for an incoming registration request.
+     *
+     * @param  array  $data
+     * @return \Illuminate\Contracts\Validation\Validator
+     */
+    protected function validator(array $data)
+    {
+        return Validator::make($data, [
+            'title' => ['required', 'string', 'max:255'],
+            'content' => ['required', 'string', 'max:1024'],
+        ]);
     }
 }
