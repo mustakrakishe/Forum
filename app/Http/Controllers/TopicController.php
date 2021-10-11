@@ -32,11 +32,13 @@ class TopicController extends Controller
     {
         $errors = $this->xhrValidate($request);
         if(!$errors){
-            return Topic::create([
+            $topic = Topic::create([
                 'title' => $request['title'],
                 'content' => $request['content'],
                 'user_id' => Auth::id(),
             ]);
+
+            return view('components\topic\show', compact('topic'));
         }
     }
 
