@@ -1,7 +1,8 @@
 @extends('layouts.app')
 
 @section('scripts')
-    <script type="module" src="{{ asset('js\pages\topics.js') }}" defer></script>
+    <script src="{{ asset('js\pages\topics.js') }}" defer></script>
+    <script src="{{ asset('js\components\modal.js') }}" defer></script>
 @endsection
 
 @section('content')
@@ -26,7 +27,7 @@
                     </div>
                     <div class="form-group">
                         <label for="topic-content" class="col-form-label">{{ __('Content') }}</label>
-                        <textarea id="topic-content" class="form-control"></textarea>
+                        <textarea id="topic-content" class="form-control" initHeight="250"></textarea>
                     </div>
                 </form>
 
