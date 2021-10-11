@@ -18,7 +18,7 @@ class TopicController extends Controller
      */
     public function index()
     {
-        $topics = Topic::with('autor')->get();
+        $topics = Topic::with('author')->get();
         return view('topics', compact('topics'));
     }
 
@@ -48,7 +48,7 @@ class TopicController extends Controller
      */
     public function show($id)
     {
-        //
+        return Topic::find($id)->with('author');
     }
 
     /**
