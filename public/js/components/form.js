@@ -18,9 +18,7 @@ class Form{
             ajaxSettings.data = this.getFormData(form);
         }
         
-        return $.ajax(ajaxSettings).done(request => {
-            console.log(request);
-        });
+        return $.ajax(ajaxSettings);
     }
     
     static getFormData(form){        
@@ -63,3 +61,5 @@ class Form{
         })
     }
 }
+
+export default Form;
