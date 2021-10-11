@@ -3,6 +3,7 @@
 @section('scripts')
     <script src="{{ asset('js\pages\topics.js') }}" defer></script>
     <script src="{{ asset('js\components\modal.js') }}" defer></script>
+    <script src="{{ asset('js\components\form.js') }}" defer></script>
 @endsection
 
 @section('content')
@@ -20,7 +21,7 @@
             <x-modal id="create-topic-modal" class="modal-lg modal-dialog-scrollable">
                 <x-slot name="title">{{ __('New topic') }}</x-slot>
 
-                <form>
+                <form id="create-topic-form" action="{{ route('topics.store') }}" validation="{{ route('topics.validate') }}">
                     <div class="form-group">
                         <label for="topic-title" class="col-form-label">{{ __('Title') }}</label>
                         <input type="text" id="topic-title" class="form-control" name="title">
@@ -33,13 +34,19 @@
 
                 <x-slot name="footer" class="bg-dark">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">{{ __('Cancel') }}</button>
-                    <button type="button" class="btn btn-primary">{{ __('Create') }}</button>
+                    <button type="button" class="btn btn-primary" onclick="Form.validate('create-topic-form')">{{ __('Create') }}</button>
                 </x-slot>
             </x-modal>
         @endauth
     </x-container>
 
     <x-container>
-        <div>Перечень тем</div>
+        @if(count($topics) > 0)
+            @foreach($topics as $topic)
+                {{ $topic }}
+            @endforeach
+        @else
+            {{ __('There are no topics yet.') }}
+        @endif
     </x-container>
 @endsection
