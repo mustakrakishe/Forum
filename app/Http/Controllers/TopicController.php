@@ -107,6 +107,7 @@ class TopicController extends Controller
         return Validator::make($data, [
             'title' => ['required', 'string', 'max:100'],
             'content' => ['required', 'string', 'max:1024'],
+            'user_id' => ['required', 'integer'],
         ]);
     }
 }
