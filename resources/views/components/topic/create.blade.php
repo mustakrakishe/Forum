@@ -1,7 +1,7 @@
 <x-modal id="create-topic-modal" class="modal-lg modal-dialog-scrollable">
     <x-slot name="title">{{ __('New topic') }}</x-slot>
 
-    <form id="create-topic-form" action="{{ route('topics.store') }}" validation="{{ route('topics.validate') }}">
+    <form id="create-topic-form" method="post" action="{{ route('topics.store') }}" validation="{{ route('topics.validate') }}">
         @csrf
 
         <div class="form-group">

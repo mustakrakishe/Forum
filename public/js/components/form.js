@@ -16,10 +16,11 @@ class Form{
 
         if(method === 'post' || method === 'put' || method === 'patch'){
             ajaxSettings.data = this.getFormData(form);
-            console.log(ajaxSettings.data);
         }
         
-        return $.ajax(ajaxSettings);
+        return $.ajax(ajaxSettings).done(request => {
+            console.log(request);
+        });
     }
     
     static getFormData(form){        
@@ -37,10 +38,11 @@ class Form{
     
         $(form).find('.invalid-feedback').remove();
         $(form).find('.is-invalid').removeClass('is-invalid');
-
+        
         this.action(formId, url, 'post')
         .done(response => {
             if(!response){
+                console.log('submit');
                 $(form).trigger('submit');
             }
             else{
@@ -53,7 +55,7 @@ class Form{
                         $(ul).append(li);
                     });
     
-                    let input = $(form).find('input[name=' + fieldName + ']');
+                    let input = $(form).find('[name=' + fieldName + ']');
                     $(input).addClass('is-invalid');
                     $(input).after(ul);
                 });

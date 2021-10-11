@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Topic;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
 
 class TopicController extends Controller
 {
@@ -28,7 +30,14 @@ class TopicController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $errors = $this->xhrValidate($request);
+        if(!$errors){
+            return Topic::create([
+                'title' => $request['title'],
+                'content' => $request['content'],
+                'user_id' => Auth::id(),
+            ]);
+        }
     }
 
     /**
@@ -107,7 +116,6 @@ class TopicController extends Controller
         return Validator::make($data, [
             'title' => ['required', 'string', 'max:100'],
             'content' => ['required', 'string', 'max:1024'],
-            'user_id' => ['required', 'integer'],
         ]);
     }
 }

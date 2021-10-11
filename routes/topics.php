@@ -8,5 +8,5 @@ Route::resource('topics', TopicController::class)->except(['create', 'edit'])
 
 Route::resource('topics', TopicController::class)->only(['index', 'show']);
 
-Route::post('/topics/validate', [TopicController::class, 'validate'])->middleware('auth')
+Route::post('/topics/validate', [TopicController::class, 'xhrValidate'])->middleware('auth')
     ->name('topics.validate');
