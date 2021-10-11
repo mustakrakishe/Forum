@@ -7,3 +7,9 @@ $('.modal').on('show.bs.modal', (event) => {
         $(textarea).height(initHeight);
     });
 })
+
+$('.modal').on('hidden.bs.modal', (event) => {
+    let modal = $(event.target);
+    let form = $(modal).find('form');
+    $(form).trigger('reset');
+})
