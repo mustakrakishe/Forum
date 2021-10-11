@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('scripts')
-    <script src="{{ asset('js\components\form.js') }}"></script>
+    <script type="module" src="{{ asset('js\view\auth\register.js') }}" defer></script>
 @endsection
 
 @section('content')
@@ -58,7 +58,7 @@
 
                     <div class="form-group row mb-0">
                         <div class="col-md-6 offset-md-4">
-                            <button class="btn btn-primary" onclick="Form.validate('register-form')">
+                            <button class="btn btn-primary" id="register-submit">
                                 {{ __('Register') }}
                             </button>
                         </div>

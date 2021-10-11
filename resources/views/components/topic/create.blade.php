@@ -18,6 +18,6 @@
 
     <x-slot name="footer" class="bg-dark">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">{{ __('Cancel') }}</button>
-        <button type="button" class="btn btn-primary" onclick="Form.validate('create-topic-form')">{{ __('Create') }}</button>
+        <button type="button" class="btn btn-primary" id="create-topic-submit">{{ __('Create') }}</button>
     </x-slot>
 </x-modal>

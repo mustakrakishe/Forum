@@ -40,7 +40,6 @@ class Form{
         this.action(formId, url, 'post')
         .done(response => {
             if(!response){
-                console.log('submit');
                 $(form).trigger('submit');
             }
             else{
