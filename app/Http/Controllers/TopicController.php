@@ -105,7 +105,7 @@ class TopicController extends Controller
     protected function validator(array $data)
     {
         return Validator::make($data, [
-            'title' => ['required', 'string', 'max:255'],
+            'title' => ['required', 'string', 'max:100'],
             'content' => ['required', 'string', 'max:1024'],
         ]);
     }
