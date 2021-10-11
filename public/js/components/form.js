@@ -16,6 +16,7 @@ class Form{
 
         if(method === 'post' || method === 'put' || method === 'patch'){
             ajaxSettings.data = this.getFormData(form);
+            console.log(ajaxSettings.data);
         }
         
         return $.ajax(ajaxSettings);
