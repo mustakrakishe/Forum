@@ -12,7 +12,7 @@ $(SUBMIT_ID).on('click', async () => {
     if(isValid){
         let newTopicView = await Form.xhrAction(form);
 
-        $('main').append(newTopicView);
+        $('#page-title-container').after(newTopicView);
 
         $(MODAL_ID).modal('hide');
     }

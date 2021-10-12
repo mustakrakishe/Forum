@@ -6,7 +6,7 @@
 @endsection
 
 @section('content')
-    <x-container class="mt-0 d-flex justify-content-between">
+    <x-container id="page-title-container" class="mt-0 d-flex justify-content-between">
         <h2 class="m-0 font-semibold text-xl text-gray-800 leading-tight">
             {{ __('Topics') }}
         </h2>
