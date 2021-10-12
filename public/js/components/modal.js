@@ -10,6 +10,8 @@ $('.modal').on('show.bs.modal', (event) => {
 
 $('.modal').on('hidden.bs.modal', (event) => {
     let modal = $(event.target);
-    let form = $(modal).find('form');
-    $(form).trigger('reset');
+    
+    $(modal).find('.invalid-feedback').remove();
+    $(modal).find('.is-invalid').removeClass('is-invalid');
+    $(modal).find('form').trigger('reset');
 })

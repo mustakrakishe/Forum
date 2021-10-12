@@ -1,5 +1,19 @@
 import Form from "../components/form.js";
 
-$('#create-topic-submit').on('click', () => {
-    Form.validate('create-topic-form');
+let MODAL_ID = '#create-topic-modal';
+let SUBMIT_ID = '#create-topic-submit';
+let FORM_ID = '#create-topic-form';
+
+$(SUBMIT_ID).on('click', async () => {
+    let form = $(FORM_ID)
+
+    let isValid = await Form.xhrValidate(form);
+
+    if(isValid){
+        let newTopicView = await Form.xhrAction(form);
+
+        $('main').append(newTopicView);
+
+        $(MODAL_ID).modal('hide');
+    }
 })
