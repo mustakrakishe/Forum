@@ -22,7 +22,7 @@
 
     @if(count($topics) > 0)
         @foreach($topics as $topic)
-            <x-topic.show :topic="$topic"/>
+            <x-topic.index :topic="$topic"/>
         @endforeach
     @else
         <x-container>

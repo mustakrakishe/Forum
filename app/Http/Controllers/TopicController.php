@@ -19,7 +19,7 @@ class TopicController extends Controller
     public function index()
     {
         $topics = Topic::with('author')->get();
-        return view('topics', compact('topics'));
+        return view('topics/index', compact('topics'));
     }
 
     /**
@@ -38,7 +38,7 @@ class TopicController extends Controller
                 'user_id' => Auth::id(),
             ]);
 
-            return view('components\topic\show', compact('topic'));
+            return view('components\topic\index', compact('topic'));
         }
     }
 
@@ -50,7 +50,8 @@ class TopicController extends Controller
      */
     public function show($id)
     {
-        return Topic::find($id)->with('author');
+        $topic = Topic::with('author')->find($id);
+        return view('topics.show', compact('topic'));
     }
 
     /**
