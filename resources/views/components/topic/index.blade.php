@@ -14,9 +14,11 @@
 
             @if($topic->author->is(Auth::user()))
                 <div class="col-auto pr-0">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
+
+                    <button type="button" class="btn btn-light" name="delete">
+                        <i class="far fa-trash-alt"></i>
                     </button>
+                    
                 </div>
             @endif
 
