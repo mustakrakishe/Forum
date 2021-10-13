@@ -6,5 +6,5 @@
 @endsection
 
 @section('content')
-    <x-topic.index :topic="$topic"/>
+    <x-topic.show :topic="$topic"/>
 @endsection
