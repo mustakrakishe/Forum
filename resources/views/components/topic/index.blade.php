@@ -1,27 +1,13 @@
-<a href="{{ route('topics.show', ['topic' => $topic->id]) }}" class="list-group-item-action">
-    <x-container>
-        <div class="row m-0">
+@props(['topic'])
 
-            <div class="col-2">
-                <div class="row">{{ $topic->author->name }}</div>
-                <div class="row">{{ $topic->created_at }}</div>
-            </div>
+<a {{ $attributes->merge([
+    "href" => route('topics.show', ['topic' => $topic->id]),
+    "class" => "list-group-item list-group-item-action border",
+    "aria-current" => "true",
+]) }}>
 
-            <div class="col">
-                <div class="row">{{ $topic->title }}</div>
-                <div class="row">{{ $topic->content }}</div>
-            </div>
+    <div class="row h4 m-0">{{ $topic->title }}</div>
+    <div class="col-2 p-0 text-muted">{{ $topic->author->name }}</div>
+    <div class="col p-0 text-muted small">{{ $topic->created_at }}</div>
 
-            @if($topic->author->is(Auth::user()))
-                <div class="col-auto pr-0">
-
-                    <button type="button" class="btn btn-light" name="delete">
-                        <i class="far fa-trash-alt"></i>
-                    </button>
-                    
-                </div>
-            @endif
-
-        </div>
-    </x-container>
 </a>
