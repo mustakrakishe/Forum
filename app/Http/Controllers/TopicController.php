@@ -97,7 +97,8 @@ class TopicController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Topic::find($id)->delete();
+        return redirect()->route('topics.index');
     }
 
     // Other methods

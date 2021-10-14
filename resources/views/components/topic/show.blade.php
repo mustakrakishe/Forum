@@ -14,7 +14,10 @@
                 </button>
             </form>
 
-            <form action="" method="get">
+            <form action="{{ route('topics.destroy', ['topic' => $topic->id]) }}" method="post">
+                @csrf
+                {{ method_field('delete') }}
+                
                 <button class="btn btn-light" name="delete">
                     <i class="far fa-trash-alt"></i>
                 </button>
