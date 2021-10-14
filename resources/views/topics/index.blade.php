@@ -25,7 +25,7 @@
         <div class="list-group">
 
             @foreach($topics as $topic)
-                <x-topic.index class="mt-3" :topic="$topic"/>
+                <x-topic.index :topic="$topic"/>
             @endforeach
         
         </div>

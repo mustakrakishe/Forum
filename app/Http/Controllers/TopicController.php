@@ -39,7 +39,7 @@ class TopicController extends Controller
                 'author_id' => Auth::id(),
             ]);
 
-            return view('components\topic\index', compact('topic'));
+            return view('components.topic.index', compact('topic'));
         }
     }
 
