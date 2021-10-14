@@ -76,7 +76,17 @@ class TopicController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $errors = $this->xhrValidate($request);
+
+        if(!$errors){
+            $topic = Topic::find($id);
+
+            $topic->header = $request->header;
+            $topic->description = $request->description;
+            $topic->save();
+
+            return view('components\topic\show', compact('topic'));
+        }
     }
 
     /**

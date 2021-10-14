@@ -22,17 +22,12 @@ async function editTopicHandler(editFormId, topicContentId, updateFormId){
 }
 
 async function updateTopicHandler(updateFormId, topicContentId){
-    if(!isValid){
-        let description = $(topicContentId).find('[name=fake-description]').html().trim();
-        $(updateFormId).find('[name=description]').val(description);
+    let description = $(topicContentId).find('[name=fake-description]').html().trim();
+    $(updateFormId).find('[name=description]').val(description);
 
-        isValid = await Form.xhrValidate(updateFormId);
-        console.log('validation: ' + isValid);
-        if(isValid){
-            $(updateFormId).trigger('submit');
-        }
-    }
-    else{
+    let isValid = await Form.xhrValidate(updateFormId);
+    
+    if(isValid){
         let updatedTopicView = await Form.xhrAction(updateFormId);
         $(topicContentId).html(updatedTopicView);
         isValid = false;
