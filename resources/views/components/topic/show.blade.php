@@ -30,5 +30,5 @@
 
     </div>
 
-    <div class="row text-justify">{{ $topic->description }}</div>
+    <div name="description" class="row text-justify">{{ $topic->description }}</div>
 </div>

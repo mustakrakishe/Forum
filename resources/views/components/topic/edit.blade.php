@@ -25,10 +25,7 @@
         </div>
 
         <div class="row">
-            <div name="fake-description" class="form-control text-justify h-auto" contenteditable="true">
-                {{ $topic->description }}
-            </div>
-            <input type="hidden" name="description">
+            <textarea name="description" class="form-control text-justify">{{ $topic->description }}</textarea>
         </div>
         
     </form>
