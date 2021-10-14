@@ -17,6 +17,10 @@ An application must provide:
 - newest topics must be displayed at the first.
 
 ## What's new
+
+### 1.1.5
+- Topic create form submitting by the "enter" is available.
+
 ### 1.1.4
 - Form submitting by the "enter" is available.
 

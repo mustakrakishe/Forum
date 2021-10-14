@@ -1,19 +1,23 @@
 import Form from "../components/form.js";
 
 let MODAL_ID = '#create-topic-modal';
-let SUBMIT_ID = '#create-topic-submit';
 let FORM_ID = '#create-topic-form';
+let PAGE_TITLE_ID = '#page-title-container';
 
-$(SUBMIT_ID).on('click', async () => {
-    let form = $(FORM_ID)
+let isValid = false
+let form = $(FORM_ID);
 
-    let isValid = await Form.xhrValidate(form);
-
-    if(isValid){
+$(form).on('submit', async (event) => {
+    if(!isValid){
+        event.preventDefault();
+        isValid = await Form.xhrValidate(form);
+        if(isValid){
+            $(form).trigger('submit');
+        }
+    }
+    else{
         let newTopicView = await Form.xhrAction(form);
-
-        $('#page-title-container').after(newTopicView);
-
+        $(PAGE_TITLE_ID).after(newTopicView);
         $(MODAL_ID).modal('hide');
     }
 })
