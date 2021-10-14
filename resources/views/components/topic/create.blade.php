@@ -5,12 +5,12 @@
         @csrf
 
         <div class="form-group">
-            <label for="topic-title" class="col-form-label">{{ __('Title') }}</label>
+            <label for="topic-title" class="col-form-label">{{ __('Header') }}</label>
             <input type="text" id="topic-title" class="form-control" name="title">
         </div>
 
         <div class="form-group">
-            <label for="topic-content" class="col-form-label">{{ __('Content') }}</label>
+            <label for="topic-content" class="col-form-label">{{ __('Description') }}</label>
             <textarea id="topic-content" class="form-control" initHeight="250" name="content"></textarea>
         </div>
 
