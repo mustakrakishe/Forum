@@ -17,6 +17,9 @@ An application must provide:
 - newest topics must be displayed at the first.
 
 ## What's new
+### 1.1.4
+- Form submitting by the "enter" is available.
+
 ### 1.1.3
 - Fix the name saving into phone db field.
 - Added highlight of the both field when it is login data does not match any db record.
