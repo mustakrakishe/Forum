@@ -16,6 +16,7 @@ class RenameTopicsColumns extends Migration
         Schema::table('topics', function (Blueprint $table) {
             $table->renameColumn('title', 'header');
             $table->renameColumn('content', 'description');
+            $table->renameColumn('user_id', 'author_id');
         });
     }
 
@@ -29,6 +30,7 @@ class RenameTopicsColumns extends Migration
         Schema::table('topics', function (Blueprint $table) {
             $table->renameColumn('header', 'title');
             $table->renameColumn('description', 'content');
+            $table->renameColumn('author_id', 'user_id');
         });
     }
 }
