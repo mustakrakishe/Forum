@@ -6,7 +6,7 @@
     "aria-current" => "true",
 ]) }}>
 
-    <div class="row h4 m-0">{{ $topic->title }}</div>
+    <div class="row h4 m-0">{{ $topic->header }}</div>
     <div class="col-2 p-0 text-muted">{{ $topic->author->name }}</div>
     <div class="col p-0 text-muted small">{{ $topic->created_at }}</div>
 

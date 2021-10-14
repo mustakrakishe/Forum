@@ -147,6 +147,7 @@ return [
         'excerpt'               => 'Выдержка',
         'first_name'            => 'Имя',
         'gender'                => 'Пол',
+        'header'                => 'Заголовок',
         'hour'                  => 'Час',
         'identifier'            => 'Лоигн или E-Mail',
         'last_name'             => 'Фамилия',

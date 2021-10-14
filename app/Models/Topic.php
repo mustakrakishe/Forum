@@ -11,9 +11,9 @@ class Topic extends Model
     use HasFactory;
 
     public $fillable = [
-        'title',
-        'content',
-        'user_id',
+        'header',
+        'description',
+        'author_id',
     ];
     
     /**
@@ -29,6 +29,6 @@ class Topic extends Model
     }
 
     public function author(){
-        return $this->belongsTo(User::class, 'user_id');
+        return $this->belongsTo(User::class);
     }
 }

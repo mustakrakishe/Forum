@@ -12,7 +12,7 @@
         <div class="col">
             <div class="row pb-2 d-flex align-items-end justify-content-between">
                 <div class="h3 m-0">
-                    {{ $topic->title }}
+                    {{ $topic->header }}
                 </div>
 
                 @if($topic->author->is(Auth::user()))
@@ -32,7 +32,7 @@
                 @endif
             </div>
 
-            <div class="row text-justify">{{ $topic->content }}</div>
+            <div class="row text-justify">{{ $topic->description }}</div>
         </div>
 
     </div>

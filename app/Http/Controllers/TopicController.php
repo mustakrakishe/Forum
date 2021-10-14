@@ -34,9 +34,9 @@ class TopicController extends Controller
         $errors = $this->xhrValidate($request);
         if(!$errors){
             $topic = Topic::create([
-                'title' => $request['title'],
-                'content' => $request['content'],
-                'user_id' => Auth::id(),
+                'header' => $request['header'],
+                'description' => $request['description'],
+                'author_id' => Auth::id(),
             ]);
 
             return view('components\topic\index', compact('topic'));
@@ -118,8 +118,8 @@ class TopicController extends Controller
     protected function validator(array $data)
     {
         return Validator::make($data, [
-            'title' => ['required', 'string', 'max:100'],
-            'content' => ['required', 'string', 'max:1024'],
+            'header' => ['required', 'string', 'max:100'],
+            'description' => ['required', 'string', 'max:1024'],
         ]);
     }
 }
