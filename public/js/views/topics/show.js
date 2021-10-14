@@ -1,4 +1,5 @@
 import Form from "../../components/form.js";
+import resize from "../../components/textarea.js";
 
 let EDIT_FORM_ID = '#edit-topic-form';
 let UPDATE_FORM_ID = '#update-topic-form';
@@ -26,7 +27,12 @@ async function editTopicHandler(editFormId, showComponentId, updateFormId, editC
         cancelEditHandler(editComponentId, showComponentId);
     });
 
-    makeTextareasAutoresizeble();
+    let descriptionTextarea = $('textarea[name=description]');
+    resize(descriptionTextarea);
+    
+    $(descriptionTextarea).on('input', function(){
+        resize(this);
+    })
 }
 
 async function updateTopicHandler(editFormId, showComponentId, updateFormId, editComponentId) {
@@ -48,19 +54,4 @@ async function updateTopicHandler(editFormId, showComponentId, updateFormId, edi
 function cancelEditHandler(editComponentId, showComponentId) {
     $(editComponentId).remove();
     $(showComponentId).removeAttr('hidden');
-}
-
-function makeTextareasAutoresizeble(){
-    $('textarea')
-        .css({'overflow-y': 'hidden'})
-        .each(function(){
-            resizeTextarea(this);
-        })
-        .on('input', function () {
-            resizeTextarea(this);
-        });
-}
-
-function resizeTextarea(textarea){
-    textarea.style.height = (textarea.scrollHeight) + 'px';
 }
