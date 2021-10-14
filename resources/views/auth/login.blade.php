@@ -1,11 +1,10 @@
 @extends('layouts.app')
 
 @section('scripts')
-    <script src="{{ asset('js\components\form.js') }}"></script>
+    <script type="module" src="{{ asset('js\views\auth\login.js') }}" defer></script>
 @endsection
 
 @section('content')
-<div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
@@ -46,7 +45,7 @@
 
                     <div class="form-group row mb-0">
                         <div class="col-md-8 offset-md-4">
-                            <button class="btn btn-primary" onclick="xhrValidateForm('login-form')">
+                            <button class="btn btn-primary" id="login-submit">
                                 {{ __('Log in') }}
                             </button>
 
@@ -62,5 +61,4 @@
             </div>
         </div>
     </div>
-</div>
 @endsection
