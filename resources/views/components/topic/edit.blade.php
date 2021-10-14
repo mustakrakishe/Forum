@@ -1,25 +1,35 @@
-@props(['topic'])
+<form id="update-topic-form" name="my" action="{{ route('topics.update', ['topic' => $topic->id]) }}" validation="{{ route('topics.validate') }}" method="put">
+    @csrf 
 
-<x-modal id="create-topic-modal" class="modal-lg modal-dialog-scrollable">
-    <x-slot name="title">{{ __('New topic') }}</x-slot>
+    <div class="row pb-2">
 
-    <form id="create-topic-form" method="post" action="{{ route('topics.store') }}" validation="{{ route('topics.validate') }}">
-        @csrf
-
-        <div class="form-group">
-            <label for="topic-header" class="col-form-label">{{ __('Header') }}</label>
+        <div class="col p-0">
             <input type="text" id="topic-header" class="form-control" name="header" value="{{ $topic->header }}">
         </div>
+        
+        <div class="col-auto pr-0">
+            <div class="btn-group" role="group" aria-label="Basic example">
+    
+                    <button class="btn btn-light" name="update">
+                        <i class="fas fa-check"></i>
+                    </button>
 
-        <div class="form-group">
-            <label for="topic-description" class="col-form-label">{{ __('Description') }}</label>
-            <textarea id="topic-description" class="form-control" initHeight="250" name="description">{{ $topic->description }}</textarea>
+                    <button class="btn btn-light" name="cancel-edit" form="cancel-edit-form">
+                        <i class="fas fa-times"></i>
+                    </button>
+
+            </div>
         </div>
 
-    </form>
+    </div>
 
-    <x-slot name="footer" class="bg-dark">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">{{ __('Cancel') }}</button>
-        <button class="btn btn-primary" form="create-topic-form">{{ __('Create') }}</button>
-    </x-slot>
-</x-modal>
+    <div class="row">
+        <div name="fake-description" class="form-control h-auto" contenteditable="true">
+            {{ $topic->description }}
+        </div>
+        <input type="hidden" name="description">
+    </div>
+    
+</form>
+
+<form id="cancel-edit-form" action="" method="get"></form>

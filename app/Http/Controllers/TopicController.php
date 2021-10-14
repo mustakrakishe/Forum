@@ -63,7 +63,8 @@ class TopicController extends Controller
      */
     public function edit($id)
     {
-        //
+        $topic = Topic::find($id);
+        return view('components.topic.edit', compact('topic'));
     }
 
     /**

@@ -14,13 +14,13 @@ class Form{
         if(['post', 'put', 'patch'].includes(ajaxSettings.method)){
             ajaxSettings.data = this.getFormData(form);
         }
-        
+
         let response = await $.ajax(ajaxSettings);
         return response;
     }
     
     static getFormData(form){        
-        let keyValuePairs = form.serializeArray();
+        let keyValuePairs = $(form).serializeArray();
         let formData = Object.fromEntries(keyValuePairs.map(field => {
             return [field.name, field.value];
         }));

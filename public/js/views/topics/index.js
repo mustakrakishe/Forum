@@ -1,4 +1,4 @@
-import Form from "../components/form.js";
+import Form from "../../components/form.js";
 
 let MODAL_ID = '#create-topic-modal';
 let FORM_ID = '#create-topic-form';
