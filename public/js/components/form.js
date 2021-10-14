@@ -1,22 +1,47 @@
-function xhrValidateForm(formId){
-    let form = $('#' + formId);
+class Form{
 
-    $(form).find('.invalid-feedback').remove();
-    $(form).find('.is-invalid').removeClass('is-invalid');
+    static async xhrAction(form, action = null, method = null){
+        let ajaxSettings = {};
 
-    let url = $(form).attr('validation');
-    let data = getFormData(form);
+        ajaxSettings.url = action
+            || $(form).attr('action')
+            || '#';
 
-    $.post({
-        url: url,
-        data: data,
-    })
-    .done(response => {
-        if(!response){
-            $(form).trigger('submit');
+        ajaxSettings.method = method
+            || $(form).attr('method')
+            || 'get';
+
+        if(['post', 'put', 'patch'].includes(ajaxSettings.method)){
+            ajaxSettings.data = this.getFormData(form);
+        }
+        
+        let response = await $.ajax(ajaxSettings);
+        return response;
+    }
+    
+    static getFormData(form){        
+        let keyValuePairs = form.serializeArray();
+        let formData = Object.fromEntries(keyValuePairs.map(field => {
+            return [field.name, field.value];
+        }));
+
+        return formData;
+    }
+    
+    static async xhrValidate(form){
+        let isValid = false;
+    
+        $(form).find('.invalid-feedback').remove();
+        $(form).find('.is-invalid').removeClass('is-invalid');
+        
+        let url = $(form).attr('validation');
+        let errors = await this.xhrAction(form, url, 'post');
+
+        if(!errors){
+            isValid = true;
         }
         else{
-            $.each(response, (fieldName, fieldErrors) => {
+            $.each(errors, (fieldName, fieldErrors) => {
                 let ul = $.parseHTML('<ul class="invalid-feedback d-block pl-3" role="alert"></ul>');
                 let li = $.parseHTML('<strong style="display: list-item"></strong>');
 
@@ -25,19 +50,14 @@ function xhrValidateForm(formId){
                     $(ul).append(li);
                 });
 
-                let input = $(form).find('input[name=' + fieldName + ']');
+                let input = $(form).find('[name=' + fieldName + ']');
                 $(input).addClass('is-invalid');
                 $(input).after(ul);
             });
         }
-    })
+
+        return isValid;
+    }
 }
 
-function getFormData(form){
-    let keyValuePairs = form.serializeArray();
-    let formData = Object.fromEntries(keyValuePairs.map(field => {
-        return [field.name, field.value];
-    }));
-
-    return formData;
-}
+export default Form;
