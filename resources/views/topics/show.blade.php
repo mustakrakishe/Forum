@@ -17,7 +17,7 @@
                 </div>
             </div>
 
-            <div id="topic-content" class="col">
+            <div class="col">
                 <x-topic.show :topic="$topic"/>
             </div>
         </div>
