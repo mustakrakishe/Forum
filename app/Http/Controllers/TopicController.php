@@ -51,7 +51,7 @@ class TopicController extends Controller
      */
     public function show($id)
     {
-        $topic = Topic::with('author')->find($id);
+        $topic = Topic::with('author')->findOrFail($id);
         return view('topics.show', compact('topic'));
     }
 
