@@ -22,14 +22,12 @@ class TopicFactory extends Factory
      */
     public function definition()
     {
-        $availableUserIds = User::pluck('id')->toArray();
-        $randomUserIdKey = array_rand($availableUserIds);
-        $randomUserId = $availableUserIds[$randomUserIdKey];
+        $randomUser = User::inRandomOrder()->first();
 
         return [
             'title' => $this->faker->text(20),
             'content' => $this->faker->paragraphs(5, true),
-            'user_id' => $randomUserId,
+            'user_id' => $randomUser->id,
         ];
     }
 }

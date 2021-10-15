@@ -29,9 +29,7 @@ class Topic extends Model
     }
 
     public function author(){
-        return $this->belongsTo(User::class)->withDefault([
-            'name' => 'Deleted User',
-        ]);;
+        return $this->belongsTo(User::class)->withDefault();
     }
 
     
