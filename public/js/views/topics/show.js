@@ -1,5 +1,9 @@
 import Form from "../../components/form.js";
+<<<<<<< Updated upstream
 import * as Textarea from "../../components/textarea.js";
+=======
+require("../../components/textarea.js");
+>>>>>>> Stashed changes
 
 let EDIT_FORM_ID = '#edit-topic-form';
 let UPDATE_FORM_ID = '#update-topic-form';
