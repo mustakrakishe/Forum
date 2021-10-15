@@ -18,8 +18,11 @@ An application must provide:
 
 ## What's new
 
+### 1.2.1
+- Default topic author is case he is deleted.
+
 ### 1.2.0
-- Topic CRUD is available;
+- Topic CRUD is available.
 
 ### 1.1.4
 - Form submitting by the "enter" is available.
