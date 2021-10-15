@@ -30,5 +30,7 @@
 
     </div>
 
-    <div name="description" class="row text-justify">{{ $topic->description }}</div>
+    <div class="row">
+        <x-textarea id="topic-description" class="p-0 border-0 bg-transparent text-justify" style="resize: none;" disabled>{{ $topic->description }}</x-textarea>
+    </div>
 </div>
