@@ -23,18 +23,14 @@ class CommentFactory extends Factory
      */
     public function definition()
     {
-        $availableUserIds = User::pluck('id')->toArray();
-        $availableTopicIds = Topic::pluck('id')->toArray();
-        $availableCommentIds = Comment::pluck('id')->toArray();
-        $randomUser = DB::table('users')
-        ->inRandomOrder()
-        ->first();
-
-        $randomUserId = $availableUserIds[array_rand($availableUserIds)];
-        $randomTopicId = $availableTopicIds[array_rand($availableTopicIds)];
-        $randomCommentId = $availableCommentIds[array_rand($availableCommentIds)];
+        $randomUserId = User::inRandomOrder()->select('id')->first();
+        $randomTopicId = User::inRandomOrder()->select('id')->first();
+        $randomCommentId = User::inRandomOrder()->select('id')->first();
         return [
-            //
+            'text' => $this->faker->paragraph(5),
+            'author_id' => $randomUserId,
+            'topic_id' => $randomTopicId,
+            'answer_to_id' => $randomCommentId,
         ];
     }
 }
