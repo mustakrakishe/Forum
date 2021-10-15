@@ -11,7 +11,7 @@
 
         <div class="form-group">
             <label for="topic-description" class="col-form-label">{{ __('Description') }}</label>
-            <textarea id="topic-description" class="form-control overflow-hidden" initHeight="250" name="description"></textarea>
+            <x-textarea id="topic-description" initHeight="250" name="description"></x-textarea>
         </div>
 
     </form>
