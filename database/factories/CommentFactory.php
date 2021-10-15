@@ -23,14 +23,28 @@ class CommentFactory extends Factory
      */
     public function definition()
     {
-        $randomUserId = User::inRandomOrder()->select('id')->first();
-        $randomTopicId = User::inRandomOrder()->select('id')->first();
-        $randomCommentId = User::inRandomOrder()->select('id')->first();
+        $randomAuthorId = User::inRandomOrder()->first()->id;
+
+        $randomDate = $this->faker->dateTimeBetween(
+            $startDate = '-1 year',
+            $endDate = 'now',
+            $timezone = config('app.timezone')
+        );
+
+        $randomParrentComment = $this->faker->boolean(75)
+            ? Comment::inRandomOrder()->first()
+            : null;
+        
+        [$answerToId, $topicId] = $randomParrentComment
+            ? [$randomParrentComment->id, $randomParrentComment->topic_id]
+            : [null, Topic::inRandomOrder()->first()->id];
+
         return [
             'text' => $this->faker->paragraph(5),
-            'author_id' => $randomUserId,
-            'topic_id' => $randomTopicId,
-            'answer_to_id' => $randomCommentId,
+            'author_id' => $randomAuthorId,
+            'topic_id' => $topicId,
+            'answer_to_id' => $answerToId,
+            'created_at' => $randomDate,
         ];
     }
 }

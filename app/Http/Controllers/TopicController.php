@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\User;
+use App\Models\Comment;
 use App\Models\Topic;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
+
+use Illuminate\Database\Eloquent\Factories\Factory;
 
 class TopicController extends Controller
 {
