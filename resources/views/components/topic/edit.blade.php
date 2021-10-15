@@ -25,7 +25,7 @@
         </div>
 
         <div class="row">
-            <textarea name="description" class="form-control text-justify overflow-hidden">{{ $topic->description }}</textarea>
+            <textarea id="topic-description" name="description" class="form-control text-justify overflow-hidden">{{ $topic->description }}</textarea>
         </div>
         
     </form>
