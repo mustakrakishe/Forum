@@ -33,4 +33,10 @@ class Topic extends Model
             'name' => 'Deleted User',
         ]);;
     }
+
+    
+
+    public function comments(){
+        return $this->hasMany(Comment::class);
+    }
 }
