@@ -63,7 +63,7 @@ class TopicController extends Controller
      */
     public function edit($id)
     {
-        $topic = Topic::find($id);
+        $topic = Topic::findOrFail($id);
         return view('components.topic.edit', compact('topic'));
     }
 
@@ -79,7 +79,7 @@ class TopicController extends Controller
         $errors = $this->xhrValidate($request);
 
         if(!$errors){
-            $topic = Topic::find($id);
+            $topic = Topic::findOrFail($id);
 
             $topic->header = $request->header;
             $topic->description = $request->description;
@@ -97,7 +97,7 @@ class TopicController extends Controller
      */
     public function destroy($id)
     {
-        Topic::find($id)->delete();
+        Topic::findOrFail($id)->delete();
         return redirect()->route('topics.index');
     }
 
