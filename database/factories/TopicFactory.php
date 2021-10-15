@@ -25,9 +25,9 @@ class TopicFactory extends Factory
         $randomUser = User::inRandomOrder()->first();
 
         return [
-            'title' => $this->faker->text(20),
-            'content' => $this->faker->paragraphs(5, true),
-            'user_id' => $randomUser->id,
+            'header' => $this->faker->text(20),
+            'description' => $this->faker->paragraphs(5, true),
+            'author_id' => $randomUser->id,
         ];
     }
 }
