@@ -14,7 +14,6 @@ class Comment extends Model
         'text',
         'author_id',
         'topic_id',
-        'topic_id',
         'answer_to_id',
     ];
     
@@ -31,8 +30,10 @@ class Comment extends Model
     }
 
     public function author(){
-        return $this->belongsTo(User::class)->withDefault([
-            'name' => 'Deleted User',
-        ]);;
+        return $this->belongsTo(User::class)->withDefault();
+    }
+
+    public function answers(){
+        return $this->hasMany(User::class);
     }
 }
