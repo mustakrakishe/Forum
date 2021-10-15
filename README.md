@@ -18,8 +18,8 @@ An application must provide:
 
 ## What's new
 
-### 1.1.5
-- Topic create form submitting by the "enter" is available.
+### 1.2.0
+- Topic CRUD is available;
 
 ### 1.1.4
 - Form submitting by the "enter" is available.
