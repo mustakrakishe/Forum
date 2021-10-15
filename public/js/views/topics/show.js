@@ -1,56 +1,45 @@
 import Form from "../../components/form.js";
-import resize from "../../components/textarea.js";
+import * as Textarea from "../../components/textarea.js";
 
 let EDIT_FORM_ID = '#edit-topic-form';
 let UPDATE_FORM_ID = '#update-topic-form';
 let SHOW_COMPONENT_ID = "#topic-show-component";
 let EDIT_COMPONENT_ID = "#topic-edit-component";
-let CANCEL_EDIT_BTN_ID = "#cancel-edit-button";
 
-resize($(SHOW_COMPONENT_ID).find('textarea'));
+Textarea.resize('textarea');
+$(document).on('submit', EDIT_FORM_ID, editTopicHandler);
+$(document).on('submit', UPDATE_FORM_ID, updateTopicHandler);
+$(document).on('reset', UPDATE_FORM_ID, cancelEditHandler);
 
-$(EDIT_FORM_ID).on('submit', (event) => {
+async function editTopicHandler(event) {
     event.preventDefault();
-    editTopicHandler(EDIT_FORM_ID, SHOW_COMPONENT_ID, UPDATE_FORM_ID, EDIT_COMPONENT_ID, CANCEL_EDIT_BTN_ID);
-});
 
-async function editTopicHandler(editFormId, showComponentId, updateFormId, editComponentId, cancelEditBtnId, textareaId) {
-    let updateFormView = await Form.xhrAction(editFormId);
+    let updateFormView = await Form.xhrAction(EDIT_FORM_ID);
 
-    $(showComponentId).after(updateFormView);
-    resize($(editComponentId).find('textarea'));
-    $(showComponentId).attr('hidden', 'hidden');
+    $(SHOW_COMPONENT_ID).after(updateFormView);
+    $(SHOW_COMPONENT_ID).attr('hidden', 'hidden');
 
-    $(updateFormId).on('submit', (event) => {
-        event.preventDefault();
-        updateTopicHandler(editFormId, showComponentId, updateFormId, editComponentId, cancelEditBtnId, textareaId);
-    });
-
-    $(cancelEditBtnId).on('click', () => {
-        cancelEditHandler(editComponentId, showComponentId);
-    });
+    Textarea.resize('textarea');
 }
 
-async function updateTopicHandler(editFormId, showComponentId, updateFormId, editComponentId, cancelEditBtnId, textareaId) {
-    let isValid = await Form.xhrValidate(updateFormId);
+async function updateTopicHandler(event) {
+    event.preventDefault();
+
+    let isValid = await Form.xhrValidate(UPDATE_FORM_ID);
 
     if (isValid) {
-        let updatedTopicView = await Form.xhrAction(updateFormId);
-        $(editComponentId).after(updatedTopicView);
-        $(editComponentId).remove();
-        $(showComponentId).remove();
-        resize($(showComponentId).find('textarea'));
+        let updatedTopicView = await Form.xhrAction(UPDATE_FORM_ID);
+        $(EDIT_COMPONENT_ID).after(updatedTopicView);
+        $(EDIT_COMPONENT_ID).remove();
+        $(SHOW_COMPONENT_ID).remove();
 
-        $(editFormId).on('submit', (event) => {
-            event.preventDefault();
-            editTopicHandler(editFormId, showComponentId, updateFormId, editComponentId, cancelEditBtnId, textareaId);
-        });
+        Textarea.resize('textarea');
     }
 }
 
-function cancelEditHandler(editComponentId, showComponentId) {
+function cancelEditHandler() {
+    $(EDIT_COMPONENT_ID).remove();
+    $(SHOW_COMPONENT_ID).removeAttr('hidden');
     
-    $(editComponentId).remove();
-    $(showComponentId).removeAttr('hidden');
-    resize($(showComponentId).find('textarea'));
+    Textarea.resize('textarea');
 }

@@ -58,6 +58,12 @@ class Form{
 
         return isValid;
     }
+
+    static reset(formId){
+        $(formId).find('.invalid-feedback').remove();
+        $(formId).find('.is-invalid').removeClass('is-invalid');
+        $(formId).trigger('reset');
+    }
 }
 
 export default Form;

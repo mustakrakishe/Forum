@@ -15,7 +15,7 @@
                         <i class="fas fa-check"></i>
                     </button>
 
-                    <button id="cancel-edit-button" type="button" class="btn btn-light" name="cancel-edit">
+                    <button id="cancel-edit-button" type="reset" class="btn btn-light" name="cancel-edit">
                         <i class="fas fa-times"></i>
                     </button>
 

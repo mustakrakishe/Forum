@@ -2,7 +2,6 @@
 
 @section('scripts')
 <script type="module" src="{{ asset('js\views\topics\index.js') }}" defer></script>
-<script src="{{ asset('js\components\modal.js') }}" defer></script>
 @endsection
 
 @section('content')
