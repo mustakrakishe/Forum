@@ -36,4 +36,8 @@ class Comment extends Model
     public function answers(){
         return $this->hasMany(Comment::class, 'answer_to_id');
     }
+
+    public function answer_tree(){
+        return $this->hasMany(Comment::class, 'answer_to_id')->with('answer_tree');
+    }
 }

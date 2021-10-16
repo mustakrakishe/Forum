@@ -7,9 +7,9 @@
 
     &#10149; {{ $comment->id }} - {{ $comment->created_at }}
 
-    @if(isset($comment->answers))
-        @foreach($comment->answers as $answer)
-            <x-comment :comment="$answer" :pl="$pl + 20"/>
+    @if(isset($comment->answer_tree))
+        @foreach($comment->answer_tree as $answer)
+            <x-comment :comment="$answer" :pl="20"/>
         @endforeach
     @endif
 

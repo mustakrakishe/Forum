@@ -54,7 +54,7 @@ class TopicController extends Controller
      */
     public function show($id)
     {
-        $topic = Topic::with('root_comments.answers')->findOrFail($id);
+        $topic = Topic::with('root_comments.answer_tree')->findOrFail($id);
 
         return view('topics.show', compact('topic'));
     }
