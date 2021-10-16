@@ -32,10 +32,6 @@ class Topic extends Model
         return $this->belongsTo(User::class)->withDefault();
     }
 
-    public function comments(){
-        return $this->hasMany(Comment::class);
-    }
-
     public function root_comments(){
         return $this->hasMany(Comment::class)->where('answer_to_id', null);
     }
