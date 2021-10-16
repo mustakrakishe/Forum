@@ -14,7 +14,7 @@ class CommentSeeder extends Seeder
      */
     public function run()
     {
-        $TOTAL = 100;
+        $TOTAL = 5;
         $PER_ITERATION = 1;
 
         for($i = 0; $i < $TOTAL; $i++){

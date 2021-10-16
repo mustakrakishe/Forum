@@ -34,6 +34,6 @@ class Comment extends Model
     }
 
     public function answers(){
-        return $this->hasMany(User::class);
+        return $this->hasMany(Comment::class, 'answer_to_id');
     }
 }

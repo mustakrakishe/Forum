@@ -21,4 +21,14 @@
             </div>
         </div>
     </x-container>
+
+    <x-container>
+        @foreach($topic->root_comments as $comment)
+            <x-comment :comment="$comment"/>
+        @endforeach
+    </x-container>
+
+    <x-container>
+        {{ $topic->root_comments }}
+    </x-container>
 @endsection

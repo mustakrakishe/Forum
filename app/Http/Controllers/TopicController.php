@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Comment;
 use App\Models\Topic;
+use App\Http\Controllers\CommentController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
@@ -53,7 +54,8 @@ class TopicController extends Controller
      */
     public function show($id)
     {
-        $topic = Topic::with('author')->findOrFail($id);
+        $topic = Topic::with('root_comments.answers')->findOrFail($id);
+
         return view('topics.show', compact('topic'));
     }
 
