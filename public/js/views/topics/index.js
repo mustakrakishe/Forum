@@ -7,6 +7,9 @@ let PAGE_TITLE_ID = '#page-title-container';
 
 $(CREATE_FORM_ID).on('submit', tryCreateTopic);
 $(MODAL_ID).on('hidden.bs.modal', hideModalHandler);
+$(document).on('input', 'textarea', function(){
+    Textarea.resize(this);
+});
 
 async function tryCreateTopic(event){
     event.preventDefault();
