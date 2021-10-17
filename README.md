@@ -18,6 +18,9 @@ An application must provide:
 
 ## What's new
 
+### 1.2.2
+- Topic delete confirmation is added.
+
 ### 1.2.1
 - Default topic author is case he is deleted.
 
