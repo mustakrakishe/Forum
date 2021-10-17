@@ -6,10 +6,12 @@ let UPDATE_FORM_ID = '#update-topic-form';
 let SHOW_COMPONENT_ID = "#topic-show-component";
 let EDIT_COMPONENT_ID = "#topic-edit-component";
 
-Textarea.resize('textarea');
 $(document).on('submit', EDIT_FORM_ID, editTopicHandler);
 $(document).on('submit', UPDATE_FORM_ID, updateTopicHandler);
 $(document).on('reset', UPDATE_FORM_ID, cancelEditHandler);
+$(document).on('input', 'textarea', function(){
+    Textarea.resize(this);
+});
 
 async function editTopicHandler(event) {
     event.preventDefault();
@@ -32,14 +34,10 @@ async function updateTopicHandler(event) {
         $(EDIT_COMPONENT_ID).after(updatedTopicView);
         $(EDIT_COMPONENT_ID).remove();
         $(SHOW_COMPONENT_ID).remove();
-
-        Textarea.resize('textarea');
     }
 }
 
 function cancelEditHandler() {
     $(EDIT_COMPONENT_ID).remove();
     $(SHOW_COMPONENT_ID).removeAttr('hidden');
-    
-    Textarea.resize('textarea');
 }

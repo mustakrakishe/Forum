@@ -1,6 +1,7 @@
 <div id="topic-show-component">
-    <div class="row pb-2 d-flex align-items-end justify-content-between">
-        
+
+    <div class="row m-0 pb-2 align-items-end justify-content-between">
+
         <div class="h3 m-0">
             {{ $topic->header }}
         </div>
@@ -18,7 +19,7 @@
                 <form action="{{ route('topics.destroy', ['topic' => $topic->id]) }}" method="post">
                     @csrf
                     {{ method_field('delete') }}
-                    
+
                     <button class="btn btn-light" name="delete">
                         <i class="far fa-trash-alt"></i>
                     </button>
@@ -30,7 +31,8 @@
 
     </div>
 
-    <div class="row">
-        <x-textarea id="topic-description" class="col p-0 border-0 bg-transparent text-justify" style="resize: none;" disabled>{{ $topic->description }}</x-textarea>
+    <div class="row m-0">
+        <p class="m-0 text-justify" style="white-space: break-spaces">{{ $topic->description }}</p>
     </div>
+
 </div>
