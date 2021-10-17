@@ -11,8 +11,8 @@
 
         @if($comment->author->is(Auth::user()))
         <div class="ml-auto">
-            <a href="#" class="card-link">{{ __('Edit') }}</a>
-            <a href="#" class="card-link">{{ __('Delete') }}</a>
+            <a href="#" class="card-link">{{ __('actions.Edit') }}</a>
+            <a href="#" class="card-link">{{ __('actions.Delete') }}</a>
         </div>
         @endif
     </div>
@@ -22,7 +22,7 @@
     </div>
 
     <div name="footer" class="row m-0 text-muted small">
-        <a href="#" class="card-link">{{ __('Comment') }}</a>
+        <a href="#" class="card-link">{{ __('actions.Answer') }}</a>
     </div>
 
 </div>

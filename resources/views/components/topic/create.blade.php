@@ -17,7 +17,7 @@
     </form>
 
     <x-slot name="footer" class="bg-dark">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">{{ __('Cancel') }}</button>
-        <button class="btn btn-primary" form="create-topic-form">{{ __('Create') }}</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">{{ __('actions.Cancel') }}</button>
+        <button class="btn btn-primary" form="create-topic-form">{{ __('actions.Create') }}</button>
     </x-slot>
 </x-modal>
