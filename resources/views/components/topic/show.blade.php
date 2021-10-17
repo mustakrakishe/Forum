@@ -15,15 +15,12 @@
                         <i class="fas fa-pencil-alt"></i>
                     </button>
                 </form>
-
-                <form action="{{ route('topics.destroy', ['topic' => $topic->id]) }}" method="post">
-                    @csrf
-                    {{ method_field('delete') }}
-
-                    <button class="btn btn-light" name="delete">
-                        <i class="far fa-trash-alt"></i>
-                    </button>
-                </form>
+                
+                <x-button name="delete" class="btn btn-light" data-toggle="modal" data-target="#delete-topic-modal">
+                    <i class="far fa-trash-alt"></i>
+                </x-button>
+            
+                <x-topic.delete :id="$topic->id"/>
 
             </div>
         </div>
