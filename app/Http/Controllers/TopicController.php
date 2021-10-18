@@ -10,6 +10,16 @@ use Illuminate\Support\Facades\Validator;
 
 class TopicController extends Controller
 {
+    /**
+     * Create the controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->authorizeResource(Topic::class, 'topic');
+    }
+
     // Resource methods
 
     /**
@@ -46,24 +56,22 @@ class TopicController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  \App\Models\Topic
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Topic $topic)
     {
-        $topic = Topic::with('author')->findOrFail($id);
         return view('topics.show', compact('topic'));
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  \App\Models\Topic
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Topic $topic)
     {
-        $topic = Topic::findOrFail($id);
         return view('components.topic.edit', compact('topic'));
     }
 
@@ -71,16 +79,14 @@ class TopicController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  \App\Models\Topic
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Topic $topic)
     {
         $errors = $this->xhrValidate($request);
 
         if(!$errors){
-            $topic = Topic::findOrFail($id);
-
             $topic->header = $request->header;
             $topic->description = $request->description;
             $topic->save();
@@ -92,12 +98,12 @@ class TopicController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  \App\Models\Topic
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Topic $topic)
     {
-        Topic::findOrFail($id)->delete();
+        $topic->delete();
         return redirect()->route('topics.index');
     }
 
@@ -112,6 +118,8 @@ class TopicController extends Controller
 
     public function xhrValidate(Request $request)
     {
+        $this->authorize('xhrValidate', Topic::class);
+
         $input = $request->all();
 
         $validator = $this->validator($input);
