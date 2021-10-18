@@ -5,7 +5,7 @@
 @endsection
 
 @section('content')
-    <x-container class="d-flex">
+    <x-container name="topic" class="d-flex">
 
         <div class="mt-2 d-flex justify-content-center" style="width: 150px;">
             <div>
@@ -20,7 +20,9 @@
         </div>
     </x-container>
 
+    <x-container name="comment-count" class="text-center">{{ __('statistic.comments', ['count' => count($topic->root_comments, COUNT_RECURSIVE)]) }}</x-container>
+
     @foreach($topic->root_comments as $comment)
-        <x-comment :comment="$comment"/>
+        <x-comment.answer-tree name="comment" :comment="$comment"/>
     @endforeach
 @endsection
