@@ -25,11 +25,7 @@
         </div>
 
         <div class="row">
-<<<<<<< HEAD
             <x-textarea id="topic-description" name="description" class="text-justify" style="resize: none">{{ $topic->description }}</x-textarea>
-=======
-            <x-textarea id="topic-description" name="description" class="text-justify autoresizable">{{ $topic->description }}</x-textarea>
->>>>>>> a7fb229aee0e32289e1770bfe8ae86f31d7393fe
         </div>
         
     </form>

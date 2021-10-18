@@ -3,10 +3,6 @@
 use App\Http\Controllers\CommentController;
 use Illuminate\Support\Facades\Route;
 
-Route::resource('comments', CommentController::class)->only(['index', 'show']);
+Route::resource('topics.comments', CommentController::class);
 
-Route::resource('comments', CommentController::class)->except(['index', 'show'])
-    ->middleware('auth');
-
-Route::post('/comments/validate', [CommentController::class, 'xhrValidate'])->middleware('auth')
-    ->name('comments.validate');
+Route::post('/topics/{topic}/comments/{comment}/validate', [CommentController::class, 'xhrValidate'])->name('comments.validate');
