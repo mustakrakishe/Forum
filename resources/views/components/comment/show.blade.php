@@ -1,4 +1,4 @@
-<div {{ $attributes }}>
+<x-comment.layout :author="$comment->author">
 
     <div name="header" class="d-flex m-0 text-muted small">
         <div>{{ __('Created at') }}: {{ $comment->created_at }}</div>
@@ -25,4 +25,4 @@
         <a href="#" class="card-link">{{ __('actions.answer') }}</a>
     </div>
 
-</div>
+</x-comment.layout>

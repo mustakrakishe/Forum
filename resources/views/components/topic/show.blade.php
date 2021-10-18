@@ -32,10 +32,12 @@
         <p class="m-0 text-justify" style="white-space: break-spaces">{{ $topic->description }}</p>
     </div>
 
+    @auth
     <div class="row m-0">
         <form name="create-comment-form" action="{{ route('topics.comments.create', ['topic' => $topic->id]) }}">
             <x-button class="btn-link p-0 mb-n4 border-0">{{ __('actions.comment') }}</x-button>
         </form>
     </div>
+    @endauth
 
 </div>

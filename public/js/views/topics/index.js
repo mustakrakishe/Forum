@@ -4,12 +4,10 @@ import * as Textarea from "../../components/textarea.js";
 let MODAL_ID = '#create-topic-modal';
 let CREATE_FORM_ID = '#create-topic-form';
 let PAGE_TITLE_ID = '#page-title-container';
+let DESCRIPTION_TEXTAREA_ID = '#topic-description';
 
 $(CREATE_FORM_ID).on('submit', tryCreateTopic);
 $(MODAL_ID).on('hidden.bs.modal', hideModalHandler);
-$(document).on('input', 'textarea', function(){
-    Textarea.resize(this);
-});
 
 async function tryCreateTopic(event){
     event.preventDefault();
@@ -26,5 +24,5 @@ async function tryCreateTopic(event){
 
 function hideModalHandler(){
     Form.reset(CREATE_FORM_ID);
-    Textarea.initSize('textarea');
+    Textarea.initSize(DESCRIPTION_TEXTAREA_ID);
 }

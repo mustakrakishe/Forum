@@ -7,13 +7,11 @@ let SHOW_COMPONENT_ID = "#topic-show-component";
 let EDIT_COMPONENT_ID = "#topic-edit-component";
 
 let CREATE_COMMENT_FORMS_NAME = 'form[name=create-comment-form]';
+let COMMENT_COUNT_BLOCK_ID = '#comment-count';
 
 $(document).on('submit', EDIT_TOPIC_FORM_ID, editTopicHandler);
 $(document).on('submit', UPDATE_TOPIC_FORM_ID, updateTopicHandler);
 $(document).on('reset', UPDATE_TOPIC_FORM_ID, cancelEditHandler);
-$(document).on('input', 'textarea', function(){
-    Textarea.resize(this);
-});
 $(document).on('submit', CREATE_COMMENT_FORMS_NAME, createCommentHandler);
 
 async function editTopicHandler(event) {
@@ -24,7 +22,7 @@ async function editTopicHandler(event) {
     $(SHOW_COMPONENT_ID).after(updateFormView);
     $(SHOW_COMPONENT_ID).attr('hidden', 'hidden');
 
-    Textarea.resize('textarea');
+    Textarea.resize('textarea#topic-description');
 }
 
 async function updateTopicHandler(event) {
@@ -50,5 +48,5 @@ async function createCommentHandler(event){
 
     let form = event.target;
     let createCommentView = await Form.xhrAction(form);
-    console.log(createCommentView);
+    $(COMMENT_COUNT_BLOCK_ID).after(createCommentView);
 }
