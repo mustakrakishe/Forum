@@ -22,7 +22,7 @@
     </div>
 
     <div name="footer" class="row m-0 text-muted small">
-        <a href="#" class="card-link">{{ __('actions.Answer') }}</a>
+        <a href="#" class="card-link">{{ __('actions.answer') }}</a>
     </div>
 
 </div>
