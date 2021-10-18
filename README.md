@@ -18,6 +18,9 @@ An application must provide:
 
 ## What's new
 
+### 1.2.3
+- Topic policy is created.
+
 ### 1.2.2
 - Topic delete confirmation is added.
 
