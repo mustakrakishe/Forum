@@ -45,8 +45,10 @@ function cancelEditHandler() {
     $(SHOW_COMPONENT_ID).removeAttr('hidden');
 }
 
-function createCommentHandler(event){
+async function createCommentHandler(event){
     event.preventDefault();
 
-    console.log('New comment!');
+    let form = event.target;
+    let createCommentView = await Form.xhrAction(form);
+    console.log(createCommentView);
 }
