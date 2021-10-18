@@ -19,4 +19,8 @@
             <x-topic.show :topic="$topic"/>
         </div>
     </x-container>
+
+    @foreach($topic->root_comments as $comment)
+        <x-comment :comment="$comment"/>
+    @endforeach
 @endsection

@@ -6,14 +6,15 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Topic extends Model
+class Comment extends Model
 {
     use HasFactory;
 
     public $fillable = [
-        'header',
-        'description',
+        'text',
         'author_id',
+        'topic_id',
+        'answer_to_id',
     ];
     
     /**
@@ -32,7 +33,7 @@ class Topic extends Model
         return $this->belongsTo(User::class)->withDefault();
     }
 
-    public function root_comments(){
-        return $this->hasMany(Comment::class)->where('answer_to_id', null);
+    public function answer_tree(){
+        return $this->hasMany(Comment::class, 'answer_to_id')->with('answer_tree');
     }
 }

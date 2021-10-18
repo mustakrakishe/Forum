@@ -21,3 +21,4 @@ Route::get('/', function(){
 Auth::routes();
 require __DIR__.'/auth.php';
 require __DIR__.'/topics.php';
+require __DIR__.'/comments.php';
