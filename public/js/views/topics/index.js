@@ -6,10 +6,10 @@ let CREATE_FORM_ID = '#create-topic-form';
 let PAGE_TITLE_ID = '#page-title-container';
 let DESCRIPTION_TEXTAREA_ID = '#topic-description';
 
-$(CREATE_FORM_ID).on('submit', tryCreateTopic);
+$(CREATE_FORM_ID).on('submit', storeTopicHandler);
 $(MODAL_ID).on('hidden.bs.modal', hideModalHandler);
 
-async function tryCreateTopic(event){
+async function storeTopicHandler(event){
     event.preventDefault();
 
     let isValid = await Form.xhrValidate(CREATE_FORM_ID);

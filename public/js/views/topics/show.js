@@ -1,46 +1,52 @@
 import Form from "../../components/form.js";
 import * as Textarea from "../../components/textarea.js";
 
-let EDIT_TOPIC_FORM_ID = '#edit-topic-form';
-let UPDATE_TOPIC_FORM_ID = '#update-topic-form';
-let SHOW_COMPONENT_ID = "#topic-show-component";
-let EDIT_COMPONENT_ID = "#topic-edit-component";
+let EDIT_TOPIC_FORM = '#edit-topic-form';
+let UPDATE_TOPIC_FORM = '#update-topic-form';
+let TOPIC_SHOW_COMPONENT = "#topic-show-component";
+let TOPIC_EDIT_COMPONENT = "#topic-edit-component";
+let TOPIC_DESCRIPTION_TEXTAREA = "#topic-description";
 
-let CREATE_COMMENT_FORMS_NAME = 'form[name=create-comment-form]';
-let COMMENT_COUNT_BLOCK_ID = '#comment-count';
+let CREATE_COMMENT_FORMS = 'form[name=create-comment-form]';
+let STORE_COMMENT_FORMS = 'form[name=store-comment-form]';
+let COMMENT_COUNT_CONTAINER = '#comment-count';
+let COMMENT_CONTAINERS = 'div[name=comment]';
 
-$(document).on('submit', EDIT_TOPIC_FORM_ID, editTopicHandler);
-$(document).on('submit', UPDATE_TOPIC_FORM_ID, updateTopicHandler);
-$(document).on('reset', UPDATE_TOPIC_FORM_ID, cancelEditHandler);
-$(document).on('submit', CREATE_COMMENT_FORMS_NAME, createCommentHandler);
+$(document).on('submit', EDIT_TOPIC_FORM, editTopicHandler);
+$(document).on('submit', UPDATE_TOPIC_FORM, updateTopicHandler);
+$(document).on('reset', UPDATE_TOPIC_FORM, cancelTopicEditHandler);
+
+$(document).on('submit', CREATE_COMMENT_FORMS, createCommentHandler);
+$(document).on('submit', STORE_COMMENT_FORMS, storeCommentHandler);
+$(document).on('reset', STORE_COMMENT_FORMS, cancelCommentCreateHandler);
 
 async function editTopicHandler(event) {
     event.preventDefault();
 
-    let updateFormView = await Form.xhrAction(EDIT_TOPIC_FORM_ID);
+    let updateFormView = await Form.xhrAction(EDIT_TOPIC_FORM);
 
-    $(SHOW_COMPONENT_ID).after(updateFormView);
-    $(SHOW_COMPONENT_ID).attr('hidden', 'hidden');
+    $(TOPIC_SHOW_COMPONENT).after(updateFormView);
+    $(TOPIC_SHOW_COMPONENT).attr('hidden', 'hidden');
 
-    Textarea.resize('textarea#topic-description');
+    Textarea.resize(TOPIC_DESCRIPTION_TEXTAREA);
 }
 
-async function updateTopicHandler(event) {
+async function updateTopicHandler(event){
     event.preventDefault();
 
-    let isValid = await Form.xhrValidate(UPDATE_TOPIC_FORM_ID);
+    let isValid = await Form.xhrValidate(UPDATE_TOPIC_FORM);
 
     if (isValid) {
-        let updatedTopicView = await Form.xhrAction(UPDATE_TOPIC_FORM_ID);
-        $(EDIT_COMPONENT_ID).after(updatedTopicView);
-        $(EDIT_COMPONENT_ID).remove();
-        $(SHOW_COMPONENT_ID).remove();
+        let updatedTopicView = await Form.xhrAction(UPDATE_TOPIC_FORM);
+        $(TOPIC_EDIT_COMPONENT).after(updatedTopicView);
+        $(TOPIC_EDIT_COMPONENT).remove();
+        $(TOPIC_SHOW_COMPONENT).remove();
     }
 }
 
-function cancelEditHandler() {
-    $(EDIT_COMPONENT_ID).remove();
-    $(SHOW_COMPONENT_ID).removeAttr('hidden');
+function cancelTopicEditHandler() {
+    $(TOPIC_EDIT_COMPONENT).remove();
+    $(TOPIC_SHOW_COMPONENT).removeAttr('hidden');
 }
 
 async function createCommentHandler(event){
@@ -48,5 +54,25 @@ async function createCommentHandler(event){
 
     let form = event.target;
     let createCommentView = await Form.xhrAction(form);
-    $(COMMENT_COUNT_BLOCK_ID).after(createCommentView);
+    
+    $(document).find(':focus').trigger('blur');
+    $(COMMENT_COUNT_CONTAINER).after(createCommentView);
+}
+
+async function storeCommentHandler(event){
+    event.preventDefault();
+
+    let form = event.target;
+    let isValid = await Form.xhrValidate(form);
+
+    if(isValid){
+        let newCommentView = await Form.xhrAction(form);
+
+        $(form).closest(COMMENT_CONTAINERS).after(newCommentView);
+        $(form).closest(COMMENT_CONTAINERS).remove();
+    }
+}
+
+function cancelCommentCreateHandler(event) {
+    $(event.target).closest(COMMENT_CONTAINERS).remove();
 }
