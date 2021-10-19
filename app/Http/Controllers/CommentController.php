@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Comment;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
 
 class CommentController extends Controller
 {
@@ -23,10 +24,11 @@ class CommentController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create($topicId, $comment = null)
     {
+        return 'topic #' . $topicId . ' answer to id #' . $comment;
         $author = Auth::user();
-        return view('components.comment.create', compact('author'));
+        return view('components.comment.create', compact('author', 'topicId', 'answerToId'));
     }
 
     /**
@@ -37,7 +39,18 @@ class CommentController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $errors = $this->xhrValidate($request);
+
+        if(!$errors){
+            $comment = Comment::create([
+                'text' => $request['text'],
+                'author_id' => Auth::id(),
+                'topic_id' => $request['topicId'],
+                'answer_to_id' => $request['answerToId'],
+            ]);
+
+            return view('components.comment.show', compact('comment'));
+        }
     }
 
     /**
@@ -83,5 +96,40 @@ class CommentController extends Controller
     public function destroy(Comment $comment)
     {
         //
+    }
+
+    // Other methods
+
+    /**
+     * Validate a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+
+    public function xhrValidate(Request $request)
+    {
+        // $this->authorize('xhrValidate', Comment::class);
+
+        $input = $request->all();
+
+        $validator = $this->validator($input);
+
+        if ($validator->fails()) {
+            return $validator->errors();
+        }
+    }
+
+    /**
+     * Get a validator for an incoming registration request.
+     *
+     * @param  array  $data
+     * @return \Illuminate\Contracts\Validation\Validator
+     */
+    protected function validator(array $data)
+    {
+        return Validator::make($data, [
+            'text' => ['required', 'string', 'max:1024'],
+        ]);
     }
 }

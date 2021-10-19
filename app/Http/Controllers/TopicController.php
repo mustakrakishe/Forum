@@ -2,9 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Comment;
 use App\Models\Topic;
-use App\Http\Controllers\CommentController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
