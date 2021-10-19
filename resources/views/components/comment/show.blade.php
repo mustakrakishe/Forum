@@ -21,8 +21,10 @@
         <x-textarea class="col p-0 border-0 bg-transparent text-justify" style="resize: none;" disabled>{{ $comment->text }}</x-textarea>
     </div>
 
+    @auth
     <div name="footer" class="row m-0 text-muted small">
         <a href="#" class="card-link">{{ __('actions.answer') }}</a>
     </div>
+    @endauth
 
 </x-comment.layout>
