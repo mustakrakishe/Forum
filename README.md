@@ -18,6 +18,9 @@ An application must provide:
 
 ## What's new
 
+### 1.3.0
+- Comment creating is available.
+
 ### 1.2.3
 - Topic policy is created.
 
