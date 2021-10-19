@@ -54,7 +54,6 @@ async function createCommentHandler(event){
 
     let form = event.target;
     let createCommentView = await Form.xhrAction(form);
-    
     $(document).find(':focus').trigger('blur');
     $(COMMENT_COUNT_CONTAINER).after(createCommentView);
 }
@@ -65,12 +64,12 @@ async function storeCommentHandler(event){
     let form = event.target;
     let isValid = await Form.xhrValidate(form);
 
-    if(isValid){
-        let newCommentView = await Form.xhrAction(form);
+    // if(isValid){
+    //     let newCommentView = await Form.xhrAction(form);
 
-        $(form).closest(COMMENT_CONTAINERS).after(newCommentView);
-        $(form).closest(COMMENT_CONTAINERS).remove();
-    }
+    //     $(form).closest(COMMENT_CONTAINERS).after(newCommentView);
+    //     $(form).closest(COMMENT_CONTAINERS).remove();
+    // }
 }
 
 function cancelCommentCreateHandler(event) {

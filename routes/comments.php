@@ -5,4 +5,4 @@ use Illuminate\Support\Facades\Route;
 
 Route::resource('topics.comments', CommentController::class);
 
-Route::post('/topics/{topic}/comments/{comment}/validate', [CommentController::class, 'xhrValidate'])->name('topics.comments.validate');
+Route::post('/topics/{topic}/comments/validate', [CommentController::class, 'xhrValidate'])->name('topics.comments.validate');
