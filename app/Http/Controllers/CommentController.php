@@ -24,10 +24,11 @@ class CommentController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create($topicId)
+    public function create($topicId, $comment = null)
     {
+        return 'topic #' . $topicId . ' answer to id #' . $comment;
         $author = Auth::user();
-        return view('components.comment.create', compact('author', 'topicId'));
+        return view('components.comment.create', compact('author', 'topicId', 'answerToId'));
     }
 
     /**
@@ -38,7 +39,18 @@ class CommentController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $errors = $this->xhrValidate($request);
+
+        if(!$errors){
+            $comment = Comment::create([
+                'text' => $request['text'],
+                'author_id' => Auth::id(),
+                'topic_id' => $request['topicId'],
+                'answer_to_id' => $request['answerToId'],
+            ]);
+
+            return view('components.comment.show', compact('comment'));
+        }
     }
 
     /**

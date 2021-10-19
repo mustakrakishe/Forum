@@ -11,8 +11,8 @@
 
         @if($comment->author->is(Auth::user()))
         <div class="ml-auto">
-            <a href="#" class="card-link">{{ __('actions.Edit') }}</a>
-            <a href="#" class="card-link">{{ __('actions.Delete') }}</a>
+            <a href="#" class="card-link">{{ __('actions.edit') }}</a>
+            <a href="#" class="card-link">{{ __('actions.delete') }}</a>
         </div>
         @endif
     </div>
@@ -22,8 +22,10 @@
     </div>
 
     @auth
-    <div name="footer" class="row m-0 text-muted small">
-        <a href="#" class="card-link">{{ __('actions.answer') }}</a>
+    <div class="row m-0">
+        <form name="create-comment-form" action="{{ route('topics.comments.comments.create', ['topic' => $comment->topic_id, 'comment' => $comment->id]) }}">
+            <x-button class="btn-link p-0 mb-n4 border-0">{{ __('actions.answer') }}</x-button>
+        </form>
     </div>
     @endauth
 
