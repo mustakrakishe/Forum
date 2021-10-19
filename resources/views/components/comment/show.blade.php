@@ -23,8 +23,10 @@
 
     @auth
     <div class="row m-0">
-        <form name="create-comment-form" action="{{ route('topics.comments.comments.create', ['topic' => $comment->topic_id, 'comment' => $comment->id]) }}">
-            <x-button class="btn-link p-0 mb-n4 border-0">{{ __('actions.answer') }}</x-button>
+        <form name="create-comment-form" action="{{ route('topics.comments.create', ['topic' => $comment->topic_id, 'answerToId' => $comment->id]) }}">
+            <x-button class="btn-link mb-n2 p-0 border-0">
+                <p class="m-0 small">{{ __('actions.answer') }}</p>
+            </x-button>
         </form>
     </div>
     @endauth

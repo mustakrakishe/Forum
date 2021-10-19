@@ -23,6 +23,6 @@
     <x-container id="comment-count" name="comment-count" class="text-center">{{ __('statistic.comments', ['count' => count($topic->root_comments, COUNT_RECURSIVE)]) }}</x-container>
 
     @foreach($topic->root_comments as $comment)
-        <x-comment.answer-tree name="comment" :comment="$comment"/>
+        <x-comment.answer-tree :comment="$comment"/>
     @endforeach
 @endsection

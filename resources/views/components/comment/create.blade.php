@@ -1,8 +1,11 @@
 <x-comment.layout :author="$author">
-    <form name="store-comment-form" action="{{ route('topics.comments.store', ['topic' => $topicId]) }}" validation="{{ route('topics.comments.validate', ['topic' => $topicId]) }}" method="post">
+    <form
+        name="store-comment-form"
+        action="{{ route('topics.comments.store', ['topic' => $topicId, 'answerToId' => $answerToId]) }}"
+        validation="{{ route('topics.comments.validate', ['topic' => $topicId]) }}"
+        method="post"
+    >
         @csrf
-        <input type="hidden" name="topicId" value="$topicId">
-        <input type="hidden" name="answerToId" value="$answerToId">
 
         <div name="body" class="row m-0 my-2">
             <x-textarea id="comment-d" name="text" class="text-justify" style="resize: none; min-height: 81px" autofocus></x-textarea>

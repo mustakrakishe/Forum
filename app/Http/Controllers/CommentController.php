@@ -22,12 +22,16 @@ class CommentController extends Controller
     /**
      * Show the form for creating a new resource.
      *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  integer  $topicId
      * @return \Illuminate\Http\Response
      */
-    public function create($topicId, $comment = null)
+    public function create(Request $request)
     {
-        return 'topic #' . $topicId . ' answer to id #' . $comment;
+        $topicId = $request->topic;
+        $answerToId = $request->answerToId;
         $author = Auth::user();
+
         return view('components.comment.create', compact('author', 'topicId', 'answerToId'));
     }
 
@@ -43,10 +47,10 @@ class CommentController extends Controller
 
         if(!$errors){
             $comment = Comment::create([
-                'text' => $request['text'],
+                'text' => $request->text,
                 'author_id' => Auth::id(),
-                'topic_id' => $request['topicId'],
-                'answer_to_id' => $request['answerToId'],
+                'topic_id' => $request->topic,
+                'answer_to_id' => $request->answerToId,
             ]);
 
             return view('components.comment.show', compact('comment'));

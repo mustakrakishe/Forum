@@ -1,6 +1,9 @@
 @props(['comment', 'pl' => 0])
 
-<div {{ $attributes->merge(['style' => 'padding-left: ' . $pl . 'px;']) }}>
+<div {{ $attributes->merge([
+    'name' => 'comment-container',
+    'style' => 'padding-left: ' . $pl . 'px;'
+]) }}>
     <x-comment.show :comment="$comment"/>
 </div>
 

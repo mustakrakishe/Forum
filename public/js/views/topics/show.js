@@ -10,7 +10,9 @@ let TOPIC_DESCRIPTION_TEXTAREA = "#topic-description";
 let CREATE_COMMENT_FORMS = 'form[name=create-comment-form]';
 let STORE_COMMENT_FORMS = 'form[name=store-comment-form]';
 let COMMENT_COUNT_CONTAINER = '#comment-count';
-let COMMENT_CONTAINERS = 'div[name=comment]';
+let COMMENT_CONTAINER_NAME = 'comment-container';
+
+let commentContainers = 'div[name=' + COMMENT_CONTAINER_NAME + ']';
 
 $(document).on('submit', EDIT_TOPIC_FORM, editTopicHandler);
 $(document).on('submit', UPDATE_TOPIC_FORM, updateTopicHandler);
@@ -53,9 +55,22 @@ async function createCommentHandler(event){
     event.preventDefault();
 
     let form = event.target;
-    let createCommentView = await Form.xhrAction(form);
+
+    let createCommentView = $.parseHTML(await Form.xhrAction(form));
+
     $(document).find(':focus').trigger('blur');
-    $(COMMENT_COUNT_CONTAINER).after(createCommentView);
+    
+    let commentPreviousContainer = COMMENT_COUNT_CONTAINER;
+    let pl = 0;
+
+    let targetComment = $(form).closest(commentContainers);
+    if(targetComment.length){
+        commentPreviousContainer = targetComment;
+        pl = parseInt($(commentPreviousContainer).css('padding-left')) + 70;
+    }
+
+    $(commentPreviousContainer).after(createCommentView);
+    wrapCommentView(createCommentView, pl);
 }
 
 async function storeCommentHandler(event){
@@ -64,14 +79,16 @@ async function storeCommentHandler(event){
     let form = event.target;
     let isValid = await Form.xhrValidate(form);
 
-    // if(isValid){
-    //     let newCommentView = await Form.xhrAction(form);
-
-    //     $(form).closest(COMMENT_CONTAINERS).after(newCommentView);
-    //     $(form).closest(COMMENT_CONTAINERS).remove();
-    // }
+    if(isValid){
+        let newCommentView = await Form.xhrAction(form);
+        $(form).closest(commentContainers).html(newCommentView);
+    }
 }
 
 function cancelCommentCreateHandler(event) {
-    $(event.target).closest(COMMENT_CONTAINERS).remove();
+    $(event.target).closest(commentContainers).remove();
+}
+
+function wrapCommentView(commentView, pl){
+    $(commentView).wrap('<div name="' + COMMENT_CONTAINER_NAME + '" style="padding-left: ' + pl + 'px;"></div>');
 }
