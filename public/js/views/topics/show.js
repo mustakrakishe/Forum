@@ -11,8 +11,11 @@ let CREATE_COMMENT_FORMS = 'form[name=create-comment-form]';
 let STORE_COMMENT_FORMS = 'form[name=store-comment-form]';
 let COMMENT_COUNT_CONTAINER = '#comment-count';
 let COMMENT_CONTAINER_NAME = 'comment-container';
+let DELETE_COMMENT_MODAL = '#delete-comment-modal';
+let DELETE_COMMENT_FORM = 'form#delete-comment-form';
 
 let commentContainers = 'div[name=' + COMMENT_CONTAINER_NAME + ']';
+let commentToDeleteContainer = null;
 
 $(document).on('submit', EDIT_TOPIC_FORM, editTopicHandler);
 $(document).on('submit', UPDATE_TOPIC_FORM, updateTopicHandler);
@@ -21,6 +24,9 @@ $(document).on('reset', UPDATE_TOPIC_FORM, cancelTopicEditHandler);
 $(document).on('submit', CREATE_COMMENT_FORMS, createCommentHandler);
 $(document).on('submit', STORE_COMMENT_FORMS, storeCommentHandler);
 $(document).on('reset', STORE_COMMENT_FORMS, cancelCommentCreateHandler);
+$(document).on('show.bs.modal', DELETE_COMMENT_MODAL, fillDeleteCommentModal);
+// $(document).on('hide.bs.modal', DELETE_COMMENT_MODAL, function(){ commentToDeleteContainer = null; });
+$(document).on('submit', DELETE_COMMENT_FORM, deleteCommentHandler);
 
 async function editTopicHandler(event) {
     event.preventDefault();
@@ -91,4 +97,27 @@ function cancelCommentCreateHandler(event) {
 
 function wrapCommentView(commentView, pl){
     $(commentView).wrap('<div name="' + COMMENT_CONTAINER_NAME + '" style="padding-left: ' + pl + 'px;"></div>');
+}
+
+function fillDeleteCommentModal(event){
+    let deleteButton = $(event.relatedTarget);
+    let commentId = deleteButton.val();
+
+    commentToDeleteContainer = $(deleteButton).closest(commentContainers);
+    
+    let action = $(DELETE_COMMENT_FORM).attr('action');
+    let commentIdPos = action.lastIndexOf('/') + 1;
+    let newUrl = action.slice(0, commentIdPos) + commentId;
+    $(DELETE_COMMENT_FORM).attr('action', newUrl);
+}
+
+async function deleteCommentHandler(event){
+    event.preventDefault();
+
+
+    await Form.xhrAction(DELETE_COMMENT_FORM);
+
+    $(commentToDeleteContainer).remove();
+
+    $(DELETE_COMMENT_MODAL).modal('toggle');
 }

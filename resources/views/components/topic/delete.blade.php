@@ -3,7 +3,7 @@
 <x-modal id="delete-topic-modal">
     <x-slot name="title">{{ __('confirmation.headers.delete', ['entity' => __('confirmation.entities.Topic')]) }}</x-slot>
 
-    <p>{{ __('confirmation.messages.delete', ['entity' => __('confirmation.entities.Topic')]) }}</p>
+    <p>{{ __('confirmation.messages.delete', ['entity' => __('confirmation.entities.topic')]) }}</p>
 
     <x-slot name="footer" class="bg-dark">
         <form id="delete-topic-form" action="{{ route('topics.destroy', ['topic' => $id]) }}" method="post">
