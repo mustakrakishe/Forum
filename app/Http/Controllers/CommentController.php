@@ -53,7 +53,7 @@ class CommentController extends Controller
                 'answer_to_id' => $request->answerToId,
             ]);
 
-            return view('components.comment.show', compact('comment'));
+            return $this->show($comment);
         }
     }
 
@@ -65,7 +65,7 @@ class CommentController extends Controller
      */
     public function show(Comment $comment)
     {
-        //
+        return view('components.comment.show', compact('comment'));
     }
 
     /**
@@ -97,9 +97,10 @@ class CommentController extends Controller
      * @param  \App\Models\Comment  $comment
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Comment $comment)
+    public function destroy($string, Comment $comment)
     {
-        //
+        $comment->delete();
+        return $string;
     }
 
     // Other methods
