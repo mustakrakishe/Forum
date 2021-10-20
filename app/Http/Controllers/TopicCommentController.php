@@ -3,18 +3,20 @@
 namespace App\Http\Controllers;
 
 use App\Models\Comment;
+use App\Models\Topic;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 
-class CommentController extends Controller
+class TopicCommentController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
+     * @param  \App\Models\Topic  $topic
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Topic $topic)
     {
         //
     }
@@ -23,12 +25,12 @@ class CommentController extends Controller
      * Show the form for creating a new resource.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  integer  $topicId
+     * @param  \App\Models\Topic  $topic
      * @return \Illuminate\Http\Response
      */
-    public function create(Request $request)
+    public function create(Request $request, Topic $topic)
     {
-        $topicId = $request->topic;
+        $topicId = $topic->id;
         $answerToId = $request->answerToId;
         $author = Auth::user();
 
@@ -39,9 +41,10 @@ class CommentController extends Controller
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Models\Topic  $topic
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, Topic $topic)
     {
         $errors = $this->xhrValidate($request);
 
@@ -49,32 +52,34 @@ class CommentController extends Controller
             $comment = Comment::create([
                 'text' => $request->text,
                 'author_id' => Auth::id(),
-                'topic_id' => $request->topic,
+                'topic_id' => $topic->id,
                 'answer_to_id' => $request->answerToId,
             ]);
 
-            return $this->show($comment);
+            return view('components.comment.show', compact('comment'));
         }
     }
 
     /**
      * Display the specified resource.
      *
+     * @param  \App\Models\Topic  $topic
      * @param  \App\Models\Comment  $comment
      * @return \Illuminate\Http\Response
      */
-    public function show(Comment $comment)
+    public function show(Topic $topic, Comment $comment)
     {
-        return view('components.comment.show', compact('comment'));
+        //
     }
 
     /**
      * Show the form for editing the specified resource.
      *
+     * @param  \App\Models\Topic  $topic
      * @param  \App\Models\Comment  $comment
      * @return \Illuminate\Http\Response
      */
-    public function edit(Comment $comment)
+    public function edit(Topic $topic, Comment $comment)
     {
         //
     }
@@ -83,10 +88,11 @@ class CommentController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Models\Topic  $topic
      * @param  \App\Models\Comment  $comment
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Comment $comment)
+    public function update(Request $request, Topic $topic, Comment $comment)
     {
         //
     }
@@ -94,13 +100,13 @@ class CommentController extends Controller
     /**
      * Remove the specified resource from storage.
      *
+     * @param  \App\Models\Topic  $topic
      * @param  \App\Models\Comment  $comment
      * @return \Illuminate\Http\Response
      */
-    public function destroy($string, Comment $comment)
+    public function destroy(Topic $topic, Comment $comment)
     {
         $comment->delete();
-        return $string;
     }
 
     // Other methods

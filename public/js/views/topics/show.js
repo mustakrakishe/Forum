@@ -25,7 +25,7 @@ $(document).on('submit', CREATE_COMMENT_FORMS, createCommentHandler);
 $(document).on('submit', STORE_COMMENT_FORMS, storeCommentHandler);
 $(document).on('reset', STORE_COMMENT_FORMS, cancelCommentCreateHandler);
 $(document).on('show.bs.modal', DELETE_COMMENT_MODAL, fillDeleteCommentModal);
-$(document).on('hide.bs.modal', DELETE_COMMENT_MODAL, () => { commentToDeleteContainer = null; });
+// $(document).on('hide.bs.modal', DELETE_COMMENT_MODAL, function(){ commentToDeleteContainer = null; });
 $(document).on('submit', DELETE_COMMENT_FORM, deleteCommentHandler);
 
 async function editTopicHandler(event) {
@@ -106,16 +106,18 @@ function fillDeleteCommentModal(event){
     commentToDeleteContainer = $(deleteButton).closest(commentContainers);
     
     let action = $(DELETE_COMMENT_FORM).attr('action');
-    $(DELETE_COMMENT_FORM).attr('action', action.slice(0, -1) + commentId);
+    let commentIdPos = action.lastIndexOf('/') + 1;
+    let newUrl = action.slice(0, commentIdPos) + commentId;
+    $(DELETE_COMMENT_FORM).attr('action', newUrl);
 }
 
 async function deleteCommentHandler(event){
     event.preventDefault();
 
-    $deleteConfirmed = await Form.xhrAction(DELETE_COMMENT_FORM);
-console.log($deleteConfirmed);
-    if($deleteConfirmed){
-        // $(commentToDeleteContainer).remove();
-        // $(DELETE_COMMENT_MODAL).hide();
-    }
+
+    await Form.xhrAction(DELETE_COMMENT_FORM);
+
+    $(commentToDeleteContainer).remove();
+
+    $(DELETE_COMMENT_MODAL).modal('toggle');
 }
