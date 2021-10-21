@@ -9,12 +9,12 @@ let TOPIC_DESCRIPTION_TEXTAREA = "#topic-description";
 
 let CREATE_COMMENT_FORMS = 'form[name=create-comment-form]';
 let STORE_COMMENT_FORMS = 'form[name=store-comment-form]';
-let COMMENT_COUNT_CONTAINER = '#comment-count';
-let COMMENT_CONTAINER_NAME = 'comment-container';
+const COMMENT_SUB_TREES = '[name=comment-sub-tree]';
+const TOPIC_COMMENTS_CONTAINER = "#topic-comments-container"
+const COMMENT_CONTAINERS = '[name=comment-container]';
 let DELETE_COMMENT_MODAL = '#delete-comment-modal';
 let DELETE_COMMENT_FORM = 'form#delete-comment-form';
 
-let commentContainers = 'div[name=' + COMMENT_CONTAINER_NAME + ']';
 let commentToDeleteContainer = null;
 
 $(document).on('submit', EDIT_TOPIC_FORM, editTopicHandler);
@@ -61,22 +61,17 @@ async function createCommentHandler(event){
     event.preventDefault();
 
     let form = event.target;
+    let parentSubTree = $(form).closest(COMMENT_SUB_TREES);
 
-    let createCommentView = $.parseHTML(await Form.xhrAction(form));
-
-    $(document).find(':focus').trigger('blur');
-    
-    let commentPreviousContainer = COMMENT_COUNT_CONTAINER;
-    let pl = 0;
-
-    let targetComment = $(form).closest(commentContainers);
-    if(targetComment.length){
-        commentPreviousContainer = targetComment;
-        pl = parseInt($(commentPreviousContainer).css('padding-left')) + 70;
+    let createFormDestination = $(parentSubTree).find(COMMENT_SUB_TREES).first()
+    if($(createFormDestination).length == 0){
+        createFormDestination = TOPIC_COMMENTS_CONTAINER;
     }
 
-    $(commentPreviousContainer).after(createCommentView);
-    wrapCommentView(createCommentView, pl);
+    let createForm = await Form.xhrAction(form);
+    
+    $(document).find(':focus').trigger('blur');
+    $(createFormDestination).prepend(createForm);
 }
 
 async function storeCommentHandler(event){
@@ -86,13 +81,15 @@ async function storeCommentHandler(event){
     let isValid = await Form.xhrValidate(form);
 
     if(isValid){
-        let newCommentView = await Form.xhrAction(form);
-        $(form).closest(commentContainers).html(newCommentView);
+        let createdComment = await Form.xhrAction(form);
+
+        let currentCommentContainer = $(form).closest(COMMENT_CONTAINERS)
+        $(currentCommentContainer).replaceWith(createdComment);
     }
 }
 
 function cancelCommentCreateHandler(event) {
-    $(event.target).closest(commentContainers).remove();
+    $(event.target).closest(COMMENT_CONTAINERS).remove();
 }
 
 function wrapCommentView(commentView, pl){

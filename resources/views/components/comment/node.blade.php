@@ -2,7 +2,7 @@
 
 <x-comment.show :comment="$comment" />
 
-<div name="comment-branch" style="padding-left: 70px;">
+<div name="comment-sub-tree" style="padding-left: 70px;">
     @if(isset($comment->answer_tree))
 
         @foreach($comment->answer_tree as $answer)

@@ -26,10 +26,12 @@
 <x-comment.delete :topicId="$topic->id" />
 @endauth
 
-@foreach($topic->root_comments as $comment)
-<div name="comment-branch">
-    <x-comment.node :comment="$comment" />
+<div id="topic-comments-container">
+    @foreach($topic->root_comments as $comment)
+    <div name="comment-sub-tree">
+        <x-comment.node :comment="$comment" />
+    </div>
+    @endforeach
 </div>
-@endforeach
 
 @endsection
