@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Models\Comment;
 use App\Models\Topic;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 
 class TopicCommentController extends Controller
@@ -30,11 +29,14 @@ class TopicCommentController extends Controller
      */
     public function create(Request $request, Topic $topic)
     {
-        $topicId = $topic->id;
-        $answerToId = $request->answerToId;
-        $author = Auth::user();
+        $comment = new Comment([
+            'answer_to_id' => $request->answerToId,
+            'topic_id' => $topic->id,
+        ]);
 
-        return view('components.comment.create', compact('author', 'topicId', 'answerToId'));
+        $comment->author = $request->user();
+
+        return view('components.comment', compact('comment'))->with(['mode' => 'create']);
     }
 
     /**
@@ -51,7 +53,7 @@ class TopicCommentController extends Controller
         if(!$errors){
             $comment = Comment::create([
                 'text' => $request->text,
-                'author_id' => Auth::id(),
+                'author_id' => $request->user()->id,
                 'topic_id' => $topic->id,
                 'answer_to_id' => $request->answerToId,
             ]);

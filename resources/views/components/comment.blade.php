@@ -1,5 +1,3 @@
-
-
 <div name="comment-container" class='d-flex mt-4 pr-4 py-2 bg-white shadow-sm sm:rounded-lg'>
 
     <div class="mt-4 d-flex justify-content-center" style="width: 150px;">
@@ -9,7 +7,7 @@
     </div>
 
     <div name="comment-content" class="w-100">
-        <x-comment.content.show :comment="$comment"/>
+        <x-dynamic-component :component="'comment.content.'.$mode" :comment="$comment"/>
     </div>
 
 </div>
