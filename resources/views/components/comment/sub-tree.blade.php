@@ -1,6 +1,6 @@
 <div name="comment-sub-tree">
 
-    <x-comment.show :comment="$comment" />
+    <x-comment type="show" :comment="$comment" />
 
     <div name="answers-container" style="padding-left: 70px;">
         @if(isset($comment->answer_tree))

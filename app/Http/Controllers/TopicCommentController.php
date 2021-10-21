@@ -81,7 +81,8 @@ class TopicCommentController extends Controller
      */
     public function edit(Topic $topic, Comment $comment)
     {
-        //
+        $topicId = $topic->id;
+        return view('components.comment.edit', compact('topicId', 'comment'));
     }
 
     /**

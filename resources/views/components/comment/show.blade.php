@@ -11,7 +11,11 @@
 
         @if($comment->author->is(Auth::user()))
         <div class="ml-auto">
-            <a href="#" class="card-link">{{ __('actions.edit') }}</a>
+            <form name="edit-comment-form" action="{{ route('topics.comments.edit', ['topic' => $comment->topic_id, 'comment' => $comment->id]) }}">
+                <x-button class="btn-link mb-n2 p-0 border-0">
+                    <p class="m-0 small">{{ __('actions.edit') }}</p>
+                </x-button>
+            </form>
                 
             <x-button name="delete-comment-button" class="btn btn-link p-0 ml-2 border-0" data-toggle="modal" data-target="#delete-comment-modal" value="{{ $comment->id }}">
                 <p class="m-0 small">{{ __('actions.delete') }}</p>
