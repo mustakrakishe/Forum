@@ -56,7 +56,7 @@ class TopicCommentController extends Controller
                 'answer_to_id' => $request->answerToId,
             ]);
 
-            return view('components.comment.show', compact('comment'));
+            return view('components.comment.sub-tree', compact('comment'))->render();
         }
     }
 

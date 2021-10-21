@@ -23,14 +23,12 @@
 <x-container id="comment-count" name="comment-count" class="text-center">{{ __('statistic.comments', ['count' => count($topic->root_comments, COUNT_RECURSIVE)]) }}</x-container>
 
 @auth
-<x-comment.delete :topicId="$topic->id" />
+<x-comment.delete :topicId="$topic->id"/>
 @endauth
 
 <div id="topic-comments-container">
     @foreach($topic->root_comments as $comment)
-    <div name="comment-sub-tree">
-        <x-comment.node :comment="$comment" />
-    </div>
+    <x-comment.sub-tree :comment="$comment"/>
     @endforeach
 </div>
 

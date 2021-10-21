@@ -12,6 +12,7 @@ let STORE_COMMENT_FORMS = 'form[name=store-comment-form]';
 const COMMENT_SUB_TREES = '[name=comment-sub-tree]';
 const TOPIC_COMMENTS_CONTAINER = "#topic-comments-container"
 const COMMENT_CONTAINERS = '[name=comment-container]';
+const ANSWERS_CONTAINERS = '[name=answers-container]'
 let DELETE_COMMENT_MODAL = '#delete-comment-modal';
 let DELETE_COMMENT_FORM = 'form#delete-comment-form';
 
@@ -61,9 +62,9 @@ async function createCommentHandler(event){
     event.preventDefault();
 
     let form = event.target;
-    let parentSubTree = $(form).closest(COMMENT_SUB_TREES);
+    let currentSubTree = $(form).closest(COMMENT_SUB_TREES);
 
-    let createFormDestination = $(parentSubTree).find(COMMENT_SUB_TREES).first()
+    let createFormDestination = $(currentSubTree).find(ANSWERS_CONTAINERS).first()
     if($(createFormDestination).length == 0){
         createFormDestination = TOPIC_COMMENTS_CONTAINER;
     }
@@ -81,10 +82,10 @@ async function storeCommentHandler(event){
     let isValid = await Form.xhrValidate(form);
 
     if(isValid){
-        let createdComment = await Form.xhrAction(form);
+        let createdCommentSubTree = await Form.xhrAction(form);
 
         let currentCommentContainer = $(form).closest(COMMENT_CONTAINERS)
-        $(currentCommentContainer).replaceWith(createdComment);
+        $(currentCommentContainer).replaceWith(createdCommentSubTree);
     }
 }
 
@@ -96,7 +97,7 @@ function fillDeleteCommentModal(event){
     let deleteButton = $(event.relatedTarget);
     let commentId = deleteButton.val();
 
-    commentToDeleteContainer = $(deleteButton).closest(COMMENT_CONTAINERS);
+    commentToDeleteContainer = $(deleteButton).closest(COMMENT_SUB_TREES);
     
     let deleteUrl = $(DELETE_COMMENT_FORM).attr('action');
     let commentIdPos = deleteUrl.lastIndexOf('/') + 1;
