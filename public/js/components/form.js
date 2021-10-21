@@ -8,12 +8,11 @@ class Form{
             || '#';
 
         ajaxSettings.method = method
+            || $(form).find('input[name=_method]').first().val()
             || $(form).attr('method')
             || 'get';
 
-        if(['post', 'put', 'patch'].includes(ajaxSettings.method)){
-            ajaxSettings.data = this.getFormData(form);
-        }
+        ajaxSettings.data = this.getFormData(form);
 
         let response = await $.ajax(ajaxSettings);
         return response;

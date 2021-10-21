@@ -1,4 +1,11 @@
-<form name="store-comment-form" action="{{ route('topics.comments.store', ['topic' => $comment->topic_id, 'answerToId' => $comment->answer_to_id]) }}" validation="{{ route('topics.comments.validate', ['topic' => $comment->topic_id]) }}" method="post">
+<div name="create-mode-content">
+
+<form
+    name="store-comment-form"
+    action="{{ route('topics.comments.store', ['topic' => $comment->topic_id, 'answerToId' => $comment->answer_to_id]) }}"
+    validation="{{ route('topics.comments.validate', ['topic' => $comment->topic_id]) }}"
+    method="post"
+>
     @csrf
 
     <div name="body" class="row m-0 my-2">
@@ -11,3 +18,5 @@
     </div>
 
 </form>
+
+</div>

@@ -1,10 +1,13 @@
+<div name="edit-mode-content">
+
 <form
     name="update-comment-form"
-    action="{{ route('topics.comments.update', ['topic' => $topicId, 'comment' => $comment->id]) }}"
-    validation="{{ route('topics.comments.validate', ['topic' => $topicId]) }}"
+    action="{{ route('topics.comments.update', ['topic' => $comment->topic_id, 'comment' => $comment->id]) }}"
+    validation="{{ route('topics.comments.validate', ['topic' => $comment->topic_id]) }}"
     method="post"
 >
     @csrf
+    @method('PUT')
 
     <div name="body" class="row m-0 my-2">
         <x-textarea id="comment-d" name="text" class="text-justify" style="resize: none; min-height: 81px" autofocus>{{ $comment->text }}</x-textarea>
@@ -16,3 +19,5 @@
     </div>
 
 </form>
+
+</div>

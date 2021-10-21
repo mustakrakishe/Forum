@@ -83,8 +83,7 @@ class TopicCommentController extends Controller
      */
     public function edit(Topic $topic, Comment $comment)
     {
-        $topicId = $topic->id;
-        return view('components.comment.edit', compact('topicId', 'comment'));
+        return view('components.comment.content.edit', compact('comment'));
     }
 
     /**
@@ -97,7 +96,14 @@ class TopicCommentController extends Controller
      */
     public function update(Request $request, Topic $topic, Comment $comment)
     {
-        //
+        $errors = $this->xhrValidate($request);
+
+        if(!$errors){
+            $comment->text = $request->text;
+            $comment->save();
+
+            return view('components.comment.content.show', compact('comment'));
+        }
     }
 
     /**
@@ -125,7 +131,7 @@ class TopicCommentController extends Controller
     {
         // $this->authorize('xhrValidate', Comment::class);
 
-        $input = $request->all();
+        return $input = $request->all();
 
         $validator = $this->validator($input);
 
