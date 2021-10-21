@@ -8,11 +8,11 @@
     </div>
 
     @if($comment->author->is(Auth::user()))
-    <div class="ml-auto d-flex">
+    <div class="ml-auto">
 
-        <div class="btn-group dropright mr-n4">
-            <button type="button" class="btn shadow-none text-muted" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <i class="fas fa-ellipsis-v"></i>
+        <div class="btn-group dropright mr-n4 mt-n1">
+            <button type="button" class="py-0 btn shadow-none border-0 text-muted" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="fas fa-ellipsis-h"></i>
             </button>
             <div class="dropdown-menu">
                 <a class="dropdown-item" href="{{ route('topics.comments.edit', ['topic' => $comment->topic_id, 'comment' => $comment->id]) }}">{{ __('actions.edit') }}</a>
@@ -25,7 +25,7 @@
 </div>
 
 <div name="body" class="row m-0 my-2">
-    <x-textarea class="col p-0 border-0 bg-transparent text-justify" style="resize: none;" disabled>{{ $comment->text }}</x-textarea>
+    <p class="m-0 text-justify" style="white-space: break-spaces">{{ $comment->text }}</p>
 </div>
 
 @auth
