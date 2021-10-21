@@ -92,25 +92,20 @@ function cancelCommentCreateHandler(event) {
     $(event.target).closest(COMMENT_CONTAINERS).remove();
 }
 
-function wrapCommentView(commentView, pl){
-    $(commentView).wrap('<div name="' + COMMENT_CONTAINER_NAME + '" style="padding-left: ' + pl + 'px;"></div>');
-}
-
 function fillDeleteCommentModal(event){
     let deleteButton = $(event.relatedTarget);
     let commentId = deleteButton.val();
 
-    commentToDeleteContainer = $(deleteButton).closest(commentContainers);
+    commentToDeleteContainer = $(deleteButton).closest(COMMENT_CONTAINERS);
     
-    let action = $(DELETE_COMMENT_FORM).attr('action');
-    let commentIdPos = action.lastIndexOf('/') + 1;
-    let newUrl = action.slice(0, commentIdPos) + commentId;
-    $(DELETE_COMMENT_FORM).attr('action', newUrl);
+    let deleteUrl = $(DELETE_COMMENT_FORM).attr('action');
+    let commentIdPos = deleteUrl.lastIndexOf('/') + 1;
+    let newDeleteUrl = deleteUrl.slice(0, commentIdPos) + commentId;
+    $(DELETE_COMMENT_FORM).attr('action', newDeleteUrl);
 }
 
 async function deleteCommentHandler(event){
     event.preventDefault();
-
 
     await Form.xhrAction(DELETE_COMMENT_FORM);
 
