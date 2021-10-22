@@ -32,7 +32,7 @@ $(document).on('submit', STORE_COMMENT_FORMS, storeCommentHandler);
 $(document).on('reset', STORE_COMMENT_FORMS, cancelCommentCreateHandler);
 $(document).on('click', EDIT_COMMENT_LINKS, editCommentHandler);
 $(document).on('submit', UPDATE_COMMENT_FORMS, updateCommentHandler);
-// $(document).on('reset', UPDATE_COMMENT_FORMS, cancelUpdateCommentHandler);
+$(document).on('reset', UPDATE_COMMENT_FORMS, cancelEditCommentHandler);
 $(document).on('show.bs.modal', DELETE_COMMENT_MODAL, fillDeleteCommentModal);
 $(document).on('submit', DELETE_COMMENT_FORM, deleteCommentHandler);
 
@@ -128,7 +128,14 @@ async function updateCommentHandler(event){
         $(commentContentContainer).find(COMMENT_EDIT_MODE_CONTENTS).first().remove();
         $(commentContentContainer).find(COMMENT_SHOW_MODE_CONTENTS).first().replaceWith(showModeContent);
     }
+}
 
+function cancelEditCommentHandler(event){
+    let form = event.target;
+
+    let commentContentContainer = $(form).closest(COMMENT_CONTENT);
+    $(commentContentContainer).find(COMMENT_EDIT_MODE_CONTENTS).first().remove();
+    $(commentContentContainer).find(COMMENT_SHOW_MODE_CONTENTS).first().removeAttr('hidden');
 
 }
 
