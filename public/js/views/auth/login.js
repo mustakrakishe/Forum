@@ -1,6 +1,6 @@
 import Form from "../../components/form.js";
 
-const LOGIN_FORM = '#loginForm';
+const LOGIN_FORM = '#login-form';
 
 $(document).on('submit', LOGIN_FORM, tryLogin);
 
