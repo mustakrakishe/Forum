@@ -19,5 +19,4 @@ Route::get('/', function(){
 })->name('home');
 
 Auth::routes();
-require __DIR__.'/auth.php';
 require __DIR__.'/topics.php';

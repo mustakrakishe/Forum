@@ -1,16 +1,22 @@
 import Form from "../../components/form.js";
 
-let FORM_ID = '#register-form';
+const REGISTER_FORM = '#register-form';
 
-let isValid = false
-let form = $(FORM_ID);
+$(document).on('submit', REGISTER_FORM, tryRegister);
 
-$(form).on('submit', async (event) => {
-    if(!isValid){
-        event.preventDefault();
-        isValid = await Form.xhrValidate(form);
-        if(isValid){
-            $(form).trigger('submit');
-        }
+async function tryRegister(event){
+    event.preventDefault();
+
+    let form = event.target;
+    let url = $(form).attr('action');
+    let data = $(form).serialize();
+
+    let errors = await $.post(url, data);
+
+    if(errors){
+        Form.formatWithErrors(form, errors);
     }
-})
+    else{
+        location.reload();
+    }
+}
