@@ -11,7 +11,7 @@
                 <div class="card-header">{{ __('Login') }}</div>
 
                 <div class="card-body">
-                    <form id="loginForm" method="POST" action="{{ route('login') }}" validation="{{ route('login.validate') }}">
+                    <form id="login-form" method="POST" action="{{ route('login') }}">
                         @csrf
 
                         <div class="form-group row">
