@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\LoginRequest;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
@@ -52,7 +53,43 @@ class LoginController extends Controller
 
     // Extending methods
 
-    public function xhrValidate(Request $request)
+    /**
+     * Handle a login request to the application.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Http\Response|\Illuminate\Http\JsonResponse
+     *
+     * @throws \Illuminate\Validation\ValidationException
+     */
+    public function login(Request $request)
+    {
+        $errors = $this->validateLogin($request);
+        if($errors){
+            return $errors;
+        }
+        
+        if(!$this->attemptLogin($request)){
+            return (object)[
+                'identifier' => [trans('auth.failed')],
+                'password' => [trans('auth.failed')],
+            ];
+        }
+    }
+    
+
+    /**
+     * Validate the given request with the given rules.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  array  $rules
+     * @param  array  $messages
+     * @param  array  $customAttributes
+     * @return array
+     *
+     * @throws \Illuminate\Validation\ValidationException
+     */
+
+    public function validateLogin(Request $request)
     {
         $input = $request->all();
 
@@ -63,13 +100,6 @@ class LoginController extends Controller
 
         if ($validator->fails()) {
             return $validator->errors();
-        }
-
-        if(!$this->attemptLogin($request)){
-            return (object)[
-                'identifier' => [trans('auth.failed')],
-                'password' => [trans('auth.failed')],
-            ];
         }
     }
 
