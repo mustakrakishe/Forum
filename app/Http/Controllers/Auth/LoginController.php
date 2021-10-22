@@ -75,20 +75,15 @@ class LoginController extends Controller
             ];
         }
     }
-    
 
     /**
-     * Validate the given request with the given rules.
+     * Validate the user login request.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  array  $rules
-     * @param  array  $messages
-     * @param  array  $customAttributes
-     * @return array
+     * @return void
      *
      * @throws \Illuminate\Validation\ValidationException
      */
-
     public function validateLogin(Request $request)
     {
         $input = $request->all();
@@ -102,8 +97,6 @@ class LoginController extends Controller
             return $validator->errors();
         }
     }
-
-    // Redefined methods
 
     /**
      * Attempt to log the user into the application.
