@@ -131,7 +131,7 @@ class TopicCommentController extends Controller
     {
         // $this->authorize('xhrValidate', Comment::class);
 
-        return $input = $request->all();
+        $input = $request->all();
 
         $validator = $this->validator($input);
 

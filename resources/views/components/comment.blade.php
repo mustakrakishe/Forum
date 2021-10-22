@@ -6,7 +6,7 @@
         </div>
     </div>
 
-    <div name="comment-content" class="w-100">
+    <div name="content" class="w-100">
         <x-dynamic-component :component="'comment.content.'.$mode" :comment="$comment"/>
     </div>
 

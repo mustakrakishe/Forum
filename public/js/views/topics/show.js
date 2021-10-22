@@ -14,10 +14,10 @@ const UPDATE_COMMENT_FORMS = 'form[name=update-comment-form]';
 const COMMENT_SUB_TREES = '[name=comment-sub-tree]';
 const TOPIC_COMMENTS_CONTAINER = "#topic-comments-container"
 const COMMENT_CONTAINERS = '[name=comment-container]';
-const COMMENT_CONTENT_CONTAINERS = '[name=comment-content-container]';
+const COMMENT_CONTENT = '[name=content]';
 const ANSWERS_CONTAINERS = '[name=answers-container]'
 const COMMENT_SHOW_MODE_CONTENTS = '[name=show-mode-content]'
-const COMMENT_EDIT_MODE_CONTENTS = '[name=show-mode-content]'
+const COMMENT_EDIT_MODE_CONTENTS = '[name=edit-mode-content]'
 const DELETE_COMMENT_MODAL = '#delete-comment-modal';
 const DELETE_COMMENT_FORM = 'form#delete-comment-form';
 
@@ -117,17 +117,17 @@ async function updateCommentHandler(event){
     event.preventDefault();
 
     let form = event.target;
-    let contentContainer = $(form).closest(COMMENT_CONTENT_CONTAINERS);
-    let validateUrl = $(form).attr('validation');
+    let commentContentContainer = $(form).closest(COMMENT_CONTENT);
 
-    let isValid = await Form.xhrAction(form, validateUrl, 'post');
-console.log(isValid);
-    // if (isValid) {
-    //     let showModeContent = await Form.xhrAction(form);
+    // let isValid = await Form.xhrValidate(form);
 
-    //     $(contentContainer).find(COMMENT_EDIT_MODE_CONTENTS).first().remove();
-    //     $(contentContainer).find(COMMENT_SHOW_MODE_CONTENTS).first().replaceWith(showModeContent);
-    // }
+    let isValid = true;
+    if (isValid) {
+        let showModeContent = await Form.xhrAction(form);
+
+        $(commentContentContainer).find(COMMENT_EDIT_MODE_CONTENTS).first().remove();
+        $(commentContentContainer).find(COMMENT_SHOW_MODE_CONTENTS).first().replaceWith(showModeContent);
+    }
 
 
 }

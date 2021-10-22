@@ -14,7 +14,14 @@ class Form{
 
         ajaxSettings.data = this.getFormData(form);
 
+        console.log('ajax settings:');
+        console.log(ajaxSettings);
+
         let response = await $.ajax(ajaxSettings);
+
+        console.log('ajax response:');
+        console.log(response);
+
         return response;
     }
     
@@ -35,6 +42,9 @@ class Form{
         
         let url = $(form).attr('validation');
         let errors = await this.xhrAction(form, url, 'post');
+
+        console.log('validation resul:');
+        console.log(errors);
 
         if(!errors){
             isValid = true;
