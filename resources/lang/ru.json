@@ -1,14 +1,17 @@
 {
     "Confirm Password": "Подтверждение пароля",
+    "Description": "Описание",
     "E-mail": "E-Mail",
     "Forgot Your Password?": "Забыли пароль?",
+    "Header": "Заголовок",
     "Login": "Вход",
     "Logout": "Выход",
     "Name or E-Mail": "Имя или E-Mail",
     "Name": "Имя",
-    "New": "Новый",
+    "New Topic": "Новая тема",
     "Password": "Пароль",
     "Phone": "Телефон",
     "Register": "Регистрация",
-    "Remember Me": "Запомнить меня"
+    "Remember Me": "Запомнить меня",
+    "Topics": "Темы"
 }

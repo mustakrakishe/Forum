@@ -1,5 +1,5 @@
 <x-modal id="create-topic-modal" class="modal-lg modal-dialog-scrollable">
-    <x-slot name="title">{{ __('New topic') }}</x-slot>
+    <x-slot name="title">{{ __('New Topic') }}</x-slot>
 
     <form id="create-topic-form" action="{{ route('topics.store') }}" method="post">
         @csrf
@@ -17,7 +17,7 @@
     </form>
 
     <x-slot name="footer" class="bg-dark">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">{{ __('Cancel') }}</button>
-        <button class="btn btn-primary" form="create-topic-form">{{ __('Create') }}</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">{{ __('actions.cancel') }}</button>
+        <button class="btn btn-primary" form="create-topic-form">{{ __('actions.create') }}</button>
     </x-slot>
 </x-modal>

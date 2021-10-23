@@ -10,8 +10,8 @@
             @csrf
             {{ method_field('delete') }}
 
-            <button name="cancel" type="button" class="btn btn-secondary" data-dismiss="modal">{{ __('Cancel') }}</button>
-            <button name="delete" class="btn btn-danger">{{ __('Delete') }}</button>
+            <button name="cancel" type="button" class="btn btn-secondary" data-dismiss="modal">{{ __('actions.cancel') }}</button>
+            <button name="delete" class="btn btn-danger">{{ __('actions.delete') }}</button>
         </form>
     </x-slot>
 </x-modal>
