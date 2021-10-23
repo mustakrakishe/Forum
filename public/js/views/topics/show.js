@@ -34,7 +34,7 @@ async function updateTopicHandler(event) {
 
     let form = event.target;
     
-    let response = await Form.xhtAction(form, true);
+    let response = await Form.xhrAction(form, true);
 
     if (response.status === 1) {
         $(EDIT_COMPONENT_ID).replaceWith(response.view);
