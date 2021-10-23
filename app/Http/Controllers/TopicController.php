@@ -30,7 +30,7 @@ class TopicController extends Controller
     public function index()
     {
         $topics = Topic::with('author')->get();
-        return view('topics/index', compact('topics'));
+        return view('topics.index', compact('topics'));
     }
 
     /**
@@ -43,7 +43,10 @@ class TopicController extends Controller
     {
         $errors = $this->validateTopic($request);
         if($errors){
-            return $errors;
+            return [
+                'status' => 0,
+                'errors' => $errors,
+            ];
         }
         
         $topic = Topic::create([
@@ -52,8 +55,10 @@ class TopicController extends Controller
             'author_id' => Auth::id(),
         ]);
 
-        return view('components.topic.index', compact('topic'));
-            
+        return [
+            'status' => 1,
+            'view' => view('components.topic.index', compact('topic'))
+        ];
     }
 
     /**

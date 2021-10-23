@@ -1,15 +1,16 @@
 import Form from "../../components/form.js";
 import * as Textarea from "../../components/textarea.js";
 
-let MODAL_ID = '#create-topic-modal';
+let CREATE_TOPIC_MODAL = '#create-topic-modal';
 let CREATE_FORM_ID = '#create-topic-form';
-let PAGE_TITLE_ID = '#page-title-container';
+let TOPICS = "[name=topic]";
 
-$(CREATE_FORM_ID).on('submit', tryCreateTopic);
-$(MODAL_ID).on('hidden.bs.modal', hideModalHandler);
-$(document).on('input', 'textarea', function(){
-    Textarea.resize(this);
-});
+$(document)
+    .on('submit', 'form#create-topic-form', tryCreateTopic)
+    .on('hidden.bs.modal', CREATE_TOPIC_MODAL, hideModalHandler)
+    .on('input', 'textarea', function(){
+        Textarea.resize(this);
+    });
 
 async function tryCreateTopic(event){
     event.preventDefault();
@@ -17,12 +18,12 @@ async function tryCreateTopic(event){
     let form = event.target;
     
     let response = await Form.xhtAction(form, true);
-
-    console.log(typeof(response));
-    console.log(response);
-    
-    // $(PAGE_TITLE_ID).after(newTopicView);
-    // $(MODAL_ID).modal('hide');
+    сonsole.log(response);
+    if(response.status === 1){
+        
+        $(TOPICS).first().before(response.view);
+        $(CREATE_TOPIC_MODAL).modal('hide');
+    }
 }
 
 function hideModalHandler(){

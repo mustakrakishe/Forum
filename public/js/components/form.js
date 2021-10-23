@@ -7,10 +7,6 @@ class Form{
             this.#formatWithErrors(form);
         }
 
-        let url = $(form).attr('action');
-        let method = $(form).attr('method');
-        let data = $(form).serialize();
-
         return $.ajax({
             url: $(form).attr('action'),
             method: $(form).attr('method'),
