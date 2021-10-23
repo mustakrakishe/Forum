@@ -321,10 +321,13 @@
     "Liechtenstein": "Лихтенштейн",
     "Lithuania": "Литва",
     "Load :perPage More": "Загрузить ещё :perPage",
-    "Log in": "Войти",
-    "Log Out": "Выйти",
     "Log Out Other Browser Sessions": "Завершить другие сессии",
     "Login": "Вход",
+<<<<<<< HEAD
+=======
+    "Logout": "Выход",
+    "Name or E-Mail": "Имя или E-Mail",
+>>>>>>> auth
     "Luxembourg": "Люксембург",
     "Macao": "Макао",
     "Macedonia": "Македония",
