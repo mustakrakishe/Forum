@@ -101,7 +101,7 @@ class TopicController extends Controller
             'errors' => $errors,
         ];
 
-        $topic->update($request->only($this->fillable()));
+        $topic->update($request->only($topic->fillable));
 
         return [
             'status' => 1,

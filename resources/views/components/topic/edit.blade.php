@@ -1,6 +1,7 @@
 <div id="topic-edit-component">
-    <form id="update-topic-form" action="{{ route('topics.update', ['topic' => $topic->id]) }}" method="put">
-        @csrf 
+    <form id="update-topic-form" action="{{ route('topics.update', ['topic' => $topic->id]) }}" method="post">
+        @csrf
+        @method('put')
 
         <div class="row pb-2">
 
