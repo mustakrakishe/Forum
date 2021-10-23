@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\TopicController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -19,4 +20,5 @@ Route::get('/', function(){
 })->name('home');
 
 Auth::routes();
-require __DIR__.'/topics.php';
+
+Route::resource('topics', TopicController::class);
