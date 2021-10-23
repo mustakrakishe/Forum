@@ -1,22 +1,15 @@
 import Form from "../../components/form.js";
 
-const LOGIN_FORM = '#login-form';
-
-$(document).on('submit', LOGIN_FORM, tryLogin);
+$(document).on('submit', 'form#login-form', tryLogin);
 
 async function tryLogin(event){
     event.preventDefault();
 
     let form = event.target;
-    let url = $(form).attr('action');
-    let data = $(form).serialize();
+    
+    let errors = await Form.xhtAction(form, true);
 
-    let errors = await $.post(url, data);
-
-    if(errors){
-        Form.formatWithErrors(form, errors);
-    }
-    else{
+    if(!errors){
         location.reload();
     }
 }

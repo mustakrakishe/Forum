@@ -1,6 +1,27 @@
 class Form{
+
+    static xhtAction(form, hasValidation = false){
+        if(hasValidation){
+            this.#formatWithErrors(form);
+        }
+
+        let url = $(form).attr('action');
+        let method = $(form).attr('method');
+        let data = $(form).serialize();
+
+        return $.ajax({
+            url: $(form).attr('action'),
+            method: $(form).attr('method'),
+            data: $(form).serialize(),
+            success: (response) => {
+                if(hasValidation && response){
+                    this.#formatWithErrors(form, response);
+                }
+            },
+        })
+    }
     
-    static formatWithErrors(form, errors){
+    static #formatWithErrors(form, errors = []){
         $(form).find('.invalid-feedback').remove();
         $(form).find('.is-invalid').removeClass('is-invalid');
 
