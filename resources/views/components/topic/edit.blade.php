@@ -1,5 +1,5 @@
 <div id="topic-edit-component">
-    <form id="update-topic-form" name="my" action="{{ route('topics.update', ['topic' => $topic->id]) }}" validation="{{ route('topics.validate') }}" method="put">
+    <form id="update-topic-form" name="my" action="{{ route('topics.update', ['topic' => $topic->id]) }}" method="put">
         @csrf 
 
         <div class="row pb-2">
