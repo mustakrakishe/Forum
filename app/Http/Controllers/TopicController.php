@@ -17,7 +17,7 @@ class TopicController extends Controller
      */
     public function __construct()
     {
-        // $this->authorizeResource(Topic::class, 'topic');
+        $this->authorizeResource(Topic::class, 'topic');
     }
 
     // Resource methods
