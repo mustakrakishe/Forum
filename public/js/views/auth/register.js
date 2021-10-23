@@ -7,7 +7,7 @@ async function tryRegister(event){
 
     let form = event.target;
     
-    let response = await Form.xhtAction(form, true);
+    let response = await Form.xhrAction(form, true);
     
     if(response.status === 1){
         location.reload();
