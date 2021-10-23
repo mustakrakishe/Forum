@@ -7,9 +7,9 @@ async function tryLogin(event){
 
     let form = event.target;
     
-    let errors = await Form.xhtAction(form, true);
-
-    if(!errors){
+    let response = await Form.xhtAction(form, true);
+    
+    if(response.status === 1){
         location.reload();
     }
 }
