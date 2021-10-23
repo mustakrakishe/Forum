@@ -57,7 +57,7 @@ class TopicController extends Controller
 
         return [
             'status' => 1,
-            'view' => view('components.topic.index', compact('topic'))
+            'view' => view('components.topic.index', compact('topic'))->render(),
         ];
     }
 
