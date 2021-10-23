@@ -1,40 +1,45 @@
 import Form from "../../components/form.js";
 import * as Textarea from "../../components/textarea.js";
 
-const EDIT_TOPIC_LINK = 'a#topic-edit-link';
-const UPDATE_TOPIC_FORM = '#update-topic-form';
+// Topic
+const TOPIC_EDIT_LINK = 'a#topic-edit-link';
+const TOPIC_UPDATE_FORM = '#update-topic-form';
 const TOPIC_SHOW_COMPONENT = "#topic-show-component";
 const TOPIC_EDIT_COMPONENT = "#topic-edit-component";
 
-const CREATE_COMMENT_FORMS = 'form[name=create-comment-form]';
-const STORE_COMMENT_FORMS = 'form[name=store-comment-form]';
-const EDIT_COMMENT_LINKS = 'a[name=edit-comment-link]';
-const UPDATE_COMMENT_FORMS = 'form[name=update-comment-form]';
-const COMMENT_SUB_TREES = '[name=comment-sub-tree]';
+// Comments
 const TOPIC_COMMENTS_CONTAINER = "#topic-comments-container"
+const COMMENT_CREATE_FORMS = 'form[name=create-comment-form]';
+const COMMENT_STORE_FORMS = 'form[name=store-comment-form]';
+const COMMENT_EDIT_LINKS = 'a[name=edit-comment-link]';
+const COMMENT_UPDATE_FORMS = 'form[name=update-comment-form]';
+const COMMENT_SUB_TREES = '[name=comment-sub-tree]';
 const COMMENT_CONTAINERS = '[name=comment-container]';
 const COMMENT_CONTENT = '[name=content]';
 const ANSWERS_CONTAINERS = '[name=answers-container]'
 const COMMENT_SHOW_MODE_CONTENTS = '[name=show-mode-content]'
 const COMMENT_EDIT_MODE_CONTENTS = '[name=edit-mode-content]'
-const DELETE_COMMENT_MODAL = '#delete-comment-modal';
-const DELETE_COMMENT_FORM = 'form#delete-comment-form';
+const COMMENT_DELETE_MODAL = '#delete-comment-modal';
+const COMMENT_DELETE_FORM = 'form#delete-comment-form';
 
 let commentToDeleteContainer = null;
 
-$(document).on('click', EDIT_TOPIC_LINK, editTopicHandler);
-$(document).on('submit', UPDATE_TOPIC_FORM, updateTopicHandler);
-$(document).on('reset', UPDATE_TOPIC_FORM, cancelTopicEditHandler);
+// Topic
+$(document).on('click', TOPIC_EDIT_LINK, editTopicHandler);
+$(document).on('submit', TOPIC_UPDATE_FORM, updateTopicHandler);
+$(document).on('reset', TOPIC_UPDATE_FORM, cancelTopicEditHandler);
 
-$(document).on('submit', CREATE_COMMENT_FORMS, createCommentHandler);
-$(document).on('submit', STORE_COMMENT_FORMS, storeCommentHandler);
-$(document).on('reset', STORE_COMMENT_FORMS, cancelCommentCreateHandler);
-$(document).on('click', EDIT_COMMENT_LINKS, editCommentHandler);
-$(document).on('submit', UPDATE_COMMENT_FORMS, updateCommentHandler);
-$(document).on('reset', UPDATE_COMMENT_FORMS, cancelEditCommentHandler);
-$(document).on('show.bs.modal', DELETE_COMMENT_MODAL, fillDeleteCommentModal);
-$(document).on('submit', DELETE_COMMENT_FORM, deleteCommentHandler);
+// Comments
+$(document).on('submit', COMMENT_CREATE_FORMS, createCommentHandler);
+$(document).on('submit', COMMENT_STORE_FORMS, storeCommentHandler);
+$(document).on('reset', COMMENT_STORE_FORMS, cancelCommentCreateHandler);
+$(document).on('click', COMMENT_EDIT_LINKS, editCommentHandler);
+$(document).on('submit', COMMENT_UPDATE_FORMS, updateCommentHandler);
+$(document).on('reset', COMMENT_UPDATE_FORMS, cancelEditCommentHandler);
+$(document).on('show.bs.modal', COMMENT_DELETE_MODAL, fillDeleteCommentModal);
+$(document).on('submit', COMMENT_DELETE_FORM, deleteCommentHandler);
 
+// Topic
 async function editTopicHandler(event) {
     event.preventDefault();
 
@@ -70,6 +75,7 @@ function cancelTopicEditHandler() {
     $(TOPIC_SHOW_COMPONENT).removeAttr('hidden');
 }
 
+// Comments
 async function createCommentHandler(event){
     event.preventDefault();
 
@@ -150,18 +156,18 @@ function fillDeleteCommentModal(event){
 
     commentToDeleteContainer = $(deleteButton).closest(COMMENT_SUB_TREES);
     
-    let deleteUrl = $(DELETE_COMMENT_FORM).attr('action');
+    let deleteUrl = $(COMMENT_DELETE_FORM).attr('action');
     let commentIdPos = deleteUrl.lastIndexOf('/') + 1;
     let newDeleteUrl = deleteUrl.slice(0, commentIdPos) + commentId;
-    $(DELETE_COMMENT_FORM).attr('action', newDeleteUrl);
+    $(COMMENT_DELETE_FORM).attr('action', newDeleteUrl);
 }
 
 async function deleteCommentHandler(event){
     event.preventDefault();
 
-    await Form.xhrAction(DELETE_COMMENT_FORM);
+    await Form.xhrAction(COMMENT_DELETE_FORM);
 
     $(commentToDeleteContainer).remove();
 
-    $(DELETE_COMMENT_MODAL).modal('toggle');
+    $(COMMENT_DELETE_MODAL).modal('toggle');
 }
