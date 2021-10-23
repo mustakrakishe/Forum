@@ -5,7 +5,9 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use App\Providers\RouteServiceProvider;
+use Illuminate\Auth\Events\Registered;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -43,6 +45,48 @@ class RegisterController extends Controller
     }
 
     /**
+     * Handle a registration request for the application.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Http\JsonResponse
+     */
+    public function register(Request $request)
+    {
+        $errors = $this->validateRegister($request);
+        if($errors){
+            return [
+                'status' => 0,
+                'errors' => $errors,
+            ];
+        }
+
+        event(new Registered($user = $this->create($request->all())));
+
+        $this->guard()->login($user);
+
+        return ['status' => 1];
+    }
+
+    /**
+     * Validate the user register request.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return void
+     *
+     * @throws \Illuminate\Validation\ValidationException
+     */
+    public function validateRegister(Request $request)
+    {
+        $input = $request->all();
+
+        $validator = $this->validator($input);
+
+        if ($validator->fails()) {
+            return $validator->errors();
+        }
+    }
+
+    /**
      * Get a validator for an incoming registration request.
      *
      * @param  array  $data
@@ -73,18 +117,5 @@ class RegisterController extends Controller
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
         ]);
-    }
-
-    // Extending methods
-
-    public function xhrValidate(Request $request)
-    {
-        $input = $request->all();
-
-        $validator = $this->validator($input);
-
-        if ($validator->fails()) {
-            return $validator->errors();
-        }
     }
 }

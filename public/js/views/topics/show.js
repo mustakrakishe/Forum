@@ -1,11 +1,10 @@
 import Form from "../../components/form.js";
 import * as Textarea from "../../components/textarea.js";
 
-const EDIT_TOPIC_FORM = '#edit-topic-form';
+const EDIT_TOPIC_LINK = 'a#topic-edit-link';
 const UPDATE_TOPIC_FORM = '#update-topic-form';
 const TOPIC_SHOW_COMPONENT = "#topic-show-component";
 const TOPIC_EDIT_COMPONENT = "#topic-edit-component";
-const TOPIC_DESCRIPTION_TEXTAREA = "#topic-description";
 
 const CREATE_COMMENT_FORMS = 'form[name=create-comment-form]';
 const STORE_COMMENT_FORMS = 'form[name=store-comment-form]';
@@ -23,7 +22,7 @@ const DELETE_COMMENT_FORM = 'form#delete-comment-form';
 
 let commentToDeleteContainer = null;
 
-$(document).on('submit', EDIT_TOPIC_FORM, editTopicHandler);
+$(document).on('click', EDIT_TOPIC_LINK, editTopicHandler);
 $(document).on('submit', UPDATE_TOPIC_FORM, updateTopicHandler);
 $(document).on('reset', UPDATE_TOPIC_FORM, cancelTopicEditHandler);
 
@@ -39,23 +38,29 @@ $(document).on('submit', DELETE_COMMENT_FORM, deleteCommentHandler);
 async function editTopicHandler(event) {
     event.preventDefault();
 
-    let updateFormView = await Form.xhrAction(EDIT_TOPIC_FORM);
+    let link = event.currentTarget;
+    
+    let response = await $.get({
+        url: $(link).attr('href'),
+    });
 
-    $(TOPIC_SHOW_COMPONENT).after(updateFormView);
-    $(TOPIC_SHOW_COMPONENT).attr('hidden', 'hidden');
-
-    Textarea.resize(TOPIC_DESCRIPTION_TEXTAREA);
+    if(response.status === 1){
+        $(TOPIC_SHOW_COMPONENT).after(response.view);
+        $(TOPIC_SHOW_COMPONENT).attr('hidden', 'hidden');
+    
+        Textarea.resize('textarea');
+    }
 }
 
 async function updateTopicHandler(event){
     event.preventDefault();
 
-    let isValid = await Form.xhrValidate(UPDATE_TOPIC_FORM);
+    let form = event.target;
+        
+    let response = await Form.xhrAction(form, true);
 
-    if (isValid) {
-        let updatedTopicView = await Form.xhrAction(UPDATE_TOPIC_FORM);
-        $(TOPIC_EDIT_COMPONENT).after(updatedTopicView);
-        $(TOPIC_EDIT_COMPONENT).remove();
+    if (response.status === 1) {
+        $(TOPIC_EDIT_COMPONENT).replaceWith(response.view);
         $(TOPIC_SHOW_COMPONENT).remove();
     }
 }
@@ -71,7 +76,7 @@ async function createCommentHandler(event){
     let form = event.target;
     let currentSubTree = $(form).closest(COMMENT_SUB_TREES);
 
-    let createFormDestination = $(currentSubTree).find(ANSWERS_CONTAINERS).first()
+    let createFormDestination = $(currentSubTree).find(ANSWERS_CONTAINERS).first();
     if($(createFormDestination).length == 0){
         createFormDestination = TOPIC_COMMENTS_CONTAINER;
     }

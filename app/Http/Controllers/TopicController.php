@@ -18,7 +18,7 @@ class TopicController extends Controller
      */
     public function __construct()
     {
-        $this->authorizeResource(Topic::class, 'topic');
+        // $this->authorizeResource(Topic::class, 'topic');
     }
 
     // Resource methods
@@ -31,7 +31,7 @@ class TopicController extends Controller
     public function index()
     {
         $topics = Topic::with('author')->get();
-        return view('topics/index', compact('topics'));
+        return view('topics.index', compact('topics'));
     }
 
     /**
@@ -42,16 +42,24 @@ class TopicController extends Controller
      */
     public function store(Request $request)
     {
-        $errors = $this->xhrValidate($request);
-        if(!$errors){
-            $topic = Topic::create([
-                'header' => $request['header'],
-                'description' => $request['description'],
-                'author_id' => Auth::id(),
-            ]);
-
-            return view('components.topic.index', compact('topic'));
+        $errors = $this->validateTopic($request);
+        if($errors){
+            return [
+                'status' => 0,
+                'errors' => $errors,
+            ];
         }
+        
+        $topic = Topic::create([
+            'header' => $request['header'],
+            'description' => $request['description'],
+            'author_id' => Auth::id(),
+        ]);
+
+        return [
+            'status' => 1,
+            'view' => view('components.topic.index', compact('topic'))->render(),
+        ];
     }
 
     /**
@@ -73,7 +81,10 @@ class TopicController extends Controller
      */
     public function edit(Topic $topic)
     {
-        return view('components.topic.edit', compact('topic'));
+        return [
+            'status' => 1,
+            'view' => view('components.topic.edit', compact('topic'))->render(),
+        ];
     }
 
     /**
@@ -85,15 +96,18 @@ class TopicController extends Controller
      */
     public function update(Request $request, Topic $topic)
     {
-        $errors = $this->xhrValidate($request);
+        $errors = $this->validateTopic($request);
+        if ($errors) return [
+            'status' => 0,
+            'errors' => $errors,
+        ];
 
-        if(!$errors){
-            $topic->header = $request->header;
-            $topic->description = $request->description;
-            $topic->save();
+        $topic->update($request->only($topic->fillable));
 
-            return view('components\topic\show', compact('topic'));
-        }
+        return [
+            'status' => 1,
+            'view' => view('components.topic.show', compact('topic'))->render(),
+        ];
     }
 
     /**
@@ -117,9 +131,9 @@ class TopicController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-    public function xhrValidate(Request $request)
+    public function validateTopic(Request $request)
     {
-        $this->authorize('xhrValidate', Topic::class);
+        // $this->authorize('validateTopic', Topic::class);
 
         $input = $request->all();
 

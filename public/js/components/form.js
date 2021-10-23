@@ -1,71 +1,41 @@
 class Form{
 
-    static async xhrAction(form, action = null, method = null){
-        let ajaxSettings = {};
+    static xhrAction(form, hasValidation = false){
+        let submit = $(form).find(':submit').first();
 
-        ajaxSettings.url = action
-            || $(form).attr('action')
-            || '#';
+        if(hasValidation){
+            this.#formatWithErrors(form);
+        }
 
-        ajaxSettings.method = method
-            || $(form).find('input[name=_method]').first().val()
-            || $(form).attr('method')
-            || 'get';
-
-        ajaxSettings.data = this.getFormData(form);
-
-        console.log('ajax settings:');
-        console.log(ajaxSettings);
-
-        let response = await $.ajax(ajaxSettings);
-
-        console.log('ajax response:');
-        console.log(response);
-
-        return response;
+        return $.ajax({
+            url: $(form).attr('action'),
+            method: $(form).attr('method'),
+            data: $(form).serialize(),
+            success: (response) => {
+                if(hasValidation && response.status === 0){
+                    this.#formatWithErrors(form, response.errors);
+                }
+            },
+        })
     }
     
-    static getFormData(form){        
-        let keyValuePairs = $(form).serializeArray();
-        let formData = Object.fromEntries(keyValuePairs.map(field => {
-            return [field.name, field.value];
-        }));
-
-        return formData;
-    }
-    
-    static async xhrValidate(form){
-        let isValid = false;
-    
+    static #formatWithErrors(form, errors = []){
         $(form).find('.invalid-feedback').remove();
         $(form).find('.is-invalid').removeClass('is-invalid');
-        
-        let url = $(form).attr('validation');
-        let errors = await this.xhrAction(form, url, 'post');
 
-        console.log('validation resul:');
-        console.log(errors);
+        $.each(errors, (fieldName, fieldErrors) => {
+            let ul = $.parseHTML('<ul class="invalid-feedback d-block pl-3" role="alert"></ul>');
+            let li = $.parseHTML('<strong style="display: list-item"></strong>');
 
-        if(!errors){
-            isValid = true;
-        }
-        else{
-            $.each(errors, (fieldName, fieldErrors) => {
-                let ul = $.parseHTML('<ul class="invalid-feedback d-block pl-3" role="alert"></ul>');
-                let li = $.parseHTML('<strong style="display: list-item"></strong>');
-
-                fieldErrors.forEach(fieldError => {
-                    $(li).html(fieldError);
-                    $(ul).append(li);
-                });
-
-                let input = $(form).find('[name=' + fieldName + ']');
-                $(input).addClass('is-invalid');
-                $(input).after(ul);
+            fieldErrors.forEach(fieldError => {
+                $(li).html(fieldError);
+                $(ul).append(li);
             });
-        }
 
-        return isValid;
+            let input = $(form).find('[name=' + fieldName + ']');
+            $(input).addClass('is-invalid');
+            $(input).after(ul);
+        });
     }
 
     static reset(formId){

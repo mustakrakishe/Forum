@@ -1,16 +1,15 @@
 import Form from "../../components/form.js";
 
-let FORM_ID = '#login-form';
+$(document).on('submit', 'form#login-form', tryLogin);
 
-let isValid = false
-let form = $(FORM_ID);
+async function tryLogin(event){
+    event.preventDefault();
 
-$(form).on('submit', async (event) => {
-    if(!isValid){
-        event.preventDefault();
-        isValid = await Form.xhrValidate(form);
-        if(isValid){
-            $(form).trigger('submit');
-        }
+    let form = event.target;
+    
+    let response = await Form.xhrAction(form, true);
+    
+    if(response.status === 1){
+        location.reload();
     }
-})
+}

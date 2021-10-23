@@ -12,7 +12,7 @@
                 <div class="card-header">{{ __('Register') }}</div>
 
                 <div class="card-body">
-                    <form id="register-form" method="POST" action="{{ route('register') }}" validation="{{ route('register.validate') }}">
+                    <form id="register-form" method="POST" action="{{ route('register') }}">
                         @csrf
 
                         <div class="form-group row">
@@ -35,7 +35,7 @@
                             <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('E-Mail') }}</label>
 
                             <div class="col-md-6">
-                                <input id="email" type="email" class="form-control" name="email" value="{{ old('email') }}" autocomplete="email">
+                                <input id="email" type="text" class="form-control" name="email" value="{{ old('email') }}" autocomplete="email">
                             </div>
                         </div>
 

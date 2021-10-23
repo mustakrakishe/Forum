@@ -13,7 +13,7 @@
         @auth
             <x-button data-toggle="modal" data-target="#create-topic-modal">
                 <i class="fas fa-plus mr-2"></i>
-                {{ __('New topic') }}
+                {{ __('New Topic') }}
             </x-button>
             
             <x-topic.create />
