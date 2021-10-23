@@ -54,12 +54,17 @@ class RegisterController extends Controller
     {
         $errors = $this->validateRegister($request);
         if($errors){
-            return $errors;
+            return [
+                'status' => 0,
+                'errors' => $errors,
+            ];
         }
 
         event(new Registered($user = $this->create($request->all())));
 
         $this->guard()->login($user);
+
+        return ['status' => 1];
     }
 
     /**

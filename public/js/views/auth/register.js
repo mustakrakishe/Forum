@@ -1,7 +1,5 @@
 import Form from "../../components/form.js";
 
-const REGISTER_FORM = '#register-form';
-
 $(document).on('submit', 'form#register-form', tryRegister);
 
 async function tryRegister(event){
@@ -9,9 +7,9 @@ async function tryRegister(event){
 
     let form = event.target;
     
-    let errors = await Form.xhtAction(form, true);
-
-    if(!errors){
+    let response = await Form.xhtAction(form, true);
+    
+    if(response.status === 1){
         location.reload();
     }
 }
