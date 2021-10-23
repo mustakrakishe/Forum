@@ -1,38 +1,4 @@
 class Form{
-<<<<<<< HEAD
-
-    static async xhrAction(form, action = null, method = null){
-        let ajaxSettings = {};
-
-        ajaxSettings.url = action
-            || $(form).attr('action')
-            || '#';
-
-        ajaxSettings.method = method
-            || $(form).attr('method')
-            || 'get';
-
-        if(['post', 'put', 'patch'].includes(ajaxSettings.method)){
-            ajaxSettings.data = this.getFormData(form);
-        }
-
-        let response = await $.ajax(ajaxSettings);
-        return response;
-    }
-    
-    static getFormData(form){        
-        let keyValuePairs = $(form).serializeArray();
-        let formData = Object.fromEntries(keyValuePairs.map(field => {
-            return [field.name, field.value];
-        }));
-
-        return formData;
-    }
-    
-    static async xhrValidate(form){
-        let isValid = false;
-=======
->>>>>>> auth
     
     static formatWithErrors(form, errors){
         $(form).find('.invalid-feedback').remove();
