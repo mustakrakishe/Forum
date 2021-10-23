@@ -41,16 +41,19 @@ class TopicController extends Controller
      */
     public function store(Request $request)
     {
-        $errors = $this->xhrValidate($request);
-        if(!$errors){
-            $topic = Topic::create([
-                'header' => $request['header'],
-                'description' => $request['description'],
-                'author_id' => Auth::id(),
-            ]);
-
-            return view('components.topic.index', compact('topic'));
+        $errors = $this->validateTopic($request);
+        if($errors){
+            return $errors;
         }
+        
+        $topic = Topic::create([
+            'header' => $request['header'],
+            'description' => $request['description'],
+            'author_id' => Auth::id(),
+        ]);
+
+        return view('components.topic.index', compact('topic'));
+            
     }
 
     /**
@@ -116,9 +119,9 @@ class TopicController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-    public function xhrValidate(Request $request)
+    public function validateTopic(Request $request)
     {
-        $this->authorize('xhrValidate', Topic::class);
+        // $this->authorize('validateTopic', Topic::class);
 
         $input = $request->all();
 

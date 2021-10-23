@@ -14,14 +14,15 @@ $(document).on('input', 'textarea', function(){
 async function tryCreateTopic(event){
     event.preventDefault();
 
-    let isValid = await Form.xhrValidate(CREATE_FORM_ID);
+    let form = event.target;
+    
+    let response = await Form.xhtAction(form, true);
 
-    if(isValid){
-        let newTopicView = await Form.xhrAction(CREATE_FORM_ID);
-
-        $(PAGE_TITLE_ID).after(newTopicView);
-        $(MODAL_ID).modal('hide');
-    }
+    console.log(typeof(response));
+    console.log(response);
+    
+    // $(PAGE_TITLE_ID).after(newTopicView);
+    // $(MODAL_ID).modal('hide');
 }
 
 function hideModalHandler(){
