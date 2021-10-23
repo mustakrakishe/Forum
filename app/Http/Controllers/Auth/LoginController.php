@@ -65,15 +65,23 @@ class LoginController extends Controller
     {
         $errors = $this->validateLogin($request);
         if($errors){
-            return $errors;
+            return [
+                'status' => 0,
+                'errors' => $errors,
+            ];
         }
         
         if(!$this->attemptLogin($request)){
-            return (object)[
-                'identifier' => [trans('auth.failed')],
-                'password' => [trans('auth.failed')],
+            return [
+                'status' => 0,
+                'errors' => [
+                    'identifier' => [trans('auth.failed')],
+                    'password' => [trans('auth.failed')],
+                ],
             ];
         }
+
+        return ['status' => 1];
     }
 
     /**

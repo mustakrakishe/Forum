@@ -16,8 +16,8 @@ class Form{
             method: $(form).attr('method'),
             data: $(form).serialize(),
             success: (response) => {
-                if(hasValidation && response){
-                    this.#formatWithErrors(form, response);
+                if(hasValidation && response.status === 0){
+                    this.#formatWithErrors(form, response.errors);
                 }
             },
         })
