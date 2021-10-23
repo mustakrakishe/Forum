@@ -10,11 +10,9 @@
         <div class="col-auto pr-0">
             <div class="btn-group" role="group" aria-label="Basic example">
 
-                <form id="edit-topic-form" action="{{ route('topics.edit', ['topic' => $topic->id]) }}" method="get">
-                    <button class="btn btn-light" name="edit">
-                        <i class="fas fa-pencil-alt"></i>
-                    </button>
-                </form>
+                <a id="topic-edit-link" class="btn btn-light" href="{{ route('topics.edit', ['topic' => $topic->id]) }}">
+                    <i class="fas fa-pencil-alt"></i>
+                </a>
                 
                 <x-button name="delete" class="btn btn-light" data-toggle="modal" data-target="#delete-topic-modal">
                     <i class="far fa-trash-alt"></i>

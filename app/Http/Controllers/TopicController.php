@@ -17,7 +17,7 @@ class TopicController extends Controller
      */
     public function __construct()
     {
-        $this->authorizeResource(Topic::class, 'topic');
+        // $this->authorizeResource(Topic::class, 'topic');
     }
 
     // Resource methods
@@ -80,7 +80,10 @@ class TopicController extends Controller
      */
     public function edit(Topic $topic)
     {
-        return view('components.topic.edit', compact('topic'));
+        return [
+            'status' => 1,
+            'view' => view('components.topic.edit', compact('topic'))->render(),
+        ];
     }
 
     /**
@@ -92,15 +95,18 @@ class TopicController extends Controller
      */
     public function update(Request $request, Topic $topic)
     {
-        $errors = $this->xhrValidate($request);
+        $errors = $this->validateTopic($request);
+        if ($errors) return [
+            'status' => 0,
+            'errors' => $errors,
+        ];
 
-        if(!$errors){
-            $topic->header = $request->header;
-            $topic->description = $request->description;
-            $topic->save();
+        $topic->update($request->only($this->fillable()));
 
-            return view('components\topic\show', compact('topic'));
-        }
+        return [
+            'status' => 1,
+            'view' => view('components.topic.show', compact('topic'))->render(),
+        ];
     }
 
     /**
