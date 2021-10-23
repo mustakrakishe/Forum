@@ -1,6 +1,8 @@
 class Form{
 
     static xhtAction(form, hasValidation = false){
+        let submit = $(form).find(':submit').first();
+
         if(hasValidation){
             this.#formatWithErrors(form);
         }
