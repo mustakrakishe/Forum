@@ -112,10 +112,10 @@ function fillDeleteCommentModal(event){
 
     commentToDeleteContainer = $(deleteButton).closest(COMMENT_SUB_TREES);
     
-    let deleteUrl = $(COMMENT_DELETE_FORM).attr('action');
-    let commentIdPos = deleteUrl.lastIndexOf('/') + 1;
-    let newDeleteUrl = deleteUrl.slice(0, commentIdPos) + commentId;
-    $(COMMENT_DELETE_FORM).attr('action', newDeleteUrl);
+    let oldUrl = $(COMMENT_DELETE_FORM).attr('action');
+    let commentIdPos = oldUrl.lastIndexOf('/') + 1;
+    let currentCommentDeleteUrl = oldUrl.slice(0, commentIdPos) + commentId;
+    $(COMMENT_DELETE_FORM).attr('action', currentCommentDeleteUrl);
 }
 
 async function deleteCommentHandler(event){
