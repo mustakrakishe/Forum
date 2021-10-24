@@ -36,7 +36,11 @@ class TopicCommentController extends Controller
 
         $comment->author = $request->user();
 
-        return view('components.comment', compact('comment'))->with(['mode' => 'create']);
+        return [
+            'status' => 1,
+            'view' => view('components.comment', compact('comment'))
+                ->with(['mode' => 'create'])->render(),
+        ];
     }
 
     /**

@@ -32,15 +32,17 @@ async function createCommentHandler(event){
     let form = event.target;
     let currentSubTree = $(form).closest(COMMENT_SUB_TREES);
 
-    let createFormDestination = $(currentSubTree).find(ANSWERS_CONTAINERS).first();
-    if($(createFormDestination).length == 0){
-        createFormDestination = TOPIC_COMMENTS_CONTAINER;
+    let creatingFormDestination = $(currentSubTree).find(ANSWERS_CONTAINERS).first();
+    if($(creatingFormDestination).length == 0){
+        creatingFormDestination = TOPIC_COMMENTS_CONTAINER;
     }
 
-    let createForm = await Form.xhrAction(form);
+    let response = await Form.xhrAction(form);
     
-    $(document).find(':focus').trigger('blur');
-    $(createFormDestination).prepend(createForm);
+    if(response.status === 1){
+        $(document).find(':focus').trigger('blur');
+        $(creatingFormDestination).prepend(response.view);
+    }
 }
 
 async function storeCommentHandler(event){
