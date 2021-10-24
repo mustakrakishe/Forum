@@ -18,7 +18,6 @@ class Topic extends Model
 
     protected $with = [
         'author',
-        'root_comments'
     ];
     
     /**

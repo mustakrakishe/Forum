@@ -70,7 +70,9 @@ class TopicController extends Controller
      */
     public function show(Topic $topic)
     {
-        return view('topics.show', compact('topic'));
+        $comments = $topic->root_comments()->paginate(10);
+        
+        return view('topics.show', compact('topic', 'comments'));
     }
 
     /**
