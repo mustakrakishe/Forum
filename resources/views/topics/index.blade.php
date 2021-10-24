@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('scripts')
-<script type="module" src="{{ asset('js\views\topics\index.js') }}" defer></script>
+<script type="module" src="{{ asset('js\views\topics\topic.js') }}" defer></script>
 @endsection
 
 @section('content')

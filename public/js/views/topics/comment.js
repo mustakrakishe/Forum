@@ -1,13 +1,6 @@
 import Form from "../../components/form.js";
 import * as Textarea from "../../components/textarea.js";
 
-// Topic
-const TOPIC_EDIT_LINK = 'a#topic-edit-link';
-const TOPIC_UPDATE_FORM = '#update-topic-form';
-const TOPIC_SHOW_COMPONENT = "#topic-show-component";
-const TOPIC_EDIT_COMPONENT = "#topic-edit-component";
-
-// Comments
 const TOPIC_COMMENTS_CONTAINER = "#topic-comments-container"
 const COMMENT_CREATE_FORMS = 'form[name=create-comment-form]';
 const COMMENT_STORE_FORMS = 'form[name=store-comment-form]';
@@ -24,12 +17,6 @@ const COMMENT_DELETE_FORM = 'form#delete-comment-form';
 
 let commentToDeleteContainer = null;
 
-// Topic
-$(document).on('click', TOPIC_EDIT_LINK, editTopicHandler);
-$(document).on('submit', TOPIC_UPDATE_FORM, updateTopicHandler);
-$(document).on('reset', TOPIC_UPDATE_FORM, cancelTopicEditHandler);
-
-// Comments
 $(document).on('submit', COMMENT_CREATE_FORMS, createCommentHandler);
 $(document).on('submit', COMMENT_STORE_FORMS, storeCommentHandler);
 $(document).on('reset', COMMENT_STORE_FORMS, cancelCommentCreateHandler);
@@ -39,43 +26,6 @@ $(document).on('reset', COMMENT_UPDATE_FORMS, cancelEditCommentHandler);
 $(document).on('show.bs.modal', COMMENT_DELETE_MODAL, fillDeleteCommentModal);
 $(document).on('submit', COMMENT_DELETE_FORM, deleteCommentHandler);
 
-// Topic
-async function editTopicHandler(event) {
-    event.preventDefault();
-
-    let link = event.currentTarget;
-    
-    let response = await $.get({
-        url: $(link).attr('href'),
-    });
-
-    if(response.status === 1){
-        $(TOPIC_SHOW_COMPONENT).after(response.view);
-        $(TOPIC_SHOW_COMPONENT).attr('hidden', 'hidden');
-    
-        Textarea.resize('textarea');
-    }
-}
-
-async function updateTopicHandler(event){
-    event.preventDefault();
-
-    let form = event.target;
-        
-    let response = await Form.xhrAction(form, true);
-
-    if (response.status === 1) {
-        $(TOPIC_EDIT_COMPONENT).replaceWith(response.view);
-        $(TOPIC_SHOW_COMPONENT).remove();
-    }
-}
-
-function cancelTopicEditHandler() {
-    $(TOPIC_EDIT_COMPONENT).remove();
-    $(TOPIC_SHOW_COMPONENT).removeAttr('hidden');
-}
-
-// Comments
 async function createCommentHandler(event){
     event.preventDefault();
 
