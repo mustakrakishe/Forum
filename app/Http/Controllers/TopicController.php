@@ -132,7 +132,7 @@ class TopicController extends Controller
 
     public function validateTopic(Request $request)
     {
-        // $this->authorize('validateTopic', Topic::class);
+        $this->authorize('validateTopic', Topic::class);
 
         $input = $request->all();
 

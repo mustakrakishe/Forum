@@ -4,7 +4,6 @@ namespace App\Policies;
 
 use App\Models\User;
 use App\Models\Topic;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
 class TopicPolicy
@@ -42,7 +41,7 @@ class TopicPolicy
      */
     public function create(User $user)
     {
-        return Auth::check();
+        return true;
     }
 
     /**
@@ -100,8 +99,8 @@ class TopicPolicy
      * @return \Illuminate\Http\Response
      */
 
-    public function xhrValidate(User  $user)
+    public function validateTopic(User $user)
     {
-        return Auth::check();
+        return true;
     }
 }
