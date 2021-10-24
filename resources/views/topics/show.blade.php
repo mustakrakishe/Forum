@@ -6,7 +6,7 @@
 @endsection
 
 @section('content')
-<x-container name="topic" class="d-flex">
+<x-container name="topic" class="d-flex mb-4">
 
     <div class="mt-2 d-flex justify-content-center" style="width: 150px;">
         <div>
@@ -21,13 +21,13 @@
     </div>
 </x-container>
 
-<x-container id="comment-count" name="comment-count" class="text-center">{{ __('Comments') }}</x-container>
-
 @auth
 <x-comment.delete :topicId="$topic->id"/>
 @endauth
 
 <div id="topic-comments-container">
+    {{ $comments->links() }}
+
     @foreach($comments as $comment)
     <x-comment.sub-tree :comment="$comment"/>
     @endforeach
