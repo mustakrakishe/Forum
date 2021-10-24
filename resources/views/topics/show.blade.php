@@ -25,7 +25,7 @@
 <x-comment.delete :topicId="$topic->id"/>
 @endauth
 
-<div id="topic-comments-container" class="mt-4">
+<div id="topic-comments-wrapper" class="mt-4">
     <x-comment.index :comments="$comments"/>
 </div>
 

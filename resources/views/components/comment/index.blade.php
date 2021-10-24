@@ -1,11 +1,9 @@
-<div name="paginaton-links-wrapper" class="mb-4">
-    {{ $comments->links() }}
+<x-paginator id="comment-paginator" class="mb-4" :paginator="$comments" />
+
+<div id="topic-comments-container">
+    @foreach($comments as $comment)
+    <x-comment.sub-tree :comment="$comment" />
+    @endforeach
 </div>
 
-@foreach($comments as $comment)
-<x-comment.sub-tree :comment="$comment"/>
-@endforeach
-
-<div name="paginaton-links-wrapper" class="mt-4">
-    {{ $comments->links() }}
-</div>
+<x-paginator class="mt-4" :paginator="$comments" />

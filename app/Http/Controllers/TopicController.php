@@ -69,7 +69,6 @@ class TopicController extends Controller
     public function show(Topic $topic)
     {
         $comments = TopicCommentController::fetch_comments($topic);
-        
         return view('topics.show', compact('topic', 'comments'));
     }
 

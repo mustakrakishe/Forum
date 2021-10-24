@@ -1,6 +1,7 @@
 import Form from "../../components/form.js";
 import * as Textarea from "../../components/textarea.js";
 
+const TOPIC_COMMENTS_WRAPPER = "#topic-comments-wrapper";
 const TOPIC_COMMENTS_CONTAINER = "#topic-comments-container"
 const COMMENT_CREATE_FORMS = 'form[name=create-comment-form]';
 const COMMENT_STORE_FORMS = 'form[name=store-comment-form]';
@@ -14,7 +15,8 @@ const COMMENT_SHOW_MODE_CONTENTS = '[name=show-mode-content]'
 const COMMENT_EDIT_MODE_CONTENTS = '[name=edit-mode-content]'
 const COMMENT_DELETE_MODAL = '#delete-comment-modal';
 const COMMENT_DELETE_FORM = 'form#delete-comment-form';
-const PAGINATION = '.pagination';
+const PAGINATOR = "#comment-paginator"
+const PAGINATION_LINKS = 'a.page-link';
 
 let commentToDeleteContainer = null;
 
@@ -26,7 +28,7 @@ $(document).on('submit', COMMENT_UPDATE_FORMS, updateCommentHandler);
 $(document).on('reset', COMMENT_UPDATE_FORMS, cancelEditCommentHandler);
 $(document).on('show.bs.modal', COMMENT_DELETE_MODAL, fillDeleteCommentModal);
 $(document).on('submit', COMMENT_DELETE_FORM, deleteCommentHandler);
-$(document).on('click', PAGINATION, showPage);
+$(document).on('click', PAGINATION_LINKS, showCommentsPage);
 
 async function createCommentHandler(event){
     event.preventDefault();
@@ -35,8 +37,17 @@ async function createCommentHandler(event){
     let currentSubTree = $(form).closest(COMMENT_SUB_TREES);
 
     let creatingFormDestination = $(currentSubTree).find(ANSWERS_CONTAINERS).first();
+    
     if($(creatingFormDestination).length == 0){
         creatingFormDestination = TOPIC_COMMENTS_CONTAINER;
+
+        let firstPageUrl = $(PAGINATOR).attr('first-page-url');
+        let response = await $.get(firstPageUrl);
+
+        if(response.status === 1){
+            let commentsFirstPage = response.view;
+            $(TOPIC_COMMENTS_WRAPPER).html(commentsFirstPage);
+        }
     }
 
     let response = await Form.xhrAction(form);
@@ -59,6 +70,12 @@ async function storeCommentHandler(event){
         let createdCommentSubTree = response.view;
         let currentCommentContainer = $(form).closest(COMMENT_CONTAINERS);
         $(currentCommentContainer).replaceWith(createdCommentSubTree);
+
+        let rootComments = $(TOPIC_COMMENTS_CONTAINER).children(COMMENT_SUB_TREES);
+        let perPage = $(PAGINATOR).attr('per-page');
+        if(rootComments.length > perPage){
+            $(rootComments).last().remove();
+        }
     }
 }
 
@@ -130,7 +147,7 @@ async function deleteCommentHandler(event){
     $(COMMENT_DELETE_MODAL).modal('toggle');
 }
 
-async function showPage(event){
+async function showCommentsPage(event){
     event.preventDefault();
     
     let link = event.target;
@@ -139,6 +156,7 @@ async function showPage(event){
     let response = await $.get(url);
 
     if(response.status === 1){
-        $(TOPIC_COMMENTS_CONTAINER).html(response.view);
+        let commentsNewPage = response.view;
+        $(TOPIC_COMMENTS_WRAPPER).html(commentsNewPage);
     }
 }
