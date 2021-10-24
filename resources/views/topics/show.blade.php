@@ -6,7 +6,7 @@
 @endsection
 
 @section('content')
-<x-container name="topic" class="d-flex mb-4">
+<x-container name="topic" class="d-flex">
 
     <div class="mt-2 d-flex justify-content-center" style="width: 150px;">
         <div>
@@ -25,12 +25,6 @@
 <x-comment.delete :topicId="$topic->id"/>
 @endauth
 
-<div id="topic-comments-container">
-    {{ $comments->links() }}
-
-    @foreach($comments as $comment)
-    <x-comment.sub-tree :comment="$comment"/>
-    @endforeach
-</div>
+<x-comment.index id="topic-comments-container" class="mt-4" :comments="$comments"/>
 
 @endsection
