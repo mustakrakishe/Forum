@@ -15,6 +15,10 @@ class Topic extends Model
         'description',
         'author_id',
     ];
+
+    protected $with = [
+        'author',
+    ];
     
     /**
      * The "booted" method of the model.
