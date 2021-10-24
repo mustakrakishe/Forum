@@ -10,6 +10,16 @@ use Illuminate\Support\Facades\Validator;
 class TopicCommentController extends Controller
 {
     /**
+     * Create the controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->authorizeResource(Comment::class, 'comment');
+    }
+
+    /**
      * Display a listing of the resource.
      *
      * @param  \App\Models\Topic  $topic
@@ -149,7 +159,7 @@ class TopicCommentController extends Controller
 
     public function validateComment(Request $request)
     {
-        // $this->authorize('xhrValidate', Comment::class);
+        $this->authorize('validateComment', Comment::class);
 
         $input = $request->all();
 

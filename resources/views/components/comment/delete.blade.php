@@ -8,7 +8,7 @@
     <x-slot name="footer" class="bg-dark">
         <form id="delete-comment-form" action="{{ route('topics.comments.destroy', ['topic' => $topicId, 'comment' => '#']) }}" method="post">
             @csrf
-            {{ method_field('delete') }}
+            @method('delete')
 
             <button name="cancel" type="button" class="btn btn-secondary" data-dismiss="modal">{{ __('actions.cancel') }}</button>
             <button name="delete" class="btn btn-danger">{{ __('actions.delete') }}</button>
