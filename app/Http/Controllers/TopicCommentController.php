@@ -110,14 +110,20 @@ class TopicCommentController extends Controller
      */
     public function update(Request $request, Topic $topic, Comment $comment)
     {
-        $errors = $this->xhrValidate($request);
-
-        if(!$errors){
-            $comment->text = $request->text;
-            $comment->save();
-
-            return view('components.comment.content.show', compact('comment'));
+        $errors = $this->validateComment($request);
+        if($errors){
+            return [
+                'status' => 0,
+                'errors' => $errors,
+            ];
         }
+
+        $comment->update($request->only($comment->fillable));
+
+        return [
+            'status' => 1,
+            'view' => view('components.comment.content.show', compact('comment'))->render(),
+        ];
     }
 
     /**

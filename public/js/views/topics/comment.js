@@ -85,12 +85,12 @@ async function updateCommentHandler(event){
 
     let form = event.target;
     let commentContentContainer = $(form).closest(COMMENT_CONTENT);
+    let hasValidation = true;
 
-    // let isValid = await Form.xhrValidate(form);
+    let response = await Form.xhrAction(form, hasValidation);
 
-    let isValid = true;
-    if (isValid) {
-        let showModeContent = await Form.xhrAction(form);
+    if(response.status === 1){
+        let showModeContent = response.view;
 
         $(commentContentContainer).find(COMMENT_EDIT_MODE_CONTENTS).first().remove();
         $(commentContentContainer).find(COMMENT_SHOW_MODE_CONTENTS).first().replaceWith(showModeContent);
