@@ -16,6 +16,11 @@ class Comment extends Model
         'topic_id',
         'answer_to_id',
     ];
+
+    protected $with = [
+        'author',
+        'answer_tree',
+    ];
     
     /**
      * The "booted" method of the model.
