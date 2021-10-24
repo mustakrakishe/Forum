@@ -24,4 +24,4 @@ Auth::routes();
 
 Route::resource('topics', TopicController::class);
 
-Route::resource('topics.comments', TopicCommentController::class)->except(['index', 'show']);
+Route::resource('topics.comments', TopicCommentController::class)->except(['show']);

@@ -1,15 +1,11 @@
-@props(['comments'])
+<div name="paginaton-links-wrapper" class="mb-4">
+    {{ $comments->links() }}
+</div>
 
-<div {{ $attributes }}>
-    <div name="paginaton-links-wrapper" class="mb-4">
-        {{ $comments->links() }}
-    </div>
+@foreach($comments as $comment)
+<x-comment.sub-tree :comment="$comment"/>
+@endforeach
 
-    @foreach($comments as $comment)
-    <x-comment.sub-tree :comment="$comment"/>
-    @endforeach
-    
-    <div name="paginaton-links-wrapper" class="mt-4">
-        {{ $comments->links() }}
-    </div>
+<div name="paginaton-links-wrapper" class="mt-4">
+    {{ $comments->links() }}
 </div>

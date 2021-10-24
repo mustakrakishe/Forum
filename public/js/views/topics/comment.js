@@ -14,6 +14,7 @@ const COMMENT_SHOW_MODE_CONTENTS = '[name=show-mode-content]'
 const COMMENT_EDIT_MODE_CONTENTS = '[name=edit-mode-content]'
 const COMMENT_DELETE_MODAL = '#delete-comment-modal';
 const COMMENT_DELETE_FORM = 'form#delete-comment-form';
+const PAGINATION = '.pagination';
 
 let commentToDeleteContainer = null;
 
@@ -25,6 +26,7 @@ $(document).on('submit', COMMENT_UPDATE_FORMS, updateCommentHandler);
 $(document).on('reset', COMMENT_UPDATE_FORMS, cancelEditCommentHandler);
 $(document).on('show.bs.modal', COMMENT_DELETE_MODAL, fillDeleteCommentModal);
 $(document).on('submit', COMMENT_DELETE_FORM, deleteCommentHandler);
+$(document).on('click', PAGINATION, showPage);
 
 async function createCommentHandler(event){
     event.preventDefault();
@@ -126,4 +128,17 @@ async function deleteCommentHandler(event){
     $(commentToDeleteContainer).remove();
 
     $(COMMENT_DELETE_MODAL).modal('toggle');
+}
+
+async function showPage(event){
+    event.preventDefault();
+    
+    let link = event.target;
+    let url = $(link).attr('href');
+
+    let response = await $.get(url);
+
+    if(response.status === 1){
+        $(TOPIC_COMMENTS_CONTAINER).html(response.view);
+    }
 }

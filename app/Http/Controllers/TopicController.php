@@ -7,8 +7,6 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 
-use Illuminate\Database\Eloquent\Factories\Factory;
-
 class TopicController extends Controller
 {
     /**
@@ -70,7 +68,7 @@ class TopicController extends Controller
      */
     public function show(Topic $topic)
     {
-        $comments = $topic->root_comments()->paginate(10);
+        $comments = TopicCommentController::fetch_comments($topic);
         
         return view('topics.show', compact('topic', 'comments'));
     }

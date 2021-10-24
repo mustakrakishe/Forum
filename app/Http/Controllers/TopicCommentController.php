@@ -27,7 +27,12 @@ class TopicCommentController extends Controller
      */
     public function index(Topic $topic)
     {
-        //
+        $comments = $this->fetch_comments($topic);
+        
+        return [
+            'status' => 1,
+            'view' => view('components.comment.index', compact('comments'))->render(),
+        ];
     }
 
     /**
@@ -149,6 +154,20 @@ class TopicCommentController extends Controller
     }
 
     // Other methods
+
+    /**
+     * Get paginated comments for the topic.
+     *
+     * @param  \App\Models\Topic  $topic
+     * @return \Illuminate\Http\Response
+     */
+    static function fetch_comments(Topic $topic)
+    {
+        return $comments = Comment::where('topic_id', $topic->id)
+            ->with('answer_tree')
+            ->paginate(10)
+            ->withPath(route('topics.comments.index', ['topic' => $topic->id]));
+    }
 
     /**
      * Validate a newly created resource in storage.
