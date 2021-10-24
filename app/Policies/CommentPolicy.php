@@ -4,7 +4,6 @@ namespace App\Policies;
 
 use App\Models\User;
 use App\Models\Comment;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
 class CommentPolicy
@@ -42,7 +41,7 @@ class CommentPolicy
      */
     public function create(User $user)
     {
-        return Auth::check();
+        return true;
     }
 
     /**
@@ -102,6 +101,6 @@ class CommentPolicy
 
     public function validateComment(User $user)
     {
-        return Auth::check();
+        return true;
     }
 }
