@@ -16,6 +16,7 @@
                 <button type="button" class="py-0 btn shadow-none border-0 text-muted" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <i class="fas fa-ellipsis-h"></i>
                 </button>
+                
                 <div class="dropdown-menu">
                     <a class="dropdown-item" name="edit-comment-link" href="{{ route('topics.comments.edit', ['topic' => $comment->topic_id, 'comment' => $comment->id]) }}">{{ __('actions.edit') }}</a>
                     <button class="dropdown-item" data-toggle="modal" data-target="#delete-comment-modal" value="{{ $comment->id }}">{{ __('actions.delete') }}</button>

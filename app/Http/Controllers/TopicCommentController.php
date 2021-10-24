@@ -94,7 +94,10 @@ class TopicCommentController extends Controller
      */
     public function edit(Topic $topic, Comment $comment)
     {
-        return view('components.comment.content.edit', compact('comment'));
+        return [
+            'status' => 1,
+            'view' => view('components.comment.content.edit', compact('comment'))->render(),
+        ];
     }
 
     /**

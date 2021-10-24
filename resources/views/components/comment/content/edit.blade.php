@@ -3,7 +3,6 @@
     <form
         name="update-comment-form"
         action="{{ route('topics.comments.update', ['topic' => $comment->topic_id, 'comment' => $comment->id]) }}"
-        validation="{{ route('topics.comments.validate', ['topic' => $comment->topic_id]) }}"
         method="post"
     >
         @csrf

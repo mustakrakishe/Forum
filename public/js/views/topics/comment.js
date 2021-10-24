@@ -68,13 +68,16 @@ async function editCommentHandler(event){
     event.preventDefault();
 
     let link = event.target;
-    let url = $(link).attr('href');
-    let showModeContent = $(link).closest(COMMENT_SHOW_MODE_CONTENTS);
+    let showModeContentContainer = $(link).closest(COMMENT_SHOW_MODE_CONTENTS);
 
-    let editModeContent = await Form.xhrAction(null, url, 'get');
+    let response = await $.get({
+        url: $(link).attr('href'),
+    });
     
-    $(showModeContent).attr('hidden', 'hidden');
-    $(showModeContent).after(editModeContent);
+    if(response.status === 1){
+        $(showModeContentContainer).attr('hidden', 'hidden');
+        $(showModeContentContainer).after(response.view);
+    }
 }
 
 async function updateCommentHandler(event){
