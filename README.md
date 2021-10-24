@@ -18,6 +18,10 @@ An application must provide:
 
 ## What's new
 
+### 1.3.1
+- Comment editing and deleting is available.
+- Non page refresh comments pagination.
+
 ### 1.3.0
 - Comment creating is available.
 
