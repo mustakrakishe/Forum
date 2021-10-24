@@ -1,5 +1,6 @@
 {
     "Confirm Password": "Подтверждение пароля",
+    "Created at": "Создан",
     "Description": "Описание",
     "E-mail": "E-Mail",
     "Forgot Your Password?": "Забыли пароль?",
@@ -14,5 +15,6 @@
     "Register": "Регистрация",
     "Remember Me": "Запомнить меня",
     "This action is unauthorized.": "Неавторизованное действие.",
-    "Topics": "Темы"
+    "Topics": "Темы",
+    "Updated at": "Обновлён"
 }
