@@ -49,12 +49,13 @@ async function storeCommentHandler(event){
     event.preventDefault();
 
     let form = event.target;
-    let isValid = await Form.xhrValidate(form);
+    let hasValidation = true;
 
-    if(isValid){
-        let createdCommentSubTree = await Form.xhrAction(form);
+    let response = await Form.xhrAction(form, hasValidation);
 
-        let currentCommentContainer = $(form).closest(COMMENT_CONTAINERS)
+    if(response.status === 1){
+        let createdCommentSubTree = response.view;
+        let currentCommentContainer = $(form).closest(COMMENT_CONTAINERS);
         $(currentCommentContainer).replaceWith(createdCommentSubTree);
     }
 }

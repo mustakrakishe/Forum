@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\TopicCommentController;
 use App\Http\Controllers\TopicController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -23,4 +24,4 @@ Auth::routes();
 
 Route::resource('topics', TopicController::class);
 
-require __DIR__.'/comments.php';
+Route::resource('topics.comments', TopicCommentController::class)->except(['index', 'show']);

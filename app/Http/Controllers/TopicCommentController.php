@@ -52,18 +52,25 @@ class TopicCommentController extends Controller
      */
     public function store(Request $request, Topic $topic)
     {
-        $errors = $this->xhrValidate($request);
-
-        if(!$errors){
-            $comment = Comment::create([
-                'text' => $request->text,
-                'author_id' => $request->user()->id,
-                'topic_id' => $topic->id,
-                'answer_to_id' => $request->answerToId,
-            ]);
-
-            return view('components.comment.sub-tree', compact('comment'))->render();
+        $errors = $this->validateComment($request);
+        if($errors){
+            return [
+                'status' => 0,
+                'errors' => $errors,
+            ];
         }
+
+        $comment = Comment::create([
+            'text' => $request->text,
+            'author_id' => $request->user()->id,
+            'topic_id' => $topic->id,
+            'answer_to_id' => $request->answerToId,
+        ]);
+        
+        return [
+            'status' => 1,
+            'view' => view('components.comment.sub-tree', compact('comment'))->render(),
+        ];
     }
 
     /**
@@ -131,7 +138,7 @@ class TopicCommentController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-    public function xhrValidate(Request $request)
+    public function validateComment(Request $request)
     {
         // $this->authorize('xhrValidate', Comment::class);
 
