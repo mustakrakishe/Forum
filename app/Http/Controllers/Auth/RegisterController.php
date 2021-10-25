@@ -75,7 +75,7 @@ class RegisterController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return Array
      */
-    public function validateRegister(Request $request)
+    protected function validateRegister(Request $request)
     {
         $input = $request->all();
 
