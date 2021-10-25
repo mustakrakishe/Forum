@@ -163,8 +163,7 @@ class TopicCommentController extends Controller
      */
     static function fetch_comments(Topic $topic)
     {
-        return $comments = Comment::where('topic_id', $topic->id)
-            ->with('answer_tree')
+        return $topic->root_comments()
             ->paginate(10)
             ->withPath(route('topics.comments.index', ['topic' => $topic->id]));
     }
