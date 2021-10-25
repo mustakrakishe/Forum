@@ -23,7 +23,7 @@ class TopicCommentController extends Controller
      * Display a listing of the resource.
      *
      * @param  \App\Models\Topic  $topic
-     * @return \Illuminate\Http\Response
+     * @return array
      */
     public function index(Topic $topic)
     {
@@ -40,7 +40,7 @@ class TopicCommentController extends Controller
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  \App\Models\Topic  $topic
-     * @return \Illuminate\Http\Response
+     * @return array
      */
     public function create(Request $request, Topic $topic)
     {
@@ -63,7 +63,7 @@ class TopicCommentController extends Controller
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  \App\Models\Topic  $topic
-     * @return \Illuminate\Http\Response
+     * @return array
      */
     public function store(Request $request, Topic $topic)
     {
@@ -105,7 +105,7 @@ class TopicCommentController extends Controller
      *
      * @param  \App\Models\Topic  $topic
      * @param  \App\Models\Comment  $comment
-     * @return \Illuminate\Http\Response
+     * @return array
      */
     public function edit(Topic $topic, Comment $comment)
     {
@@ -121,7 +121,7 @@ class TopicCommentController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @param  \App\Models\Topic  $topic
      * @param  \App\Models\Comment  $comment
-     * @return \Illuminate\Http\Response
+     * @return array
      */
     public function update(Request $request, Topic $topic, Comment $comment)
     {
@@ -146,7 +146,7 @@ class TopicCommentController extends Controller
      *
      * @param  \App\Models\Topic  $topic
      * @param  \App\Models\Comment  $comment
-     * @return \Illuminate\Http\Response
+     * @return void
      */
     public function destroy(Topic $topic, Comment $comment)
     {
@@ -159,9 +159,9 @@ class TopicCommentController extends Controller
      * Get paginated comments for the topic.
      *
      * @param  \App\Models\Topic  $topic
-     * @return \Illuminate\Http\Response
+     * @return Illuminate\Pagination\LengthAwarePaginator
      */
-    static function fetch_comments(Topic $topic)
+    public static function fetch_comments(Topic $topic)
     {
         return $topic->root_comments()
             ->paginate(10)
@@ -172,10 +172,10 @@ class TopicCommentController extends Controller
      * Validate a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @return array
      */
 
-    public function validateComment(Request $request)
+    protected function validateComment(Request $request)
     {
         $this->authorize('validateComment', Comment::class);
 
@@ -186,6 +186,8 @@ class TopicCommentController extends Controller
         if ($validator->fails()) {
             return $validator->errors();
         }
+
+        return [];
     }
 
     /**
