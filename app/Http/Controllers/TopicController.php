@@ -24,7 +24,7 @@ class TopicController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\Support\Renderable
      */
     public function index()
     {
@@ -36,7 +36,7 @@ class TopicController extends Controller
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @return array
      */
     public function store(Request $request)
     {
@@ -64,7 +64,7 @@ class TopicController extends Controller
      * Display the specified resource.
      *
      * @param  \App\Models\Topic
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\Support\Renderable
      */
     public function show(Topic $topic)
     {
@@ -76,7 +76,7 @@ class TopicController extends Controller
      * Show the form for editing the specified resource.
      *
      * @param  \App\Models\Topic
-     * @return \Illuminate\Http\Response
+     * @return array
      */
     public function edit(Topic $topic)
     {
@@ -91,7 +91,7 @@ class TopicController extends Controller
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  \App\Models\Topic
-     * @return \Illuminate\Http\Response
+     * @return array
      */
     public function update(Request $request, Topic $topic)
     {
@@ -113,7 +113,7 @@ class TopicController extends Controller
      * Remove the specified resource from storage.
      *
      * @param  \App\Models\Topic
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function destroy(Topic $topic)
     {
@@ -127,10 +127,10 @@ class TopicController extends Controller
      * Validate a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @return array
      */
 
-    public function validateTopic(Request $request)
+    protected function validateTopic(Request $request)
     {
         $this->authorize('validateTopic', Topic::class);
 
@@ -141,6 +141,8 @@ class TopicController extends Controller
         if ($validator->fails()) {
             return $validator->errors();
         }
+
+        return [];
     }
 
     /**
