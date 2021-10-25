@@ -57,9 +57,7 @@ class LoginController extends Controller
      * Handle a login request to the application.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Http\Response|\Illuminate\Http\JsonResponse
-     *
-     * @throws \Illuminate\Validation\ValidationException
+     * @return array
      */
     public function login(Request $request)
     {
@@ -88,9 +86,7 @@ class LoginController extends Controller
      * Validate the user login request.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return void
-     *
-     * @throws \Illuminate\Validation\ValidationException
+     * @return array
      */
     public function validateLogin(Request $request)
     {
@@ -104,6 +100,8 @@ class LoginController extends Controller
         if ($validator->fails()) {
             return $validator->errors();
         }
+
+        return [];
     }
 
     /**
