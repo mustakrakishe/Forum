@@ -48,7 +48,7 @@ class RegisterController extends Controller
      * Handle a registration request for the application.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Http\JsonResponse
+     * @return array
      */
     public function register(Request $request)
     {
@@ -71,11 +71,9 @@ class RegisterController extends Controller
      * Validate the user register request.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return void
-     *
-     * @throws \Illuminate\Validation\ValidationException
+     * @return array
      */
-    public function validateRegister(Request $request)
+    protected function validateRegister(Request $request)
     {
         $input = $request->all();
 
@@ -84,6 +82,8 @@ class RegisterController extends Controller
         if ($validator->fails()) {
             return $validator->errors();
         }
+
+        return [];
     }
 
     /**

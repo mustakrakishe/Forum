@@ -88,7 +88,7 @@ class LoginController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return array
      */
-    public function validateLogin(Request $request)
+    protected function validateLogin(Request $request)
     {
         $input = $request->all();
 
