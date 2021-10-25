@@ -57,53 +57,53 @@ class LoginController extends Controller
      * Handle a login request to the application.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Http\Response|\Illuminate\Http\JsonResponse
-     *
-     * @throws \Illuminate\Validation\ValidationException
+     * @return \Illuminate\Http\JsonResponse
      */
     public function login(Request $request)
     {
         $errors = $this->validateLogin($request);
         if($errors){
-            return [
+            return response()->json([
                 'status' => 0,
                 'errors' => $errors,
-            ];
+            ]);
         }
         
         if(!$this->attemptLogin($request)){
-            return [
+            return response()->json([
                 'status' => 0,
                 'errors' => [
                     'identifier' => [trans('auth.failed')],
                     'password' => [trans('auth.failed')],
                 ],
-            ];
+            ]);
         }
 
-        return ['status' => 1];
+        return response()->json([
+            'status' => 1
+        ]);
     }
 
     /**
      * Validate the user login request.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return void
-     *
-     * @throws \Illuminate\Validation\ValidationException
+     * @return Array
      */
-    public function validateLogin(Request $request)
+    protected function validateLogin(Request $request)
     {
         $input = $request->all();
 
         $validator = Validator::make($input, [
-            'identifier' => ['required', 'string', 'max:255'],
-            'password' => ['required', 'string', 'min:8'],
+            'identifier' => ['required', 'string', 'max:50'],
+            'password' => ['required', 'string', 'min:8', 'max:255'],
         ]);
 
         if ($validator->fails()) {
             return $validator->errors();
         }
+
+        return [];
     }
 
     /**
