@@ -24,7 +24,7 @@ class TopicController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Contracts\Support\Renderable
+     * @return \Illuminate\Contracts\View\View
      */
     public function index()
     {
@@ -64,7 +64,7 @@ class TopicController extends Controller
      * Display the specified resource.
      *
      * @param  \App\Models\Topic
-     * @return \Illuminate\Contracts\Support\Renderable
+     * @return \Illuminate\Contracts\View\View
      */
     public function show(Topic $topic)
     {
