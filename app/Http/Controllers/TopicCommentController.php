@@ -39,14 +39,14 @@ class TopicCommentController extends Controller
      * Show the form for creating a new resource.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Topic  $topic
+     * @param  string  $topicId
      * @return array
      */
-    public function create(Request $request, Topic $topic)
+    public function create(Request $request, string $topicId)
     {
         $comment = new Comment([
             'answer_to_id' => $request->answerToId,
-            'topic_id' => $topic->id,
+            'topic_id' => $topicId,
         ]);
 
         $comment->author = $request->user();
@@ -62,10 +62,10 @@ class TopicCommentController extends Controller
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Topic  $topic
+     * @param  string  $topicId
      * @return array
      */
-    public function store(Request $request, Topic $topic)
+    public function store(Request $request, string $topicId)
     {
         $errors = $this->validateComment($request);
         if($errors){
@@ -78,7 +78,7 @@ class TopicCommentController extends Controller
         $comment = Comment::create([
             'text' => $request->text,
             'author_id' => $request->user()->id,
-            'topic_id' => $topic->id,
+            'topic_id' => $topicId,
             'answer_to_id' => $request->answerToId,
         ]);
         
@@ -103,11 +103,11 @@ class TopicCommentController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Topic  $topic
+     * @param  string  $topicId
      * @param  \App\Models\Comment  $comment
      * @return array
      */
-    public function edit(Topic $topic, Comment $comment)
+    public function edit(string $topicId, Comment $comment)
     {
         return [
             'status' => 1,
@@ -119,11 +119,11 @@ class TopicCommentController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Topic  $topic
+     * @param  string  $topicId
      * @param  \App\Models\Comment  $comment
      * @return array
      */
-    public function update(Request $request, Topic $topic, Comment $comment)
+    public function update(Request $request, string $topicId, Comment $comment)
     {
         $errors = $this->validateComment($request);
         if($errors){
@@ -144,11 +144,11 @@ class TopicCommentController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Topic  $topic
+     * @param  string  $topicId
      * @param  \App\Models\Comment  $comment
      * @return void
      */
-    public function destroy(Topic $topic, Comment $comment)
+    public function destroy(string $topicId, Comment $comment)
     {
         $comment->delete();
     }
