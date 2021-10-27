@@ -7,7 +7,6 @@ use App\Models\User;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Foundation\Auth\RegistersUsers;
-use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -48,7 +47,7 @@ class RegisterController extends Controller
      * Handle a registration request for the application.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\JsonResponse
+     * @return array
      */
     public function register(Request $request)
     {
@@ -73,7 +72,7 @@ class RegisterController extends Controller
      * Validate the user register request.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return Array
+     * @return array
      */
     protected function validateRegister(Request $request)
     {

@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\LoginRequest;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
@@ -57,7 +56,7 @@ class LoginController extends Controller
      * Handle a login request to the application.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\JsonResponse
+     * @return array
      */
     public function login(Request $request)
     {
@@ -88,7 +87,7 @@ class LoginController extends Controller
      * Validate the user login request.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return Array
+     * @return array
      */
     protected function validateLogin(Request $request)
     {
