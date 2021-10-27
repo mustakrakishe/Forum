@@ -18,6 +18,9 @@ An application must provide:
 
 ## What's new
 
+### 1.3.2
+- Fixed bug when nested comments are duplicated to the roots comments.
+
 ### 1.3.1
 - Comment editing and deleting is available.
 - Non page refresh comments pagination.
